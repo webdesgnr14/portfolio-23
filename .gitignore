@@ -44,3 +44,6 @@ wp-content/plugins
 
 node_modules
 /**/node_modules
+
+# Mac
+.DS_Store
