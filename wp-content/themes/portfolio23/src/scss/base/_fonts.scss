@@ -1,0 +1,216 @@
+@import "./assets";
+@import url("https://fonts.googleapis.com/css2?family=Bilbo+Swash+Caps&family=Gentium+Book+Basic&family=Lato:wght@300&family=Encode+Sans:wght@300&family=Bitter:wght@700&family=Raleway:wght@400;700&family=Oswald:wght@700&family=Oxygen:wght@300&family=Roboto:wght@300;400&family=Open+Sans&display=swap");
+
+@font-face {
+  font-family: "Gontserrat Light";
+  src: url("#{$fontsPath}Gontserrat-Light.woff2") format("woff2"),
+    url("#{$fontsPath}Gontserrat-Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gontserrat Light Italic";
+  src: url("#{$fontsPath}Gontserrat-LightItalic.woff2") format("woff2"),
+    url("#{$fontsPath}Gontserrat-LightItalic.woff") format("woff");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gontserrat";
+  src: url("#{$fontsPath}Gontserrat-Regular.woff2") format("woff2"),
+    url("#{$fontsPath}Gontserrat-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gontserrat Semibold";
+  src: url("#{$fontsPath}Gontserrat-SemiBold.woff2") format("woff2"),
+    url("#{$fontsPath}Gontserrat-SemiBold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gontserrat Semibold Italic";
+  src: url("#{$fontsPath}Gontserrat-SemiBoldItalic.woff2") format("woff2"),
+    url("#{$fontsPath}Gontserrat-SemiBoldItalic.woff") format("woff");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Stilu";
+  src: url("#{$fontsPath}Stilu-Regular.woff2") format("woff2"),
+    url("#{$fontsPath}Stilu-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Stilu Italic";
+  src: url("#{$fontsPath}Stilu-Oblique.woff2") format("woff2"),
+    url("#{$fontsPath}Stilu-Oblique.woff") format("woff");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Stilu Light";
+  src: url("#{$fontsPath}Stilu-Light.woff2") format("woff2"),
+    url("#{$fontsPath}Stilu-Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Stilu Light Italic";
+  src: url("#{$fontsPath}Stilu-BoldOblique.woff2") format("woff2"),
+    url("#{$fontsPath}Stilu-LightOblique.woff") format("woff");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Stilu Bold";
+  src: url("#{$fontsPath}/Stilu-Bold.woff2") format("woff2"),
+    url("#{$fontsPath}Stilu-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Stilu Bold Italic";
+  src: url("#{$fontsPath}Stilu-BoldOblique.woff2") format("woff2"),
+    url("#{$fontsPath}Stilu-BoldOblique.woff") format("woff");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gravity Light";
+  src: url("#{$fontsPath}Gravity-Light.woff") format("woff");
+  font-weight: 300;
+  font-display: swap;
+}
+
+@mixin font-gontserrat {
+  font-family: "Gontserrat", sans-serif;
+}
+
+@mixin font-gontserrat-light {
+  font-family: "Gontserrat Light", sans-serif;
+}
+
+@mixin font-gontserrat-light-italic {
+  font-family: "Gontserrat Light Italic", sans-serif;
+}
+
+@mixin font-gontserrat-semibold {
+  font-family: "Gontserrat Semibold", sans-serif;
+}
+
+@mixin font-gontserrat-semibold-italic {
+  font-family: "Gontserrat Semibold Italic", sans-serif;
+}
+
+@mixin font-stilu {
+  font-family: "Stilu", sans-serif;
+}
+
+@mixin font-stilu-italic {
+  font-family: "Stilu Italic", sans-serif;
+}
+
+@mixin font-stilu-light {
+  font-family: "Stilu Light", sans-serif;
+}
+
+@mixin font-stilu-light-italic {
+  font-family: "Stilu Light Italic", sans-serif;
+}
+
+@mixin font-stilu-bold {
+  font-family: "Stilu Bold", sans-serif;
+}
+
+@mixin font-stilu-bold-italic {
+  font-family: "Stilu Bold Italic", sans-serif;
+}
+
+@mixin font-lato {
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+}
+
+@mixin font-bilbo-swash-caps {
+  font-family: "Bilbo Swash Caps", cursive;
+  font-weight: 400;
+}
+
+@mixin font-gentium-book {
+  font-family: "Gentium Book Basic", serif;
+  font-weight: 400;
+}
+
+@mixin font-encode-sans {
+  font-family: "Encode Sans", sans-serif;
+  font-weight: 300;
+}
+
+@mixin font-bitter-bold {
+  font-family: "Bitter", serif;
+  font-weight: 700;
+}
+
+@mixin font-raleway {
+  font-family: "Raleway", serif;
+  font-weight: 400;
+}
+
+@mixin font-raleway-bold {
+  font-family: "Raleway", serif;
+  font-weight: 700;
+}
+
+@mixin font-oswald {
+  font-family: "Oswald";
+  font-weight: 700;
+}
+
+@mixin font-oxygen {
+  font-family: "Oxygen", serif;
+  font-weight: 300;
+}
+
+@mixin font-roboto-light {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+}
+
+@mixin font-roboto {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+}
+
+@mixin font-gravity {
+  font-family: "Gravity Light", sans-serif;
+}
+
+@mixin font-open-sans {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+}

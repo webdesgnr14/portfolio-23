@@ -1,0 +1,43 @@
+.cursor {
+  position: fixed;
+  z-index: 100;
+  user-select: none;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  mix-blend-mode: difference;
+
+  &--icon {
+    background-color: $teal;
+    width: 24px;
+    height: 24px;
+    border-radius: 100%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+  }
+
+  &--text {
+    width: calc(100% - 16px);
+    height: calc(100% - 16px);
+    opacity: 0;
+    color: $black;
+    border-radius: 100%;
+    text-transform: uppercase;
+    display: inline-flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    font-size: 14px;
+    background-color: $white;
+    @include font-stilu-bold;
+
+    &:empty {
+      width: 0;
+      height: 0;
+    }
+  }
+}
