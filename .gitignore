@@ -32,6 +32,7 @@ wp-content/upgrade/
 
 # Log files
 *.log
+*.lock
 
 # htaccess
 .htaccess
