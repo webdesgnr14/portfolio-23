@@ -1,0 +1,152 @@
+@import "../helpers/vars";
+@import "../helpers/mixins";
+
+@mixin active-link {
+  background-color: $teal;
+  border-radius: 40px;
+}
+
+.header {
+  position: sticky;
+  width: 100%;
+  top: 0;
+  z-index: 10;
+  transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+  &.sticky {
+    background-color: transparentize($darkness, 0.3);
+    background-blend-mode: multiply;
+
+    .header--container {
+      padding: 10px 0;
+    }
+
+    .header--branding {
+      width: 60px;
+      height: 60px;
+
+      svg {
+        width: 50px;
+        height: auto;
+      }
+    }
+  }
+
+  .logged-in & {
+    top: var(--wp-admin--admin-bar--height);
+  }
+
+  &:hover {
+    background-color: transparentize($darkness, 0.1);
+    background-blend-mode: multiply;
+
+    .header--branding {
+      border-radius: 100%;
+      background-color: $light-blue;
+
+      svg {
+        path {
+          fill: $darkness;
+        }
+
+        width: 50px;
+        height: auto;
+      }
+    }
+  }
+
+  &--container {
+    display: flex;
+    flex-flow: row;
+    gap: 40px;
+    max-width: $max;
+    margin: 0 auto;
+    padding: 24px 0;
+    transition: padding 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
+
+  &--branding {
+    width: max-content;
+    flex-shrink: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 77px;
+    height: 77px;
+    transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition-delay: 0.5s;
+
+    a {
+      display: block;
+    }
+
+    @include logo-svg;
+
+    svg {
+      transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+      transition-delay: 0.5s;
+    }
+  }
+
+  &--navigation {
+    flex: 1;
+    align-self: center;
+
+    .navigation {
+      display: flex;
+
+      &--menu {
+        display: flex;
+        align-items: center;
+        margin: 0 0 0 auto;
+        padding: 0;
+        gap: 24px;
+
+        &-item {
+          list-style: none;
+
+          a {
+            color: $light-blue;
+            font-size: 16px;
+            line-height: 18px;
+            padding: 8px 12px;
+            text-decoration: none;
+            transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+            &:hover {
+              @include active-link;
+            }
+          }
+
+          &.active {
+            a {
+              @include active-link;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .app-container--home & {
+    bottom: 0;
+
+    &.sticky {
+      .header--container {
+        padding: 24px 0;
+      }
+    }
+
+    .header--navigation {
+      width: 100%;
+
+      .navigation {
+        justify-content: center;
+
+        .navigation--menu {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+.footer {
+  margin-top: auto;
+  padding: 0 60px 60px;
+  position: relative;
+  z-index: 2;
+
+  &--container {
+    max-width: $max;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 20px;
+  }
+
+  &--branding {
+    width: auto;
+
+    a {
+      display: inline-block;
+    }
+
+    @include logo-svg;
+  }
+
+  &--social {
+    flex: 1;
+    align-self: flex-end;
+
+    .social--icons--list {
+      display: flex;
+      gap: 12px;
+      margin-left: auto;
+      width: max-content;
+
+      .social--icon {
+        list-style: none;
+        width: 40px;
+        height: 40px;
+
+        a {
+          display: block;
+        }
+
+        svg {
+          width: 100%;
+          height: auto;
+          color: $light-blue;
+          vertical-align: middle;
+          display: inline-block;
+
+          * {
+            color: inherit;
+          }
+        }
+      }
+    }
+  }
+
+  .copyright {
+    width: 100%;
+    padding-top: 20px;
+    border-top: 1px solid $light-blue;
+  }
+}
