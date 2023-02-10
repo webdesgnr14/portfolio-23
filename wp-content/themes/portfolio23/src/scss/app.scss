@@ -1,0 +1,20 @@
+//Base
+@import "../scss/base/base";
+@import "../scss/base/fonts";
+
+//Components
+@import "../scss/components/header";
+@import "../scss/components/staticBg";
+@import "../scss/components/cursor";
+@import "../scss/components/hero";
+@import "../scss/components/about";
+@import "../scss/components/projects";
+@import "../scss/components/design-projects";
+@import "../scss/components/scrolling-text";
+@import "../scss/components/call-to-action";
+@import "../scss/components/app-transition";
+@import "../scss/components/footer";
+
+//Pages
+@import "../scss/pages/contact";
+@import "../scss/pages/project";
