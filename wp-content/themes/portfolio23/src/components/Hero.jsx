@@ -7,10 +7,10 @@ import {
   spinReverseAnimation,
   getImageIDs,
   killAnimations,
-  ImageGrid,
 } from "../lib/helpers";
 import { ReactComponent as Logo } from "../assets/icons/logo.svg";
 import { ReactComponent as Arrow } from "../assets/icons/arrow.svg";
+import { ImageGrid } from "./GridImages";
 gsap.registerPlugin(ScrollTrigger);
 
 export function Hero({ data }) {

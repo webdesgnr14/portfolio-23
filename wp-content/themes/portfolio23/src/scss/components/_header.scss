@@ -12,6 +12,7 @@
   top: 0;
   z-index: 10;
   transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+  opacity: 0;
 
   &.sticky {
     background-color: transparentize($darkness, 0.3);
@@ -73,7 +74,7 @@
     align-items: center;
     width: 77px;
     height: 77px;
-    transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: all 0.2s ease;
     transition-delay: 0.5s;
 
     a {

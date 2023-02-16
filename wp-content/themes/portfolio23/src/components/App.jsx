@@ -18,13 +18,11 @@ export const App = () => {
     if (location.hash) {
       const id = location.hash.replace("#", "");
 
-      setTimeout(function () {
-        const element = document.getElementById(id);
+      const element = document.getElementById(id);
 
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-        }
-      }, 300);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
     }
   }, [location]);
 

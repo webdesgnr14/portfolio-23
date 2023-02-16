@@ -1,10 +1,8 @@
 import React, { useRef, useEffect, useContext } from "react";
 import gsap from "gsap";
-import { TextPlugin } from "gsap/all";
 import useMousePosition from "../hooks/useMousePosition";
 import { CursorContext } from "../context/CursorContextProvider";
 import { isTouchDevice } from "../lib/helpers";
-gsap.registerPlugin(TextPlugin);
 
 export function Cursor() {
   const { clientX, clientY } = useMousePosition();
@@ -35,16 +33,12 @@ export function Cursor() {
     ease: "power1.inOut",
   };
   const cursorText = {
-    delay: 0.45,
+    delay: 0.2,
     duration: 0.2,
     opacity: 1,
     ease: "none",
   };
   const cursorTextNone = {
-    text: {
-      value: "",
-      delimiter: " ",
-    },
     duration: 0.2,
     opacity: 0,
     ease: "none",
@@ -62,11 +56,6 @@ export function Cursor() {
 
   const handleHover = () => {
     if (cursor.text) {
-      cursorText.text = {
-        value: cursor.text,
-        delimiter: " ",
-      };
-
       gsap.to(cursorRef.current, cursorAnimation);
       gsap.to(cursorTextRef.current, cursorText);
     } else {
@@ -75,7 +64,7 @@ export function Cursor() {
   };
 
   const handleOut = () => {
-    if (cursorText.text?.value !== "") {
+    if (cursor.text !== "") {
       gsap.to(cursorTextRef.current, cursorTextNone);
     }
 
@@ -103,10 +92,6 @@ export function Cursor() {
 
     const handleMouseDown = () => {
       gsap.to(cursorRef.current, cursorDown);
-
-      if (cursorText !== "") {
-        gsap.to(cursorTextRef.current, cursorTextNone);
-      }
     };
 
     const handleMouseUp = () => {
@@ -134,7 +119,7 @@ export function Cursor() {
     } else {
       handleOut();
     }
-  }, [cursor]);
+  }, [cursor.active]);
 
   useEffect(() => {
     animateMousePos();
@@ -143,7 +128,11 @@ export function Cursor() {
   return (
     <div className="cursor">
       <div className="cursor--icon" ref={cursorRef}>
-        <span className="cursor--text" ref={cursorTextRef}></span>
+        {cursor.text !== "" && (
+          <span className="cursor--text" ref={cursorTextRef}>
+            {cursor.text}
+          </span>
+        )}
       </div>
     </div>
   );
