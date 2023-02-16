@@ -40,35 +40,8 @@ function portfolio_twenty_three_scripts() {
     wp_scripts()->add_data( 'jquery-migrate', 'group', 1 );
 
     //WPE Form Script
-    wp_register_script('wpeform-react', '//development.sheriserogers.com/wp-eform/system/headless-js/?version=1.6.4"', [], wp_get_theme()->get('Version'), true);
-    wp_enqueue_script('wpeform-react');
-}
-
-add_filter('script_loader_tag', 'portfolio_twenty_three_add_integrity_attribute', 10, 2);
-add_filter('script_loader_tag', 'portfolio_twenty_three_add_crossorigin_attribute', 10, 2);
-
-function portfolio_twenty_three_add_integrity_attribute($tag, $handle) {
-   // add script handles to the array below
-   $scripts_to_integrity = array('wpeform-react');
-   
-   foreach($scripts_to_integrity as $integrity_script) {
-      if ($integrity_script === $handle) {
-        return str_replace(' src', ' integrity="sha256-l73LWrhqSv8gzp0mmLAVFH+a+BLrYFWxNrLHg+RWk/s=" src', $tag);
-      }
-   }
-   return $tag;
-}
-
-function portfolio_twenty_three_add_crossorigin_attribute($tag, $handle) {
-   // add script handles to the array below
-   $scripts_to_crossorigin = array('wpeform-react');
-   
-   foreach($scripts_to_crossorigin as $crossorigin_script) {
-      if ($crossorigin_script === $handle) {
-         return str_replace(' src', ' crossorigin="anonymous" src', $tag);
-      }
-   }
-   return $tag;
+    wp_register_script('wpeform-js', get_template_directory_uri() . '/js/wpeform.js', [], wp_get_theme()->get('Version'), true);
+    wp_enqueue_script('wpeform-js');
 }
 
 add_action('wp_enqueue_scripts', 'portfolio_twenty_three_scripts');

@@ -1,19 +1,24 @@
-import React, { useRef, useState, useLayoutEffect, forwardRef } from "react";
+import * as React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { spinAnimation, spinReverseAnimation } from "../lib/helpers";
 import wp_api from "../hooks/useApi";
 import { ReactComponent as Logo } from "../assets/icons/logo.svg";
 import { NavHashLink } from "react-router-hash-link";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { HoverElement } from "./HoverElement";
+import { CursorContext } from "../context/CursorContextProvider";
+gsap.registerPlugin(ScrollTrigger);
 
 export const Header = () => {
   const navData = wp_api("primary-nav");
-  const headerRef = useRef();
-  const brandingRef = useRef();
-  const logoRef = useRef();
+  const headerRef = React.useRef();
+  const brandingRef = React.useRef();
   const location = useLocation();
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = React.useState(false);
+  const [, setCursor] = React.useContext(CursorContext);
 
-  if (!navData) return;
+  if (!navData) return null;
 
   const handleScroll = () => {
     const scrollTop = window.scrollY;
@@ -28,24 +33,50 @@ export const Header = () => {
     }
   };
 
-  useLayoutEffect(() => {
+  const toggleCursor = (isHovering) => {
+    setCursor(() => {
+      return {
+        active: isHovering,
+      };
+    });
+  };
+
+  React.useLayoutEffect(() => {
+    if (headerRef.current) {
+      const height = headerRef.current.clientHeight;
+
+      //Add --header-height css var
+      document.documentElement.style.setProperty(
+        "--header-height",
+        height + "px"
+      );
+
+      gsap.fromTo(
+        headerRef.current,
+        {
+          transform:
+            location.pathname === "/"
+              ? "translateY(100%)"
+              : "translateY(-100%)",
+        },
+        {
+          opacity: 1,
+          transform: "translateY(0)",
+          delay: 1,
+          duration: 0.5,
+          scrollTrigger: headerRef.current,
+          ease: "none",
+        }
+      );
+    }
+  }, [headerRef.current]);
+
+  React.useEffect(() => {
     if (location.pathname !== "/") {
       setIsVisible(true);
     } else {
       setIsVisible(false);
     }
-
-    setTimeout(() => {
-      if (headerRef.current) {
-        const height = headerRef.current.clientHeight;
-
-        //Add --header-height css var
-        document.documentElement.style.setProperty(
-          "--header-height",
-          height + "px"
-        );
-      }
-    }, [300]);
 
     window.addEventListener("scroll", handleScroll);
 
@@ -54,23 +85,27 @@ export const Header = () => {
     };
   }, [location.pathname]);
 
-  const Branding = forwardRef(({}, ref) => {
+  const Branding = React.forwardRef(({}, ref) => {
     return (
-      <div className="header--branding" ref={ref}>
+      <div className="header--branding">
         <div className="logo">
-          <a
-            data-animation={false}
-            ref={logoRef}
+          <HoverElement
+            ref={ref}
             href="/"
-            onMouseOver={(e) => {
-              spinAnimation(e.currentTarget);
+            onMouseEnter={(isHovering, hoverRef) => {
+              if (isHovering) {
+                spinAnimation(hoverRef);
+              }
             }}
-            onMouseLeave={(e) => {
-              spinReverseAnimation(e.currentTarget);
+            onMouseLeave={(isHovering, hoverRef) => {
+              if (!isHovering) {
+                spinReverseAnimation(hoverRef);
+              }
             }}
+            onClick={(e, isHovering) => toggleCursor(e, isHovering)}
           >
             <Logo />
-          </a>
+          </HoverElement>
         </div>
       </div>
     );
@@ -97,9 +132,22 @@ export const Header = () => {
                           "navigation--menu-item" + (match ? " active" : "")
                         }
                       >
-                        <NavHashLink to={link.url} smooth>
-                          {link.title}
-                        </NavHashLink>
+                        <HoverElement
+                          as="div"
+                          onMouseEnter={(isHovering) =>
+                            toggleCursor(isHovering)
+                          }
+                          onMouseLeave={(isHovering) =>
+                            toggleCursor(isHovering)
+                          }
+                          onMouseClick={(e, isHovering) =>
+                            toggleCursor(e, isHovering)
+                          }
+                        >
+                          <NavHashLink to={link.url} smooth>
+                            {link.title}
+                          </NavHashLink>
+                        </HoverElement>
                       </li>
                     );
                   }
@@ -111,26 +159,31 @@ export const Header = () => {
                         "navigation--menu-item" + (match ? " active" : "")
                       }
                     >
-                      <NavLink
-                        to={link.url}
-                        strict
-                        exact
-                        end
-                        onClick={() => {
-                          if (
-                            link.url === "/" &&
-                            location.pathname === "/" &&
-                            window.scrollY > 0
-                          ) {
-                            window.scrollTo({
-                              top: 0,
-                              behavior: "smooth",
-                            });
-                          }
-                        }}
+                      <HoverElement
+                        as="div"
+                        onMouseEnter={(isHovering) => toggleCursor(isHovering)}
+                        onMouseLeave={(isHovering) => toggleCursor(isHovering)}
+                        onMouseClick={(e, isHovering) =>
+                          toggleCursor(e, isHovering)
+                        }
                       >
-                        {link.title}
-                      </NavLink>
+                        <NavLink
+                          to={link.url}
+                          strict
+                          exact
+                          end
+                          onClick={() => {
+                            if (window.scrollY > 0) {
+                              window.scrollTo({
+                                top: 0,
+                                behavior: "smooth",
+                              });
+                            }
+                          }}
+                        >
+                          {link.title}
+                        </NavLink>
+                      </HoverElement>
                     </li>
                   );
                 })}

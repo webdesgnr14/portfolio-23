@@ -34,10 +34,5 @@
     font-size: 14px;
     background-color: $white;
     @include font-stilu-bold;
-
-    &:empty {
-      width: 0;
-      height: 0;
-    }
   }
 }

@@ -78,6 +78,12 @@
     &.project--section {
       .container {
         align-items: initial;
+        gap: 80px;
+      }
+
+      .project--content {
+        height: 100%;
+        justify-content: center;
       }
     }
   }
@@ -90,10 +96,29 @@
       justify-content: left;
       gap: 16px;
       flex-flow: column;
+      max-width: 600px;
+      width: 100%;
 
       .project--typography--item {
         list-style: none;
         padding: 0;
+
+        &:not(:last-child) {
+          margin-bottom: 40px;
+        }
+
+        &--label,
+        &--name {
+          display: block;
+        }
+
+        &--label {
+          @include font-gontserrat-semibold;
+        }
+
+        &--name {
+          @include font-gontserrat-light;
+        }
 
         &[data-font-type="heading"],
         &[data-font-type="display"] {
@@ -204,6 +229,36 @@
         border-radius: 4px;
         list-style: none;
         position: relative;
+        overflow: hidden;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+
+        &--link {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 100%;
+          border-radius: 4px;
+          pointer-events: none;
+          user-select: none;
+          backface-visibility: hidden;
+          transform: translate3d(0, 0, 0);
+        }
+
+        &--wave {
+          position: absolute;
+          top: -2px;
+          left: 0;
+          height: calc(100% + 2px);
+          width: 100%;
+          --webkit-clip-path: path(
+            "M300,300V2.5c0,0-0.6-0.1-1.1-0.1c0,0-25.5-2.3-40.5-2.4c-15,0-40.6,2.4-40.6,2.4c-12.3,1.1-30.3,1.8-31.9,1.9c-2-0.1-19.7-0.8-32-1.9c0,0-25.8-2.3-40.8-2.4c-15,0-40.8,2.4-40.8,2.4c-12.3,1.1-30.4,1.8-32,1.9c-2-0.1-20-0.8-32.2-1.9c0,0-3.1-0.3-8.1-0.7V300H300z"
+          );
+          clip-path: path(
+            "M300,300V2.5c0,0-0.6-0.1-1.1-0.1c0,0-25.5-2.3-40.5-2.4c-15,0-40.6,2.4-40.6,2.4c-12.3,1.1-30.3,1.8-31.9,1.9c-2-0.1-19.7-0.8-32-1.9c0,0-25.8-2.3-40.8-2.4c-15,0-40.8,2.4-40.8,2.4c-12.3,1.1-30.4,1.8-32,1.9c-2-0.1-20-0.8-32.2-1.9c0,0-3.1-0.3-8.1-0.7V300H300z"
+          );
+        }
 
         &:nth-child(odd) {
           margin-top: 24px;
@@ -218,8 +273,8 @@
           left: 0;
           bottom: 0;
           right: 0;
-          border: 1px solid $black;
-          mix-blend-mode: screen;
+          border: 1px solid $white;
+          opacity: 0.3;
           border-radius: 4px;
         }
       }

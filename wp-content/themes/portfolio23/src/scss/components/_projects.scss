@@ -32,6 +32,7 @@
 
       &--image {
         width: calc(43% - 20px);
+        position: relative;
 
         a {
           display: block;

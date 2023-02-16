@@ -1,89 +1,16 @@
-import React, { useRef, useLayoutEffect } from "react";
+import * as React from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { ProjectList } from "./DesignProjectList";
 gsap.registerPlugin(ScrollTrigger);
-import { Image } from "../lib/helpers";
 
 export function DesignProjects({ data }) {
-  if (!data) return;
-  const containerRef = useRef();
-  const headingRef = useRef();
-  const contentRef = useRef();
-  const projectCount = data?.projects?.length;
+  if (!data) return null;
+  const containerRef = React.useRef();
+  const headingRef = React.useRef();
+  const contentRef = React.useRef();
 
-  const ProjectList = ({ projects }) => {
-    const cardRef = useRef([]);
-
-    return (
-      <div className="design-projects--projects">
-        <ul className="design-projects--list">
-          {projects.map((project, i) => {
-            useLayoutEffect(() => {
-              if (projectCount === cardRef.current.length) {
-                const ctx = gsap.context(() => {
-                  gsap.utils.toArray(cardRef.current).forEach(function (e) {
-                    gsap.fromTo(
-                      e,
-                      { opacity: 0, y: -40 },
-                      {
-                        opacity: 1,
-                        y: 0,
-                        scrollTrigger: {
-                          trigger: e,
-                          start: "center bottom",
-                          end: "center center",
-                          scrub: 0.5,
-                        },
-                        ease: "power1.inOut",
-                      }
-                    );
-                  });
-                }, cardRef.current);
-
-                return () => ctx.revert();
-              }
-            }, []);
-
-            return (
-              <li
-                className="design-projects--item"
-                key={i}
-                ref={(el) => (cardRef.current[i] = el)}
-              >
-                {project.image && (
-                  <div className="design-projects--item--image">
-                    <Image id={project.image} size="design-projects-image" />
-                    {project?.title && <h3>{project.title}</h3>}
-                    {project?.button?.url && (
-                      <a
-                        className="abs-link"
-                        data-animation
-                        data-animation-text="Explore"
-                        href={project?.button?.url}
-                      ></a>
-                    )}
-                  </div>
-                )}
-                {project?.button?.url && (
-                  <a
-                    className="btn btn--pill"
-                    href={project.button.url}
-                    target={
-                      project?.button?.target ? project.button.target : "_self"
-                    }
-                  >
-                    {project?.button?.title ? project.button.title : "Explore"}
-                  </a>
-                )}
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    );
-  };
-
-  useLayoutEffect(() => {
+  React.useLayoutEffect(() => {
     gsap.fromTo(
       headingRef.current,
       { opacity: 0, y: 40 },
