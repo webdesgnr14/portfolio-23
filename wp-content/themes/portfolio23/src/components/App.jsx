@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import * as React from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import cx from "classnames";
 import { StaticBg } from "../components/StaticBg";
@@ -10,21 +10,10 @@ import { Contact } from "../pages/Contact";
 import { Project } from "../pages/Project";
 import { AppTransition } from "../components/AppTransition";
 import CursorContextProvider from "../context/CursorContextProvider";
+import MagicWordContextProvider from "../context/MagicWordContextProvider";
 
 export const App = () => {
   const location = useLocation();
-
-  useEffect(() => {
-    if (location.hash) {
-      const id = location.hash.replace("#", "");
-
-      const element = document.getElementById(id);
-
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
-    }
-  }, [location]);
 
   return (
     <div
@@ -32,19 +21,21 @@ export const App = () => {
         "app-container--home": location.pathname === "/",
       })}
     >
+      <StaticBg />
       <CursorContextProvider>
-        <StaticBg />
-        {location.pathname !== "/" && <Header />}
-        <Routes location={location}>
-          <Route exact path="/" element={<Home />} />
-          <Route exact path="/#about" element={<Home />} />
-          <Route exact path="/#projects" element={<Home />} />
-          <Route exact path="/contact/" element={<Contact />} />
-          <Route path="/project/*" element={<Project />} />
-        </Routes>
-        {location.pathname === "/" && <Header />}
-        <Footer />
-        <Cursor />
+        <MagicWordContextProvider>
+          {location.pathname !== "/" && <Header />}
+          <Routes location={location}>
+            <Route exact path="/" element={<Home />} />
+            <Route exact path="/#about" element={<Home />} />
+            <Route exact path="/#projects" element={<Home />} />
+            <Route exact path="/contact/" element={<Contact />} />
+            <Route path="/project/*" element={<Project />} />
+          </Routes>
+          {location.pathname === "/" && <Header />}
+          <Footer />
+          <Cursor />
+        </MagicWordContextProvider>
         <AppTransition />
       </CursorContextProvider>
     </div>

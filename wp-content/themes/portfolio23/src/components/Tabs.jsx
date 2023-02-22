@@ -16,9 +16,9 @@ const CareerTab = ({ tab, i, length }) => {
         className="about--tab about--tab-timeline"
         style={{ ["--total"]: length }}
       >
-        {tab.career_timeline.map((item) => {
+        {tab.career_timeline.map((item, i) => {
           return (
-            <li className="about--tab-timeline--item">
+            <li className="about--tab-timeline--item" key={i}>
               <h3 className="timeline-text">{item?.career_item}</h3>
             </li>
           );
@@ -41,13 +41,13 @@ const ExperienceTab = ({ tab, i, length }) => {
         className="about--tab about--tab--experience"
         style={{ ["--total"]: length }}
       >
-        {tab.experience.map((item) => {
+        {tab.experience.map((item, i) => {
           return (
-            <li className="about--tab-experience-item">
+            <li className="about--tab-experience-item" key={i}>
               <ul className="experience-list">
-                {item.experience_item.map((experience) => {
+                {item.experience_item.map((experience, i) => {
                   return (
-                    <li className="experience-list--progress">
+                    <li className="experience-list--progress" key={i}>
                       <h3 className="experience-list--title">
                         <span className="experience-list--title-text">
                           {experience?.title}
@@ -114,7 +114,7 @@ export const Tabs = ({ data }) => {
       <ul className="about--tabs">
         {data.map((tab, i) => {
           return (
-            <li className="about--tab">
+            <li className="about--tab" key={i}>
               <HoverElement
                 className={"btn btn--tab" + (currTab === i ? " active" : "")}
                 href={"#about--tab-content--" + i}
@@ -139,7 +139,7 @@ export const Tabs = ({ data }) => {
         {data
           .filter((tab, i) => i === currTab)
           .map((tab, i) => {
-            return <Tab tab={tab} i={i} />;
+            return <Tab tab={tab} i={i} key={i} />;
           })}
       </HoverElement>
     </div>

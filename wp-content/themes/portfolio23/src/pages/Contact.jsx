@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { WPEForm } from '@wpeform/react';
 import useAPI from '../hooks/useApi';
 

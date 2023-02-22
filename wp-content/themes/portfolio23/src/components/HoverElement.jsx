@@ -2,7 +2,7 @@ import * as React from "react";
 import { useHoverIntent } from "react-use-hoverintent";
 import cx from "classnames";
 
-export const HoverElement = React.forwardRef(
+export const HoverElement =
   (
     {
       children,
@@ -13,10 +13,9 @@ export const HoverElement = React.forwardRef(
       onMouseLeave,
       onClick = null,
       ...rest
-    },
-    ref = null
+    }
   ) => {
-    const [isHovering, intentRef, setIsHovering] = useHoverIntent(ref);
+    const [isHovering, intentRef, setIsHovering] = useHoverIntent();
     const Element = as;
 
     React.useEffect(() => {
@@ -30,14 +29,14 @@ export const HoverElement = React.forwardRef(
         });
 
         return () => {
-          intentRef.current.removeEventListener("mouseenter", setIsHovering);
-          intentRef.current.removeEventListener("mouseleave", setIsHovering);
+          intentRef.current?.removeEventListener("mouseenter", setIsHovering);
+          intentRef.current?.removeEventListener("mouseleave", setIsHovering);
         };
       }
     }, []);
 
     React.useEffect(() => {
-      if (intentRef.current && onMouseEnter && onMouseLeave) {
+      if (intentRef.current && (onMouseEnter && onMouseLeave)) {
         if (isHovering) {
           onMouseEnter(isHovering, intentRef.current);
         } else {
@@ -65,4 +64,4 @@ export const HoverElement = React.forwardRef(
       </Element>
     );
   }
-);
+;

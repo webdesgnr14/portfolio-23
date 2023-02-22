@@ -4,6 +4,8 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { MagicWord } from "./MagicWord";
 import { HoverElement } from "./HoverElement";
 import { CursorContext } from "../context/CursorContextProvider";
+import { MagicWordContext } from "../context/MagicWordContextProvider";
+import { Confetti } from "./Confetti";
 gsap.registerPlugin(ScrollTrigger);
 
 export function CallToAction({ data }) {
@@ -11,6 +13,7 @@ export function CallToAction({ data }) {
   const sectionRef = React.useRef();
   const containerRef = React.useRef();
   const [, setCursor] = React.useContext(CursorContext);
+  const [cycleComplete] = React.useContext(MagicWordContext);
 
   const toggleCursor = React.useCallback((isHovering) => {
     setCursor(() => {
@@ -61,6 +64,7 @@ export function CallToAction({ data }) {
           </HoverElement>
         )}
       </div>
+      <Confetti action={cycleComplete.isComplete} />
     </div>
   );
 }

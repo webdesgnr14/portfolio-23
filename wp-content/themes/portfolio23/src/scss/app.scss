@@ -1,21 +1,24 @@
 //Base
-@import "../scss/base/base";
-@import "../scss/base/fonts";
+@import "./base/base";
+@import "./base/fonts";
 
 //Components
-@import "../scss/components/header";
-@import "../scss/components/staticBg";
-@import "../scss/components/cursor";
-@import "../scss/components/hero";
-@import "../scss/components/about";
-@import "../scss/components/projects";
-@import "../scss/components/design-projects";
-@import "../scss/components/scrolling-text";
-@import "../scss/components/call-to-action";
-@import "../scss/components/app-transition";
-@import "../scss/components/magic-word";
-@import "../scss/components/footer";
+@import "./components/header";
+@import "./components/staticBg";
+@import "./components/cursor";
+@import "./components/hero";
+@import "./components/about";
+@import "./components/projects";
+@import "./components/design-projects";
+@import "./components/scrolling-text";
+@import "./components/call-to-action";
+@import "./components/app-transition";
+@import "./components/magic-word";
+@import "./components/footer";
 
 //Pages
-@import "../scss/pages/contact";
-@import "../scss/pages/project";
+@import "./pages/contact";
+@import "./pages/project";
+
+//Vendor
+@import "./vendors/owl-carousel";
