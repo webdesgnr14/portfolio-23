@@ -1,9 +1,9 @@
 import * as React from "react";
 import { HoverElement } from "./HoverElement";
 import { CursorContext } from "../context/CursorContextProvider";
+import { MagicWordContext } from "../context/MagicWordContextProvider";
 
 const Emoji = ({ i, index }) => {
-  console.log(index);
   if (i !== 0) {
     return (
       <>
@@ -36,9 +36,16 @@ const Word = ({ i, word }) => {
 export const MagicWord = ({ phrase, placement, emojis }) => {
   if (!phrase || !placement || emojis.length === 0) return;
   const [, setCursor] = React.useContext(CursorContext);
+  const [, setCycleComplete] = React.useContext(MagicWordContext);
   const [showEmoji, setShowEmoji] = React.useState(false);
   const [emojiIndex, setEmojiIndex] = React.useState(null);
   const words = phrase.split(" ");
+
+  const toggleConfetti = React.useCallback((state) => {
+    setCycleComplete(() => {
+      return { isComplete: state };
+    });
+  });
 
   const toggleEmoji = () => {
     if (emojiIndex === null) {
@@ -48,8 +55,10 @@ export const MagicWord = ({ phrase, placement, emojis }) => {
     if (emojiIndex === emojis.length - 1) {
       setShowEmoji(false);
       setEmojiIndex(null);
+      toggleConfetti(true);
     } else {
       setEmojiIndex(emojiIndex === null ? 0 : emojiIndex + 1);
+      toggleConfetti(false);
     }
   };
 
@@ -71,6 +80,7 @@ export const MagicWord = ({ phrase, placement, emojis }) => {
             onClick={() => toggleEmoji()}
             onMouseEnter={(isHovering) => toggleCursor(isHovering)}
             onMouseLeave={(isHovering) => toggleCursor(isHovering)}
+            key={i}
           >
             {!showEmoji ? (
               <Word i={i} word={word} />

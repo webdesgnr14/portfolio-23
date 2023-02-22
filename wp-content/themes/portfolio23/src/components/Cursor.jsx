@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useContext } from "react";
+import * as React from "react";
 import gsap from "gsap";
 import useMousePosition from "../hooks/useMousePosition";
 import { CursorContext } from "../context/CursorContextProvider";
@@ -6,9 +6,9 @@ import { isTouchDevice } from "../lib/helpers";
 
 export function Cursor() {
   const { clientX, clientY } = useMousePosition();
-  const [cursor] = useContext(CursorContext);
-  const cursorRef = useRef();
-  const cursorTextRef = useRef();
+  const [cursor] = React.useContext(CursorContext);
+  const cursorRef = React.useRef();
+  const cursorTextRef = React.useRef();
   const cursorDefault = {
     width: 24,
     height: 24,
@@ -81,7 +81,7 @@ export function Cursor() {
     });
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     const handleMouseEnter = () => {
       gsap.to(cursorRef.current, cursorDefault);
     };
@@ -113,7 +113,7 @@ export function Cursor() {
     };
   }, []);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (cursor.active) {
       handleHover();
     } else {
@@ -121,7 +121,7 @@ export function Cursor() {
     }
   }, [cursor.active]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     animateMousePos();
   }, [clientX, clientY]);
 

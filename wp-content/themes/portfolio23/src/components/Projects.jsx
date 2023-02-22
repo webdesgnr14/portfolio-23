@@ -21,7 +21,7 @@ export function Projects({ data }) {
         {data?.featured_projects.length > 0 && (
           <ul className="projects--list">
             {data.featured_projects.map((project, i) => {
-              return <ProjectCard project={project} i={i} />;
+              return <ProjectCard project={project} i={i} key={i} />;
             })}
           </ul>
         )}

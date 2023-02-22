@@ -1,149 +1,152 @@
+@import "../helpers/vars";
+@import "../base/colors";
+
 .contact {
-	padding: 80px 60px;
-	position: relative;
-	z-index: 2;
+  padding: 80px 60px;
+  position: relative;
+  z-index: 2;
 
-	&--content {
-		display: flex;
-		flex-flow: column;
-		gap: 48px;
-		max-width: 75%;
-		width: 100%;
+  &--content {
+    display: flex;
+    flex-flow: column;
+    gap: 48px;
+    max-width: 75%;
+    width: 100%;
 
-		h1 {
-			font-size: 75px;
-			line-height: 80px;
-		}
-	}
+    h1 {
+      font-size: 75px;
+      line-height: 80px;
+    }
+  }
 
-	&--body {
-		max-width: 460px;
-		width: 100%;
-	}
+  &--body {
+    max-width: 460px;
+    width: 100%;
+  }
 
-	&--container {
-		max-width: $max;
-		margin: 0 auto;
-		display: flex;
-		flex-flow: column;
-		justify-content: flex-start;
-		gap: 48px;
+  &--container {
+    max-width: $max;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    gap: 48px;
 
-		#wpeform-contact.wpeform-contact {
-			.wpeform-responsive-container {
-				padding: 0;
-				margin: 0;
+    #wpeform-contact.wpeform-contact {
+      .wpeform-responsive-container {
+        padding: 0;
+        margin: 0;
 
-				.wpeform-component-dropdown__dd-container {
-					background-color: $dark-blue;
+        .wpeform-component-dropdown__dd-container {
+          background-color: $dark-blue;
 
-					.wpeform-control-select__menu {
-						button.is-active {
-							color: $teal;
-							background-color: $darkness;
-						}
+          .wpeform-control-select__menu {
+            button.is-active {
+              color: $teal;
+              background-color: $darkness;
+            }
 
-						button.sc-jNJNQp {
-							color: $light-blue;
+            button.sc-jNJNQp {
+              color: $light-blue;
 
-							&:hover {
-								background-color: $darkness;
-							}
-						}
+              &:hover {
+                background-color: $darkness;
+              }
+            }
 
-						.sc-fbYMXx.jzdsDB {
-							padding-right: 1px;
+            .sc-fbYMXx.jzdsDB {
+              padding-right: 1px;
 
-							.sc-GhhNo.gJMLtS {
-								background-color: transparent;
-								border: 1px solid $light-blue;
+              .sc-GhhNo.gJMLtS {
+                background-color: transparent;
+                border: 1px solid $light-blue;
 
-								> span {
-									padding-left: 4.5px;
-								}
+                > span {
+                  padding-left: 4.5px;
+                }
 
-								span:not(.wpeform-icon) {
-									padding-left: 0;
-								}
-							}
+                span:not(.wpeform-icon) {
+                  padding-left: 0;
+                }
+              }
 
-							button.sc-laZRCg.jlsGRC {
-								background-color: $white;
-								display: flex;
-								justify-content: center;
-								align-items: center;
+              button.sc-laZRCg.jlsGRC {
+                background-color: $white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
 
-								svg {
-									color: $error;
-								}
+                svg {
+                  color: $error;
+                }
 
-								&:hover {
-									svg {
-										opacity: 0.8;
-									}
-								}
-							}
-						}
-					}
+                &:hover {
+                  svg {
+                    opacity: 0.8;
+                  }
+                }
+              }
+            }
+          }
 
-					.sc-fbYMXx.jzdsDB {
-						color: $gray;
-					}
-				}
+          .sc-fbYMXx.jzdsDB {
+            color: $gray;
+          }
+        }
 
-				.dczUCi {
-					margin: 0;
+        .dczUCi {
+          margin: 0;
 
-					.wpeform-component-tabs {
-						box-shadow: none;
-					}
+          .wpeform-component-tabs {
+            box-shadow: none;
+          }
 
-					.wpeform-component-grid {
-						padding: 0;
-					}
-				}
+          .wpeform-component-grid {
+            padding: 0;
+          }
+        }
 
-				form {
-					margin-left: -13.5px;
+        form {
+          margin-left: -13.5px;
 
-					.wpeform-component-dropdown__button {
-						min-height: 60px;
-						font-size: 24px;
-						@include font-gontserrat-light;
-					}
+          .wpeform-component-dropdown__button {
+            min-height: 60px;
+            font-size: 24px;
+            @include font-gontserrat-light;
+          }
 
-					label {
-						color: $gray;
-					}
+          label {
+            color: $gray;
+          }
 
-					input,
-					textarea {
-						color: $light-blue;
-						min-height: 60px;
-						font-size: 24px;
-						@include font-gontserrat-light;
+          input,
+          textarea {
+            color: $light-blue;
+            min-height: 60px;
+            font-size: 24px;
+            @include font-gontserrat-light;
 
-						&::placeholder {
-							color: $gray-green;
-						}
-					}
+            &::placeholder {
+              color: $gray-green;
+            }
+          }
 
-					.wpeform-component-buttongroup {
-						justify-content: flex-start;
+          .wpeform-component-buttongroup {
+            justify-content: flex-start;
 
-						.wpeform-component-button {
-							height: auto;
-							border: none;
-							padding: 12px 24px;
-							border-radius: 60px;
+            .wpeform-component-button {
+              height: auto;
+              border: none;
+              padding: 12px 24px;
+              border-radius: 60px;
 
-							.wpeform-component-button__inner {
-								font-size: 32px;
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+              .wpeform-component-button__inner {
+                font-size: 32px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

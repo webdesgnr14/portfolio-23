@@ -38,3 +38,8 @@
     @content;
   }
 }
+
+//Functions
+@function toVW($value, $breakpoint) {
+  @return calc(#{$value} / #{$breakpoint} * 100) + vw;
+}

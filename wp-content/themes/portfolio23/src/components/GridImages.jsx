@@ -64,7 +64,6 @@ export const ImageGrid = ({ data }) => {
   const [activeSlide, setActiveSlide] = React.useState(null);
   const sectionRef = React.useRef();
   const imageContainerRefs = React.useRef([]);
-  const linkRefs = React.useRef([]);
   const [, setCursor] = React.useContext(CursorContext);
 
   const toggleCursor = React.useCallback((isHovering) => {
@@ -116,7 +115,6 @@ export const ImageGrid = ({ data }) => {
                     onClick={(e) => {
                       handleImageSlides(e, i);
                     }}
-                    ref={(el) => (linkRefs.current[i] = el)}
                     onMouseEnter={(isHovering) => toggleCursor(isHovering)}
                     onMouseLeave={(isHovering) => toggleCursor(isHovering)}
                   >

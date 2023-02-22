@@ -13,7 +13,6 @@ gsap.registerPlugin(ScrollTrigger);
 export const Header = () => {
   const navData = wp_api("primary-nav");
   const headerRef = React.useRef();
-  const brandingRef = React.useRef();
   const location = useLocation();
   const [isVisible, setIsVisible] = React.useState(false);
   const [, setCursor] = React.useContext(CursorContext);
@@ -77,20 +76,21 @@ export const Header = () => {
     } else {
       setIsVisible(false);
     }
+  }, [location.pathname]);
 
+  React.useEffect(() => { 
     window.addEventListener("scroll", handleScroll);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [location.pathname]);
+  }, [])
 
-  const Branding = React.forwardRef(({}, ref) => {
+  const Branding = () => {
     return (
       <div className="header--branding">
         <div className="logo">
           <HoverElement
-            ref={ref}
             href="/"
             onMouseEnter={(isHovering, hoverRef) => {
               if (isHovering) {
@@ -102,20 +102,19 @@ export const Header = () => {
                 spinReverseAnimation(hoverRef);
               }
             }}
-            onClick={(e, isHovering) => toggleCursor(e, isHovering)}
           >
             <Logo />
           </HoverElement>
         </div>
       </div>
     );
-  });
+  };
 
   if (navData.length > 0) {
     return (
       <header className="header" ref={headerRef}>
         <div className="header--container">
-          {isVisible && <Branding ref={brandingRef} />}
+          {isVisible && <Branding />}
           <div className="header--navigation">
             <nav className="navigation">
               <ul className="navigation--menu">
@@ -140,9 +139,6 @@ export const Header = () => {
                           onMouseLeave={(isHovering) =>
                             toggleCursor(isHovering)
                           }
-                          onMouseClick={(e, isHovering) =>
-                            toggleCursor(e, isHovering)
-                          }
                         >
                           <NavHashLink to={link.url} smooth>
                             {link.title}
@@ -163,15 +159,9 @@ export const Header = () => {
                         as="div"
                         onMouseEnter={(isHovering) => toggleCursor(isHovering)}
                         onMouseLeave={(isHovering) => toggleCursor(isHovering)}
-                        onMouseClick={(e, isHovering) =>
-                          toggleCursor(e, isHovering)
-                        }
                       >
                         <NavLink
                           to={link.url}
-                          strict
-                          exact
-                          end
                           onClick={() => {
                             if (window.scrollY > 0) {
                               window.scrollTo({

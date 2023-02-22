@@ -17,19 +17,8 @@ add_image_size( 'projects-thumb', 527, 360, true );
 add_filter('big_image_size_threshold', '__return_false');
 
 function portfolio_twenty_three_scripts() {
-    $deps_file = get_template_directory() . '/build/index.asset.php';
-
-    $deps = [];
-
-    if(file_exists($deps_file)) {
-        $deps_file = require($deps_file);
-        $deps = $deps_file['dependencies'];
-
-        wp_enqueue_script('themeJS', get_template_directory_uri() . '/build/index.js', array_merge($deps, ["jquery"]), wp_get_theme()->get('Version'), true);
-    }
-
-    wp_enqueue_style('indexCSS', get_template_directory_uri() . '/build/index.css', [], wp_get_theme()->get('Version'), 'all');
-    wp_enqueue_style('themeCSS', get_template_directory_uri() . '/build/app.css', [], wp_get_theme()->get('Version'), 'all');
+    wp_enqueue_script('themeJS', get_template_directory_uri() . '/build/appbundle.js', ["jquery"], wp_get_theme()->get('Version'), true);
+    wp_enqueue_style('appCSS', get_template_directory_uri() . '/build/app.css', [], wp_get_theme()->get('Version'), 'all');
 
     //jQuery
     wp_enqueue_script('jquery');

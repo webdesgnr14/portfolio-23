@@ -4,7 +4,7 @@
   display: flex;
   height: 100vh;
   max-height: calc(100vh - 120px);
-  padding: 60px;
+  padding: clamp(40px, toVW(40, 525), 60px);
 
   &--container {
     display: flex;
@@ -24,7 +24,11 @@
     gap: 80px;
 
     h1 {
-      font-size: 52px;
+      font-size: clamp(40px, toVW(40, 768), 52px);
+
+      @include isTablet {
+        font-size: clamp(30px, toVW(40, 525), 40px);
+      }
     }
 
     .hero--logo {

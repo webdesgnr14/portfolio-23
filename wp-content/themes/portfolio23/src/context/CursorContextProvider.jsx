@@ -1,9 +1,9 @@
-import React, { createContext, useState } from "react";
+import * as React from "react";
 
-export const CursorContext = createContext();
+export const CursorContext = React.createContext();
 
 const CursorContextProvider = ({ children }) => {
-  const [cursor, setCursor] = useState({ active: false, text: "" });
+  const [cursor, setCursor] = React.useState({ active: false, text: "" });
 
   return (
     <CursorContext.Provider value={[cursor, setCursor]}>
