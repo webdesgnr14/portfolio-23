@@ -1,4 +1,15 @@
+@import '../helpers/mixins';
+
 .about {
+  @include isTablet {
+    padding-right: 0;
+  }
+
+  @include isMobile {
+    padding-top: 80px;
+    padding-right: 0;
+  }
+
   &--container {
     max-width: $max;
     margin: 0 auto;
@@ -6,6 +17,15 @@
     justify-content: center;
     gap: 80px;
     overflow: hidden;
+
+    @include isTablet {
+      flex-wrap: wrap;
+      gap: 60px;
+    }
+
+    @include isMobile {
+      gap: 40px;
+    }
   }
 
   &.section {
@@ -15,14 +35,27 @@
   }
 
   &--left {
-    width: calc(50% - 40px);
+    width: 50%;
+
+    @include isTablet {
+      width: 100%;
+    }
   }
 
   &--right {
-    width: calc(50% - 40px);
+    width: 50%;
     display: flex;
     flex-flow: column;
     gap: 48px;
+
+    @include isTablet {
+      width: 100%;
+      padding-left: 60px;
+    }
+
+    @include isMobile {
+      padding-left: 40px;
+    }
   }
 
   &--content {
@@ -35,7 +68,7 @@
   &--tabs {
     display: flex;
     justify-content: flex-start;
-    gap: 16px;
+    gap: clamp(12px, toVW(12, 525), 16px);
 
     .about--tab {
       list-style: none;
@@ -86,6 +119,10 @@
           grid-template-rows: 1fr;
           column-gap: 40px;
 
+          @include isTablet {
+            grid-template-columns: repeat(var(--total), 50vw);
+          }
+
           &::-webkit-scrollbar {
             display: none;
           }
@@ -106,11 +143,16 @@
                 flex-direction: column;
                 max-width: 80%;
 
+                @include isMobile {
+                  max-width: 100%;
+                }
+
                 &--title {
                   display: flex;
                   justify-content: space-between;
                   align-items: flex-end;
-                  line-height: 28px;
+                  font-size: clamp(16px, toVW(16, 525), 18px);
+                  line-height: clamp(18px, toVW(18, 525), 28px);
                 }
 
                 &--percentage {
@@ -155,14 +197,18 @@
               height: 15vw;
               min-height: 215px;
 
+              @include isTablet {
+                height: 25vw;
+              }
+
               .timeline-text {
                 background-color: $light-blue;
                 color: $darkness;
                 padding: 12px;
                 border-radius: 2px;
                 text-align: center;
-                font-size: 16px;
-                line-height: 24px;
+                font-size: clamp(14px, toVW(14, 525), 16px);
+                line-height: clamp(18px, toVW(18, 525), 24px);
                 position: relative;
 
                 &::after {
@@ -187,6 +233,10 @@
                   left: 50%;
                   position: absolute;
                   z-index: -1;
+
+                  @include isTablet {
+                    height: calc(25vw / 2);
+                  }
                 }
               }
 
@@ -226,6 +276,10 @@
 
           > li {
             width: 25vw;
+
+            @include isTablet {
+              width: 50vw;
+            }
           }
         }
       }

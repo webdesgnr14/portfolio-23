@@ -3,11 +3,13 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import OwlCarousel from "react-owl-carousel";
 import { Image } from "../components/Image";
+import { isMobile } from "../lib/helpers";
 gsap.registerPlugin(ScrollTrigger);
 
 export const Slider = ({ design_samples }) => {
   const btnRef = React.useRef();
   const containerRef = React.useRef();
+  const mobile = isMobile();
 
   const handleScroll = (e, id) => {
     e.preventDefault();
@@ -45,7 +47,7 @@ export const Slider = ({ design_samples }) => {
         className="project--samples--slider owl-theme"
         items={1.5}
         slideBy={1}
-        margin={60}
+        margin={mobile ? 20 : 60}
         lazyLoad={true}
         autoWidth={true}
         dotsContainer={"#project--samples--slider--nav"}

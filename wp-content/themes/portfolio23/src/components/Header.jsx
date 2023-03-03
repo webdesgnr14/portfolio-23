@@ -1,8 +1,9 @@
 import * as React from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { spinAnimation, spinReverseAnimation } from "../lib/helpers";
+import { spinAnimation, spinReverseAnimation, isTablet } from "../lib/helpers";
 import wp_api from "../hooks/useApi";
 import { ReactComponent as Logo } from "../assets/icons/logo.svg";
+import { Divide as Hamburger } from "hamburger-react";
 import { NavHashLink } from "react-router-hash-link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
@@ -16,6 +17,8 @@ export const Header = () => {
   const location = useLocation();
   const [isVisible, setIsVisible] = React.useState(false);
   const [, setCursor] = React.useContext(CursorContext);
+  const [isOpen, setIsOpen] = React.useState(false);
+  const tablet = isTablet();
 
   if (!navData) return null;
 
@@ -110,6 +113,21 @@ export const Header = () => {
     );
   };
 
+  const handleMobileMenu = () => {
+    if (tablet) { 
+      setIsOpen(false);
+      toggleBodyClass(false);
+    }
+  }
+
+  const toggleBodyClass = (toggled) => { 
+    if (toggled) {
+      document.body.classList.add("mobile-menu-open");
+    } else {
+      document.body.classList.remove("mobile-menu-open");
+    }
+  }
+
   if (navData.length > 0) {
     return (
       <header className="header" ref={headerRef}>
@@ -117,6 +135,23 @@ export const Header = () => {
           {isVisible && <Branding />}
           <div className="header--navigation">
             <nav className="navigation">
+              <div
+                className={
+                  "navigation--menu--toggle"
+                }
+              >
+                <Hamburger
+                  toggled={isOpen}
+                  onToggle={(toggled) => {
+                    toggleBodyClass(toggled);
+                  }}
+                  toggle={setIsOpen}
+                  easing="ease-in"
+                  duration={0.8}
+                  size={24}
+                  label={"Toggle Menu"}
+                />
+              </div>
               <ul className="navigation--menu">
                 {navData.map((link) => {
                   let match = location.pathname === link.url && !location.hash;
@@ -140,7 +175,7 @@ export const Header = () => {
                             toggleCursor(isHovering)
                           }
                         >
-                          <NavHashLink to={link.url} smooth>
+                          <NavHashLink to={link.url} smooth onClick={() => handleMobileMenu()}>
                             {link.title}
                           </NavHashLink>
                         </HoverElement>
@@ -163,6 +198,8 @@ export const Header = () => {
                         <NavLink
                           to={link.url}
                           onClick={() => {
+                            handleMobileMenu();
+
                             if (window.scrollY > 0) {
                               window.scrollTo({
                                 top: 0,

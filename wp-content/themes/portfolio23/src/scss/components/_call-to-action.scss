@@ -1,9 +1,13 @@
 .call-to-action {
+  @include isMobile {
+    min-height: 150vw;
+  }
+
   &--container {
     display: flex;
     flex-flow: column;
-    gap: 60px;
-    padding: 0 40px;
+    gap: clamp(40px, toVW(40, 525), 60px);
+    padding: 0 clamp(0, toVW(0, 768), 40px);
     width: 100%;
     max-width: $max;
     margin: 0 auto;
@@ -14,7 +18,7 @@
   }
 
   &--heading {
-    font-size: 100px;
-    line-height: 120px;
+    font-size: clamp(52px, toVW(52, 525), 100px);
+    line-height: clamp(62px, toVW(62, 525), 120px);
   }
 }

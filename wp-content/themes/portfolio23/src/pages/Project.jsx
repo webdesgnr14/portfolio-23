@@ -155,7 +155,7 @@ export const Project = () => {
           className="project--section project--samples"
           id="project--samples"
         >
-          <div className="project-section--inner">
+          <div className="project--section--inner">
             <div className="container">
               <div className="project--content">
                 <h2>Design Samples</h2>

@@ -1,5 +1,6 @@
 @import "./colors";
 @import "./fonts";
+@import "../helpers/mixins";
 
 html {
   background-color: $darkness;
@@ -13,12 +14,17 @@ html {
     cursor: none;
     background-color: $darkness;
 
-    &.loading {
+    &.loading, &.mobile-menu-open {
       overflow: hidden;
+    }
+
+    &.mobile-menu-open {
+      position: relative;
     }
 
     * {
       cursor: none;
+      box-sizing: border-box;
 
       &.show-cursor {
         cursor: auto;
@@ -28,9 +34,17 @@ html {
         }
       }
     }
-
-    overflow-x: hidden; //eww
   }
+}
+
+::-moz-selection {
+  color: $light-blue;
+  background: $gray-green;
+}
+
+::selection {
+  color: $light-blue;
+  background: $gray-green;
 }
 
 .app-container {
@@ -48,24 +62,19 @@ h4 {
   margin: 0;
 }
 
-h1 {
-  font-size: 60px;
-  line-height: 65px;
-}
-
 h2 {
-  font-size: 48px;
-  line-height: 60px;
+  font-size: clamp(24px, toVW(24, 525), 48px);
+  line-height: clamp(30px, toVW(30, 525), 60px);
 }
 
 h3 {
-  font-size: 24px;
-  line-height: 48px;
+  font-size: clamp(18px, toVW(18, 525), 24px);
+  line-height: clamp(24px, toVW(24, 525), 48px);
 }
 
 h4 {
   font-size: 14px;
-  line-height: 30px;
+  line-height: clamp(15px, toVW(15, 525), 30px);
   text-transform: uppercase;
 }
 
@@ -76,14 +85,16 @@ ol {
 }
 
 li {
-  font-size: 14px;
-  line-height: 30px;
+  font-size: clamp(14px, toVW(14, 525), 16px);
+  line-height: clamp(24px, toVW(24, 525), 36px);
+  letter-spacing: 0.025em;
 }
 
 p {
-  font-size: 16px;
-  line-height: 36px;
+  font-size: clamp(14px, toVW(14, 525), 16px);
+  line-height: clamp(24px, toVW(24, 525), 36px);
   margin: 0 0 32px;
+  letter-spacing: 0.075em;
 
   &:last-child,
   &:only-child {
@@ -150,11 +161,15 @@ a.abs-link {
 
   &--tab {
     color: $gray-green;
-    font-size: 18px;
-    line-height: 32px;
+    font-size: clamp(14px, toVW(14, 768), 18px);
+    line-height: clamp(18px, toVW(18, 768), 32px);
     padding: 10px 24px;
     border-radius: 40px;
     border: 1px solid transparent;
+
+    @include isTablet {
+      padding: 10px 12px;
+    }
 
     &:hover {
       border-color: $gray-green;
@@ -177,9 +192,9 @@ a.abs-link {
     background-color: $teal;
     color: $light-blue;
     border: 1px solid $teal;
-    font-size: 44px;
-    line-height: 54px;
-    padding: 12px 32px;
+    font-size: clamp(22px, toVW(22, 525), 44px);
+    line-height: clam(33px, toVW(33, 525), 54px);
+    padding: 12px clamp(16px, toVW(16, 525), 32px);
     border-radius: 60px;
 
     &:hover {
@@ -197,6 +212,15 @@ a.abs-link {
   display: flex;
   align-items: center;
   padding: 80px 60px;
+
+  @include isTablet {
+    padding: 60px;
+  }
+
+  @include isMobile {
+    padding: 40px 20px;
+    min-height: auto;
+  }
 }
 
 .sr-text {

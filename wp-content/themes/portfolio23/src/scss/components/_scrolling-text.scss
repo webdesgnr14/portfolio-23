@@ -19,8 +19,8 @@
 	}
 
 	&--fragment {
-		font-size: 150px;
-		line-height: 150px;
+		font-size: clamp(75px, toVW(75, 525), 150px);
+		line-height: clamp(75px, toVW(75, 525), 150px);
 		letter-spacing: 0.025em;
 		color: $gray-green;
 		-webkit-text-stroke-width: 1px;

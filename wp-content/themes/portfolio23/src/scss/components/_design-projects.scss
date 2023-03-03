@@ -1,6 +1,14 @@
 .design-projects {
   padding-top: 160px;
 
+  @include isTablet {
+    padding-top: 100px;
+  }
+
+  @include isMobile {
+    padding-top: 80px;
+  }
+
   &--container {
     width: 100%;
     max-width: $max;
@@ -8,8 +16,12 @@
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
-    gap: 80px;
+    gap: clamp(60px, toVW(60, 768), 80px);
     position: relative;
+
+    @include isTablet {
+      flex-wrap: wrap;
+    }
   }
 
   &--content,
@@ -17,6 +29,10 @@
     display: flex;
     flex-flow: column;
     flex-basis: calc(50% - 40px);
+
+    @include isTablet {
+      flex-basis: 100%;
+    }
   }
 
   &--content {
@@ -25,6 +41,11 @@
     max-width: 400px;
     position: sticky;
     top: 80px;
+
+    @include isTablet {
+      position: static;
+      top: inherit;
+    }
   }
 
   &--projects {
@@ -44,6 +65,22 @@
     gap: 24px;
     position: relative;
 
+    @include isTablet {
+      width: 75%;
+
+      &:nth-child(odd) {
+        margin-left: auto;
+      }
+    }
+
+    @include isMobile {
+      width: 100%;
+
+      &:nth-child(odd) {
+        margin-left: 0;
+      }
+    }
+
     .btn {
       margin-left: auto;
     }
@@ -56,7 +93,11 @@
       border-radius: 4px;
       line-height: 0;
       height: 420px;
-      width: 100%;
+      width: calc(100% - 20px);
+
+      @include isTablet {
+        height: 300px;
+      }
 
       a {
         z-index: 3;
@@ -74,7 +115,7 @@
         position: absolute;
         top: 40px;
         left: 10px;
-        max-width: calc(100% - 20px);
+        max-width: calc(100% - 40px);
         background-color: $teal;
         color: $light-blue;
         padding: 10px 24px;
@@ -82,8 +123,8 @@
         border-top-right-radius: 40px;
         border-bottom-right-radius: 40px;
         z-index: 3;
-        font-size: 18px;
-        line-height: 24px;
+        font-size: clamp(16px, toVW(16, 525), 18px);
+        line-height: clamp(20px, toVW(20, 525), 24px);
       }
 
       &::after {

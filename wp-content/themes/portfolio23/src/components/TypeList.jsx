@@ -74,7 +74,6 @@ export const TypeList = React.forwardRef(({ fonts }, ref) => {
       const ctx = gsap.context(() => {
         gsap.utils.toArray(typewriterRefs.current).forEach(function (e) {
           const randIndex = getRandIndex();
-          console.log("randIndex: ", randIndex);
           tl.fromTo(
             e,
             { opacity: 0 },
