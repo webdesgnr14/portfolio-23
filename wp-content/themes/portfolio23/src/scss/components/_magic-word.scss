@@ -10,5 +10,14 @@
     padding-bottom: 2px;
     pointer-events: none;
     user-select: none;
+    display: inline-block;
+
+    @include isTablet {
+      margin-bottom: 10px;
+    }
+
+    @include isMobile {
+      margin-bottom: 8px;
+    }
   }
 }

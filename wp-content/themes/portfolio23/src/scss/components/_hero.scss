@@ -4,7 +4,10 @@
   display: flex;
   height: 100vh;
   max-height: calc(100vh - 120px);
-  padding: clamp(40px, toVW(40, 525), 60px);
+
+  @include isMobile {
+    height: auto;
+  }
 
   &--container {
     display: flex;
@@ -14,6 +17,16 @@
     flex-flow: row wrap;
     align-self: center;
     min-height: 80vh;
+
+    @include isTablet {
+      flex-wrap: wrap;
+      min-height: 0;
+      align-self: flex-start;
+    }
+
+    @include isMobile {
+      height: auto;
+    }
   }
 
   &--content {
@@ -22,6 +35,15 @@
     justify-content: flex-start;
     width: calc(50% - 40px);
     gap: 80px;
+
+    @include isTablet {
+      width: 100%;
+      gap: 60px;
+    }
+
+    @include isMobile {
+      gap: 40px;
+    }
 
     h1 {
       font-size: clamp(40px, toVW(40, 768), 52px);
@@ -49,6 +71,10 @@
     display: flex;
     position: relative;
 
+    @include isTablet {
+      width: 100%;
+    }
+
     &--slider {
       display: flex;
       justify-content: center;
@@ -62,6 +88,10 @@
       width: 25%;
       flex-shrink: 1;
       min-height: 25vh;
+
+      @include isTablet {
+        min-height: 45vw;
+      }
 
       &:not(.active) {
         transition: width 0.2s cubic-bezier(0.47, 0, 0.745, 0.715);
@@ -94,6 +124,10 @@
 
   .arrow-svg {
     width: 100%;
+
+    @include isTablet {
+      display: none;
+    }
 
     svg {
       margin: 0 auto;

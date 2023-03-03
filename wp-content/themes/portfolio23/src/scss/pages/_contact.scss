@@ -6,6 +6,14 @@
   position: relative;
   z-index: 2;
 
+  @include isMobile {
+    padding: 60px;
+  }
+
+  @include isMobile {
+    padding: 40px 20px;
+  }
+
   &--content {
     display: flex;
     flex-flow: column;
@@ -13,9 +21,13 @@
     max-width: 75%;
     width: 100%;
 
+    @include isMobile {
+      max-width: 100%;
+    }
+
     h1 {
-      font-size: 75px;
-      line-height: 80px;
+      font-size: clamp(52px, toVW(55, 525), 75px);
+      line-height: clamp(62px, toVW(60, 525), 80px);
     }
   }
 
@@ -41,7 +53,7 @@
           background-color: $dark-blue;
 
           .wpeform-control-select__menu {
-            button.is-active {
+            button.sc-jNJNQp.is-active {
               color: $teal;
               background-color: $darkness;
             }
@@ -52,6 +64,10 @@
               &:hover {
                 background-color: $darkness;
               }
+            }
+
+            button.eaeSKj {
+              color: $dark-blue;
             }
 
             .sc-fbYMXx.jzdsDB {
@@ -92,10 +108,20 @@
           .sc-fbYMXx.jzdsDB {
             color: $gray;
           }
+
+          .sc-GhhNo.ejRxVo {
+            span {
+              color: $dark-blue;
+            }
+          }
         }
 
-        .dczUCi {
+        .sc-gswNZR {
           margin: 0;
+
+          @include isTablet {
+            max-width: 100% !important;
+          }
 
           .wpeform-component-tabs {
             box-shadow: none;
@@ -110,20 +136,21 @@
           margin-left: -13.5px;
 
           .wpeform-component-dropdown__button {
-            min-height: 60px;
-            font-size: 24px;
+            min-height: clamp(44px, toVW(44, 525), 60px);
+            font-size: clamp(18px, toVW(18, 525), 24px);
             @include font-gontserrat-light;
           }
 
           label {
             color: $gray;
+            letter-spacing: 0.075em;
           }
 
           input,
           textarea {
             color: $light-blue;
-            min-height: 60px;
-            font-size: 24px;
+            min-height: clamp(44px, toVW(44, 525), 60px);
+            font-size: clamp(18px, toVW(18, 525), 24px);
             @include font-gontserrat-light;
 
             &::placeholder {
@@ -141,7 +168,8 @@
               border-radius: 60px;
 
               .wpeform-component-button__inner {
-                font-size: 32px;
+                font-size: clamp(22px, toVW(22, 525), 32px);
+                line-height: clam(32px, toVW(32, 525), 42px);
               }
             }
           }

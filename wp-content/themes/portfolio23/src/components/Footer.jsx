@@ -25,9 +25,8 @@ export function Footer() {
 
   React.useLayoutEffect(() => {
     if (footerRef.current) {
-      gsap.fromTo(
+      gsap.to(
         footerRef.current,
-        { opacity: 0 },
         {
           opacity: 1,
           delay: 1,

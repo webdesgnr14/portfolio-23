@@ -8,6 +8,11 @@
     padding: 0 60px;
     min-height: calc(calc(100vh - 120px) - var(--header-height));
     display: flex;
+
+    @include isMobile {
+      padding: 0 20px;
+      min-height: auto;
+    }
   }
 
   .container {
@@ -20,6 +25,15 @@
     align-items: center;
     flex-flow: row;
     gap: 48px;
+
+    @include isTablet {
+      flex-wrap: wrap;
+      padding: 60px 0;
+    }
+
+    @include isMobile {
+      padding: 40px 0;
+    }
   }
 
   &--content {
@@ -30,12 +44,16 @@
     .project--intro & {
       width: calc(50% - 24px);
 
+      @include isTablet {
+        width: 100%;
+      }
+
       > * {
         max-width: 800px;
       }
 
       p {
-        line-height: 28px;
+        line-height: clamp(32px, toVW(32, 768), 28px);
         @include font-gontserrat-light;
       }
     }
@@ -50,6 +68,10 @@
     position: relative;
     gap: 24px;
 
+    @include isTablet {
+      width: 100%;
+    }
+
     &--img {
       width: 35%;
       min-width: 80px;
@@ -62,6 +84,11 @@
       align-items: center;
       justify-content: center;
       position: relative;
+
+      @include isTablet {
+        width: 50%;
+        padding: 0 0 50% 0;
+      }
 
       img {
         width: 77%;
@@ -81,6 +108,10 @@
       .container {
         align-items: initial;
         gap: 80px;
+
+        @include isTablet {
+          gap: 60px;
+        }
       }
 
       .project--content {
@@ -92,6 +123,10 @@
 
   &--typography {
     width: 50%;
+
+    @include isTablet {
+      width: 100%;
+    }
 
     &--list {
       display: flex;
@@ -125,8 +160,8 @@
         &[data-font-type="heading"],
         &[data-font-type="display"] {
           h3 {
-            font-size: 45px;
-            line-height: 50px;
+            font-size: clamp(25px, toVW(25, 525), 45px);
+            line-height: clamp(30px, toVW(30, 525), 50px);
           }
         }
 
@@ -218,6 +253,10 @@
     flex-flow: column;
     gap: 48px;
 
+    @include isTablet {
+      width: 100%;
+    }
+
     .project--color--list {
       display: flex;
       flex-flow: row wrap;
@@ -294,6 +333,10 @@
 
       .project--section--inner {
         padding: 0 60px;
+
+        @include isMobile {
+          padding: 0 20px;
+        }
       }
     }
 
@@ -322,13 +365,22 @@
     }
 
     &--slider {
-      padding: 0 0 80px 60px;
-      max-width: 2440px;
+      padding: 0 0 0 60px;
+      width: 100%;
       margin: 0 auto;
       justify-content: flex-start;
+      max-width: 2440px;
+
+      @include isMobile {
+        padding: 0 0 0 20px;
+      }
 
       .project--samples--img {
         width: 80vw;
+
+        @include isTablet {
+          width: 75vw;
+        }
 
         img {
           width: 100%;
@@ -339,6 +391,12 @@
   }
 
   &--slider {
+    padding-bottom: 80px;
+
+    @include isMobile {
+      padding-bottom: 0;
+    }
+
     .back-to-controls {
       opacity: 0;
       position: sticky;
@@ -353,6 +411,15 @@
       mix-blend-mode: difference;
       z-index: 4;
       text-decoration: none;
+
+      @include isTablet {
+        width: 60px;
+        left: 70px;
+      }
+
+      @include isMobile {
+        display: none;
+      }
 
       &--text {
         width: 80px;
@@ -370,6 +437,12 @@
         position: relative;
         top: -100%;
         @include font-stilu-bold;
+
+        @include isTablet {
+          width: 60px;
+          height: 60px;
+          font-size: 10px;
+        }
       }
     }
   }

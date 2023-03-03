@@ -1,4 +1,5 @@
 import gsap from 'gsap';
+import * as React from "react";
 
 export const killAnimations = (el) => {
   gsap.killTweensOf(el);
@@ -38,3 +39,33 @@ export const isTouchDevice =
   "ontouchstart" in window
   || navigator.MaxTouchPoints > 0
   || navigator.msMaxTouchPoints > 0;
+
+const checkSize = (size, func) => {
+  setTimeout(() => {
+    func(window.matchMedia(`(max-width: ${size}px)`).matches);
+  }, 300);
+};
+
+export const isTablet = () => {
+  const [tablet, setTablet] = React.useState(window.matchMedia("(max-width: 768px)").matches);
+
+  React.useEffect(() => {
+    window.addEventListener("resize", () => checkSize(768, setTablet));
+
+    return () => window.removeEventListener("resize", () => checkSize);
+  }, []);
+
+  return tablet;
+}
+
+export const isMobile = () => {
+  const [mobile, setMobile] = React.useState(window.matchMedia("(max-width: 525px)").matches);
+
+  React.useEffect(() => {
+    window.addEventListener("resize", () => checkSize(525, setMobile));
+
+    return () => window.removeEventListener("resize", () => checkSize);
+  }, []);
+
+  return mobile;
+}
