@@ -1,0 +1,253 @@
+@import "./colors";
+@import "./fonts";
+@import "../helpers/mixins";
+
+html {
+  background-color: $darkness;
+
+  body {
+    @include font-gontserrat;
+    font-size: 16px;
+    color: $light-blue;
+    padding: 0;
+    margin: 0;
+    cursor: none;
+    background-color: $darkness;
+
+    &.loading, &.mobile-menu-open {
+      overflow: hidden;
+    }
+
+    &.mobile-menu-open {
+      position: relative;
+    }
+
+    * {
+      cursor: none;
+      box-sizing: border-box;
+
+      &.show-cursor {
+        cursor: auto;
+
+        * {
+          cursor: auto;
+        }
+      }
+    }
+  }
+}
+
+::-moz-selection {
+  color: $light-blue;
+  background: $gray-green;
+}
+
+::selection {
+  color: $light-blue;
+  background: $gray-green;
+}
+
+.app-container {
+  display: flex;
+  flex-flow: column nowrap;
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  @include font-stilu-bold;
+
+  margin: 0;
+}
+
+h2 {
+  font-size: clamp(24px, toVW(24, 525), 48px);
+  line-height: clamp(30px, toVW(30, 525), 60px);
+}
+
+h3 {
+  font-size: clamp(18px, toVW(18, 525), 24px);
+  line-height: clamp(24px, toVW(24, 525), 48px);
+}
+
+h4 {
+  font-size: 14px;
+  line-height: clamp(15px, toVW(15, 525), 30px);
+  text-transform: uppercase;
+}
+
+ul,
+ol {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  font-size: clamp(14px, toVW(14, 525), 16px);
+  line-height: clamp(24px, toVW(24, 525), 36px);
+  letter-spacing: 0.025em;
+}
+
+p {
+  font-size: clamp(14px, toVW(14, 525), 16px);
+  line-height: clamp(24px, toVW(24, 525), 36px);
+  margin: 0 0 32px;
+  letter-spacing: 0.025em;
+
+  &:last-child,
+  &:only-child {
+    margin: 0;
+  }
+
+  a {
+    color: $teal;
+  }
+}
+
+a.abs-link {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.btn {
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+  padding: 8px 24px;
+  display: inline-block;
+  @include font-stilu-bold;
+  transition: all 0.4s ease-in-out;
+  letter-spacing: 0.025em;
+  max-width: max-content;
+
+  &--underline {
+    font-size: 16px;
+    padding: 0 0 8px;
+    color: $gray;
+    position: relative;
+
+    &::after {
+      content: "";
+      width: 100%;
+      height: 3px;
+      background-color: $teal;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+  }
+
+  &--pill {
+    background-color: transparent;
+    border-radius: 40px;
+    color: $gray;
+    font-size: 14px;
+    line-height: 24px;
+    border: 1px solid $gray;
+
+    &:hover {
+      background-color: $teal;
+      border-color: $light-blue;
+      color: $light-blue;
+    }
+  }
+
+  &--tab {
+    color: $gray-green;
+    font-size: clamp(14px, toVW(14, 768), 18px);
+    line-height: clamp(18px, toVW(18, 768), 32px);
+    padding: 10px 24px;
+    border-radius: 40px;
+    border: 1px solid transparent;
+
+    @include isTablet {
+      padding: 10px 12px;
+    }
+
+    &:hover {
+      border-color: $gray-green;
+    }
+
+    &.active {
+      color: $light-blue;
+      background-color: $teal;
+      border-color: $teal;
+
+      &:hover {
+        color: $light-blue;
+        background-color: $teal;
+        border-color: $light-blue;
+      }
+    }
+  }
+
+  &--large {
+    background-color: $teal;
+    color: $light-blue;
+    border: 1px solid $teal;
+    font-size: clamp(22px, toVW(22, 525), 44px);
+    line-height: clamp(33px, toVW(33, 525), 54px);
+    padding: 12px clamp(16px, toVW(16, 525), 32px);
+    border-radius: 60px;
+
+    &:hover {
+      background-color: transparent;
+      border-color: $gray;
+      color: $gray;
+    }
+  }
+}
+
+.section {
+  z-index: 2;
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 80px 60px;
+
+  @include isTablet {
+    padding: 60px;
+  }
+
+  @include isMobile {
+    padding: 40px 20px;
+    min-height: auto;
+  }
+}
+
+.sr-text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  word-wrap: normal !important;
+
+  &:focus {
+    background-color: #eee;
+    clip: auto !important;
+    clip-path: none;
+    color: #444;
+    display: block;
+    font-size: 1em;
+    height: auto;
+    left: 5px;
+    line-height: normal;
+    padding: 15px 23px 14px;
+    text-decoration: none;
+    width: auto;
+    z-index: 100000;
+  }
+}

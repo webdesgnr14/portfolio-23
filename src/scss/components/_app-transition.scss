@@ -1,0 +1,42 @@
+.app-transition {
+  background-color: $darkness;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: opacity 0.5s ease;
+  z-index: 100;
+
+  &--complete {
+    opacity: 0;
+    z-index: 1;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  &--icon {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 77px;
+    height: 65px;
+    top: calc(50% - 33px);
+    left: calc(50% - 39px);
+    opacity: 0;
+
+    @include logo-svg;
+  }
+
+  .gate {
+    display: flex;
+    height: 100%;
+    width: 100%;
+
+    &-part {
+      width: 100%;
+      background-color: $gray-green;
+    }
+  }
+}

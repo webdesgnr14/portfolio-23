@@ -1,0 +1,35 @@
+.four-oh-four {
+  z-index: 2;
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+
+  &--container {
+    width: 100%;
+    max-width: $max;
+    margin: 0 auto;
+    display: flex;
+    gap: 48px;
+  }
+
+  &--content {
+    display: flex;
+    gap: 14px;
+    flex-direction: column;
+    justify-content: center;
+
+    *:not(.btn) {
+      max-width: 420px;
+    }
+
+    h1 {
+      font-size: clamp(52px, toVW(55, 525), 75px);
+      line-height: clamp(62px, toVW(60, 525), 80px);
+    }
+
+    .btn.btn--large {
+      text-transform: none;
+    } 
+  }
+}
