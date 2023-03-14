@@ -20,7 +20,7 @@ export const HoverElement =
     const Element = as;
 
     React.useEffect(() => {
-      if (intentRef.current && onMouseEnter && onMouseLeave) {
+      if (intentRef.current && (onMouseEnter && onMouseLeave)) {
         intentRef.current.addEventListener("mouseenter", () => {
           setIsHovering(true);
         });
