@@ -77,6 +77,7 @@ export const ProjectCard = ({ project, i }) => {
               target={project?.button?.target || "_self"}
               onMouseEnter={(isHovering) => toggleCursor(isHovering)}
               onMouseLeave={(isHovering) => toggleCursor(isHovering)}
+              aria-label={project.button.title}
             ></HoverElement>
           )}
         </div>
@@ -94,8 +95,9 @@ export const ProjectCard = ({ project, i }) => {
               target={project?.button?.target || "_self"}
               onMouseEnter={(isHovering) => toggleCursorDefault(isHovering)}
               onMouseLeave={(isHovering) => toggleCursorDefault(isHovering)}
+              aria-label={project.button.title}
             >
-              {project.button.title}
+              View Project
             </HoverElement>
           )}
         </div>

@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { WPEForm } from '@wpeform/react';
 import useAPI from '../hooks/useApi';
+import { LoadingContext } from '../context/LoadingContextProvider';
 
 export const Contact = () => { 
     const data = useAPI('pages/9');
+    const [loading] = React.useContext(LoadingContext);
 
-    if (!data.acf) return null;
+    if (!data.acf || loading.isLoading) return null;
 
     return (
         <div id='contact' className='contact'>

@@ -7,7 +7,7 @@ const Emoji = ({ i, index }) => {
   if (i !== 0) {
     return (
       <>
-        <span> </span>
+        {" "}
         <span className="emoji">{index}</span>
         <br />
       </>
@@ -25,7 +25,7 @@ const Word = ({ i, word }) => {
   if (i !== 0) {
     return (
       <>
-        <span> </span>
+        {" "}
         <span className="word">{word}</span>
       </>
     );
@@ -47,7 +47,9 @@ export const MagicWord = ({ phrase, placement, emojis }) => {
     });
   });
 
-  const toggleEmoji = () => {
+  const toggleEmoji = (e) => {
+    e.preventDefault();
+    
     if (emojiIndex === null) {
       setShowEmoji(true);
     }
@@ -58,7 +60,6 @@ export const MagicWord = ({ phrase, placement, emojis }) => {
       toggleConfetti(true);
     } else {
       setEmojiIndex(emojiIndex === null ? 0 : emojiIndex + 1);
-      toggleConfetti(false);
     }
   };
 
@@ -77,10 +78,11 @@ export const MagicWord = ({ phrase, placement, emojis }) => {
         return (
           <HoverElement
             className="magic-word"
-            onClick={() => toggleEmoji()}
+            onClick={(e) => toggleEmoji(e)}
             onMouseEnter={(isHovering) => toggleCursor(isHovering)}
             onMouseLeave={(isHovering) => toggleCursor(isHovering)}
             key={i}
+            href="#"
           >
             {!showEmoji ? (
               <Word i={i} word={word} />

@@ -46,12 +46,14 @@ const ActiveImage = ({
         }}
         onMouseEnter={(isHovering) => toggleCursor(isHovering)}
         onMouseLeave={(isHovering) => toggleCursor(isHovering)}
+        aria-label={image?.alt_text}
       >
         <img
           ref={activeImageRef}
           src={image?.source_url}
           width={image?.media_details?.width}
           height={image?.media_details?.height}
+          alt={image?.alt_text}
         />
       </HoverElement>
     </li>
@@ -117,12 +119,14 @@ export const ImageGrid = ({ data }) => {
                     }}
                     onMouseEnter={(isHovering) => toggleCursor(isHovering)}
                     onMouseLeave={(isHovering) => toggleCursor(isHovering)}
+                    aria-label={image?.alt_text}
                   >
                     <img
                       ref={(el) => (imageRefs.current[i] = el)}
                       src={image?.source_url}
                       width={image?.media_details?.width}
                       height={image?.media_details?.height}
+                      alt={image?.alt_text}
                     />
                   </HoverElement>
                 </li>

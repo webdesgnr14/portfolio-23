@@ -1,6 +1,6 @@
 import * as React from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { spinAnimation, spinReverseAnimation, isTablet } from "../lib/helpers";
+import { spinAnimation, spinReverseAnimation, isTablet, scrollToTop } from "../lib/helpers";
 import wp_api from "../hooks/useApi";
 import { ReactComponent as Logo } from "../assets/icons/logo.svg";
 import { Divide as Hamburger } from "hamburger-react";
@@ -8,6 +8,7 @@ import { NavHashLink } from "react-router-hash-link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { HoverElement } from "./HoverElement";
+import { LoadingContext } from "../context/LoadingContextProvider";
 import { CursorContext } from "../context/CursorContextProvider";
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,10 +18,11 @@ export const Header = () => {
   const location = useLocation();
   const [isVisible, setIsVisible] = React.useState(false);
   const [, setCursor] = React.useContext(CursorContext);
+  const [, setLoading] = React.useContext(LoadingContext);
   const [isOpen, setIsOpen] = React.useState(false);
   const tablet = isTablet();
 
-  if (!navData) return null;
+  if (!navData || location.pathname === "/404") return null;
 
   const handleScroll = () => {
     const scrollTop = window.scrollY;
@@ -95,14 +97,14 @@ export const Header = () => {
         <div className="logo">
           <HoverElement
             href="/"
-            onMouseEnter={(isHovering, hoverRef) => {
+            onMouseEnter={(isHovering, logoRef) => {
               if (isHovering) {
-                spinAnimation(hoverRef);
+                spinAnimation(logoRef);
               }
             }}
-            onMouseLeave={(isHovering, hoverRef) => {
+            onMouseLeave={(isHovering, logoRef) => {
               if (!isHovering) {
-                spinReverseAnimation(hoverRef);
+                spinReverseAnimation(logoRef);
               }
             }}
           >
@@ -112,6 +114,18 @@ export const Header = () => {
       </div>
     );
   };
+
+  const loadingAnimation = () => {
+    setLoading(() => { 
+      return { isLoading: true };
+    });
+
+    setTimeout(() => { 
+      setLoading(() => {
+        return { isLoading: false };
+      });
+    }, 2600);
+  }
 
   const handleMobileMenu = () => {
     if (tablet) { 
@@ -175,7 +189,10 @@ export const Header = () => {
                             toggleCursor(isHovering)
                           }
                         >
-                          <NavHashLink to={link.url} smooth onClick={() => handleMobileMenu()}>
+                          <NavHashLink to={link.url} smooth onClick={() => {
+                            handleMobileMenu();
+                            loadingAnimation();
+                          }}>
                             {link.title}
                           </NavHashLink>
                         </HoverElement>
@@ -199,13 +216,8 @@ export const Header = () => {
                           to={link.url}
                           onClick={() => {
                             handleMobileMenu();
-
-                            if (window.scrollY > 0) {
-                              window.scrollTo({
-                                top: 0,
-                                behavior: "smooth",
-                              });
-                            }
+                            loadingAnimation();
+                            scrollToTop();
                           }}
                         >
                           {link.title}

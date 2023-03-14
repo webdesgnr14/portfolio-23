@@ -1,8 +1,10 @@
 import * as React from "react";
 import gsap from "gsap";
+import { scrollToTop } from "../lib/helpers";
 import { Image } from "../components/Image";
 import { HoverElement } from "./HoverElement";
 import { CursorContext } from "../context/CursorContextProvider";
+import { LoadingContext } from "../context/LoadingContextProvider";
 
 export const ProjectList = ({ projects }) => {
   if (projects.length === 0) return null;
@@ -10,6 +12,19 @@ export const ProjectList = ({ projects }) => {
   const cardRef = React.useRef([]);
   const projectCount = projects.length;
   const [, setCursor] = React.useContext(CursorContext);
+  const [, setLoading] = React.useContext(LoadingContext);
+
+  const loadingAnimation = () => {
+    setLoading(() => { 
+      return { isLoading: true };
+    });
+
+    setTimeout(() => { 
+      setLoading(() => {
+        return { isLoading: false };
+      });
+    }, 2600);
+  }
 
   const toggleCursor = React.useCallback((isHovering) => {
     setCursor(() => {
@@ -74,6 +89,11 @@ export const ProjectList = ({ projects }) => {
                       href={project?.button?.url}
                       onMouseEnter={(isHovering) => toggleCursor(isHovering)}
                       onMouseLeave={(isHovering) => toggleCursor(isHovering)}
+                      onClick={() => {
+                        loadingAnimation();
+                        scrollToTop();
+                      }}
+                      aria-label={project.title}
                     ></HoverElement>
                   )}
                 </div>
@@ -87,6 +107,11 @@ export const ProjectList = ({ projects }) => {
                   }
                   onMouseEnter={(isHovering) => toggleCursorDefault(isHovering)}
                   onMouseLeave={(isHovering) => toggleCursorDefault(isHovering)}
+                  onClick={() => {
+                    loadingAnimation();
+                    scrollToTop();
+                  }}
+                  aria-label={project.title}
                 >
                   {project?.button?.title ? project.button.title : "Explore"}
                 </HoverElement>

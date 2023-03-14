@@ -2,14 +2,26 @@ import * as React from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { Tabs } from "./Tabs";
+import { useLocation } from "react-router-dom";
 gsap.registerPlugin(ScrollTrigger);
 
 export function About({ data }) {
   const containerRef = React.useRef();
   const headingRef = React.useRef();
   const contentRef = React.useRef();
+  const location = useLocation();
 
   if (!data) return null;
+
+  React.useLayoutEffect(() => {
+    if (location.hash && containerRef.current) {
+      const id = location.hash.replace("#", "");
+
+      if (id === "about") {
+        containerRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [location, containerRef.current]);
 
   React.useLayoutEffect(() => {
     gsap.fromTo(

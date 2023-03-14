@@ -35,6 +35,15 @@ export const spinReverseAnimation = (element) => {
   tween.play();
 };
 
+export const scrollToTop = () => {
+  if (window.scrollY > 0) {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
+}
+
 export const isTouchDevice =
   "ontouchstart" in window
   || navigator.MaxTouchPoints > 0

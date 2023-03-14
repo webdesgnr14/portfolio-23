@@ -1,7 +1,10 @@
 import * as React from "react";
 import ReactCanvasConfetti from "react-canvas-confetti";
+import { MagicWordContext } from "../context/MagicWordContextProvider";
 
 export function Confetti({ action = false, height }) {
+  const [, setCycleComplete] = React.useContext(MagicWordContext);
+
   const canvasStyles = {
     position: "fixed",
     pointerEvents: "none",
@@ -53,6 +56,11 @@ export function Confetti({ action = false, height }) {
       spread: 120,
       startVelocity: 45,
     });
+
+    setCycleComplete(() => {
+      return { isComplete: false }
+    });
+
   }, [makeShot]);
 
   React.useEffect(() => {

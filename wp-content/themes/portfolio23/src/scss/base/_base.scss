@@ -94,7 +94,7 @@ p {
   font-size: clamp(14px, toVW(14, 525), 16px);
   line-height: clamp(24px, toVW(24, 525), 36px);
   margin: 0 0 32px;
-  letter-spacing: 0.075em;
+  letter-spacing: 0.025em;
 
   &:last-child,
   &:only-child {
@@ -193,7 +193,7 @@ a.abs-link {
     color: $light-blue;
     border: 1px solid $teal;
     font-size: clamp(22px, toVW(22, 525), 44px);
-    line-height: clam(33px, toVW(33, 525), 54px);
+    line-height: clamp(33px, toVW(33, 525), 54px);
     padding: 12px clamp(16px, toVW(16, 525), 32px);
     border-radius: 60px;
 

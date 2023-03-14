@@ -2,8 +2,9 @@ import * as React from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import useAPI from "../hooks/useApi";
+import { LoadingContext } from "../context/LoadingContextProvider";
 import { Image } from "../components/Image";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { ProjectSection } from "../components/ProjectSection";
 import { ColorList } from "../components/ColorList";
 import { TypeList } from "../components/TypeList";
@@ -15,6 +16,13 @@ export const Project = () => {
   const [searchParams] = useSearchParams();
   const id = searchParams.get("project_id");
   const data = useAPI("project/" + id);
+  const [loading] = React.useContext(LoadingContext);
+  const navigate = useNavigate();
+
+  if (!id) { 
+    return navigate("/404");
+  }
+
   //Intro Refs
   const sectionRef = React.useRef();
   const headingRef = React.useRef();
@@ -28,7 +36,7 @@ export const Project = () => {
   const paletteHeadingRef = React.useRef();
   const paletteListRef = React.useRef();
 
-  if (!data.acf) return null;
+  if (!data.acf || loading.isLoading) return null;
 
   const animateIntro = () => {
     const tl = gsap.timeline({

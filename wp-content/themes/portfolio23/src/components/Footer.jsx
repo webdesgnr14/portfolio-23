@@ -3,17 +3,21 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { CursorContext } from "../context/CursorContextProvider";
 import { HoverElement } from "./HoverElement";
+import { useLocation } from "react-router-dom";
 import { ReactComponent as Logo } from "../assets/icons/logo.svg";
 import { ReactComponent as GitHub } from "../assets/icons/github.svg";
 import { ReactComponent as Behance } from "../assets/icons/behance.svg";
 import { ReactComponent as LinkedIn } from "../assets/icons/linkedin.svg";
-import { spinAnimation, spinReverseAnimation } from "../lib/helpers";
+import { spinAnimation, spinReverseAnimation, scrollToTop } from "../lib/helpers";
 gsap.registerPlugin(ScrollTrigger);
 
 export function Footer() {
+  const location = useLocation();
   const footerRef = React.useRef();
   const year = new Date().getFullYear();
   const [, setCursor] = React.useContext(CursorContext);
+
+  if (location.pathname === "/404") return null;
 
   const toggleCursor = (isHovering) => {
     setCursor(() => {
@@ -54,6 +58,8 @@ export function Footer() {
                 spinReverseAnimation(logoRef);
               }
             }}
+            onClick={() => scrollToTop()}
+            aria-label="Navigate Home"
           >
             <Logo />
           </HoverElement>
@@ -67,6 +73,7 @@ export function Footer() {
                 href="https://www.github.com/webdesgnr14"
                 onMouseEnter={(isHovering) => toggleCursor(isHovering)}
                 onMouseLeave={(isHovering) => toggleCursor(isHovering)}
+                aria-label="Find Me on Github"
               >
                 <GitHub aria-hidden={true} />
               </HoverElement>
@@ -78,6 +85,7 @@ export function Footer() {
                 href="https://www.behance.net/webdesgnr14"
                 onMouseEnter={(isHovering) => toggleCursor(isHovering)}
                 onMouseLeave={(isHovering) => toggleCursor(isHovering)}
+                aria-label="Find Me on Behance"
               >
                 <Behance aria-hidden={true} />
               </HoverElement>
@@ -89,6 +97,7 @@ export function Footer() {
                 href="https://www.linkedin.com/in/sheriserogers"
                 onMouseEnter={(isHovering) => toggleCursor(isHovering)}
                 onMouseLeave={(isHovering) => toggleCursor(isHovering)}
+                aria-label="Find Me on LinkedIn"
               >
                 <LinkedIn aria-hidden={true} />
               </HoverElement>

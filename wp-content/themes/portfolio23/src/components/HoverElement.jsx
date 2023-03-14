@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useHoverIntent } from "react-use-hoverintent";
+import { Link } from "react-router-dom";
 import cx from "classnames";
 
 export const HoverElement =
@@ -44,6 +45,27 @@ export const HoverElement =
         }
       }
     }, [isHovering]);
+
+    if (Element === "a") {
+      return (
+        <Link
+          ref={intentRef}
+          className={cx("hover-element", rest.className ? rest.className : "")}
+          to={href}
+          target={target}
+          onClick={(e) => {
+            setIsHovering(false);
+
+            if (onClick) {
+              onClick(e);
+            }
+          }}
+          {...rest}
+        >
+          {children}
+        </Link>
+      )
+    }
 
     return (
       <Element

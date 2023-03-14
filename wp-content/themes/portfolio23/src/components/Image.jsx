@@ -14,7 +14,7 @@ export const Image = ({ id, size = null, classes = [] }) => {
         src={imageData.media_details.sizes[size].source_url}
         width={imageData.media_details.sizes[size].width}
         height={imageData.media_details.sizes[size].height}
-        alt={imageData.media_details?.alt_text}
+        alt={imageData.alt_text}
         className={classes}
       />
     );
@@ -25,7 +25,7 @@ export const Image = ({ id, size = null, classes = [] }) => {
       src={imageData.source_url}
       width={imageData.media_details?.width}
       height={imageData.media_details?.height}
-      alt={imageData.media_details?.alt_text}
+      alt={imageData.alt_text}
       className={classes}
     />
   );

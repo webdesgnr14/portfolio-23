@@ -1,7 +1,15 @@
 .magic-word {
+  text-decoration: none;
+  color: $teal;
+
   span {
     pointer-events: none;
     user-select: none;
+  }
+  
+  * {
+    color: inherit;
+    text-decoration: none;
   }
 
   .word,

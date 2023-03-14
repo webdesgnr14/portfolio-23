@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import * as React from "react";
 import gsap from "gsap";
 import wp_api from "../hooks/useApi";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
@@ -6,17 +6,16 @@ import {
   spinAnimation,
   spinReverseAnimation,
   getImageIDs,
-  killAnimations,
 } from "../lib/helpers";
 import { ReactComponent as Logo } from "../assets/icons/logo.svg";
 import { ReactComponent as Arrow } from "../assets/icons/arrow.svg";
 import { ImageGrid } from "./GridImages";
+import { HoverElement } from "./HoverElement";
 gsap.registerPlugin(ScrollTrigger);
 
 export function Hero({ data }) {
   const imageIDs = getImageIDs(data?.images);
   const imagesData = wp_api("media?include=" + imageIDs);
-  const logoRef = useRef();
 
   if (Object.keys(data).length > 0) {
     return (
@@ -24,22 +23,23 @@ export function Hero({ data }) {
         <div className="hero--container">
           {data?.heading && (
             <div className="hero--content">
-              <a
+              <HoverElement
                 className="hero--logo"
-                data-animation={false}
                 href="/"
-                ref={logoRef}
-                onMouseOver={(e) => {
-                  killAnimations(e.currentTarget);
-                  spinAnimation(e.currentTarget);
+                onMouseEnter={(isHovering, logoRef) => {
+                  if (isHovering) {
+                    spinAnimation(logoRef);
+                  }
                 }}
-                onMouseLeave={(e) => {
-                  killAnimations(e.currentTarget);
-                  spinReverseAnimation(e.currentTarget);
+                onMouseLeave={(isHovering, logoRef) => {
+                  if (!isHovering) {
+                    spinReverseAnimation(logoRef);
+                  }
                 }}
+                aria-label="Navigate Home"
               >
                 <Logo />
-              </a>
+              </HoverElement>
               <h1>{data.heading}</h1>
             </div>
           )}
