@@ -45,6 +45,14 @@
     gap: 48px;
 
     #wpeform-contact.wpeform-contact {
+      div[width] {
+        margin: 0;
+
+        @include isTablet {
+          width: 100%!important;
+        }
+      }
+
       .wpeform-responsive-container {
         padding: 0;
         margin: 0;
@@ -116,20 +124,12 @@
           }
         }
 
-        .sc-gswNZR {
-          margin: 0;
+        .wpeform-component-tabs {
+          box-shadow: none;
+        }
 
-          @include isTablet {
-            max-width: 100% !important;
-          }
-
-          .wpeform-component-tabs {
-            box-shadow: none;
-          }
-
-          .wpeform-component-grid {
-            padding: 0;
-          }
+        .wpeform-component-grid {
+          padding: 0;
         }
 
         form {
