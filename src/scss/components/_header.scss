@@ -132,26 +132,15 @@
         &-item {
           list-style: none;
 
-          @include isTablet {
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-40px);
-            transition: all 0.8s ease;
-
-            @for $i from 0 through 20 {
-              &:nth-child(#{$i + 1}) {
-                transition-delay: 1s * ($i + 1);
-              }
-            }
-          }
-
           a {
             color: $light-blue;
-            font-size: 16px;
-            line-height: 18px;
+            font-size: 18px;
+            line-height: 20px;
+            letter-spacing: 0.025em;
             padding: 8px 12px;
             text-decoration: none;
             transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+            @include font-gontserrat-semibold;
 
             &:hover {
               @include active-link;

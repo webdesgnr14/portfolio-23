@@ -29,6 +29,8 @@
       font-size: clamp(52px, toVW(55, 525), 75px);
       line-height: clamp(62px, toVW(60, 525), 80px);
     }
+
+    margin-bottom: 40px;
   }
 
   &--body {
@@ -44,135 +46,92 @@
     justify-content: flex-start;
     gap: 48px;
 
-    #wpeform-contact.wpeform-contact {
-      div[width] {
-        margin: 0;
+    .contact--form {
+      &--messages {
+        .message {
+          display: flex;
+          flex-flow: column;
+          gap: 48px;
 
-        @include isTablet {
-          width: 100%!important;
+          h1 {
+            font-size: clamp(52px, toVW(55, 525), 75px);
+            line-height: clamp(62px, toVW(60, 525), 80px);
+          }
+
+          p {
+            max-width: 460px;
+            width: 100%;
+            margin: 0;
+          }
         }
       }
 
-      .wpeform-responsive-container {
-        padding: 0;
+      form {
         margin: 0;
+        max-width: 60%;
+        display: flex;
+        flex-flow: column;
+        gap: 16px;
 
-        .wpeform-component-dropdown__dd-container {
-          background-color: $dark-blue;
+        @include isTablet {
+          max-width: 100%;
+        }
 
-          .wpeform-control-select__menu {
-            button.sc-jNJNQp.is-active {
-              color: $teal;
-              background-color: $darkness;
-            }
+        .required {
+          color: $error;
+        }
 
-            button.sc-jNJNQp {
-              color: $light-blue;
+        label {
+          color: $gray;
+          letter-spacing: 0.025em;
+          font-size: 14px;
+          @include font-gontserrat-semibold;
+        }
 
-              &:hover {
-                background-color: $darkness;
-              }
-            }
+        input[type="text"],
+        input[type="email"],
+        textarea,
+        select {
+          color: $light-blue;
+          min-height: clamp(44px, toVW(44, 525), 60px);
+          font-size: clamp(18px, toVW(18, 525), 24px);
+          width: 100%;
+          border: 1px solid $gray-green;
+          border-radius: 4px;
+          background-color: transparent;
+          padding: 4px 8px;
+          @include font-gontserrat-light;
 
-            button.eaeSKj {
-              color: $dark-blue;
-            }
-
-            .sc-fbYMXx.jzdsDB {
-              padding-right: 1px;
-
-              .sc-GhhNo.gJMLtS {
-                background-color: transparent;
-                border: 1px solid $light-blue;
-
-                > span {
-                  padding-left: 4.5px;
-                }
-
-                span:not(.wpeform-icon) {
-                  padding-left: 0;
-                }
-              }
-
-              button.sc-laZRCg.jlsGRC {
-                background-color: $white;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-
-                svg {
-                  color: $error;
-                }
-
-                &:hover {
-                  svg {
-                    opacity: 0.8;
-                  }
-                }
-              }
-            }
+          &::placeholder {
+            color: $gray-green;
           }
 
-          .sc-fbYMXx.jzdsDB {
-            color: $gray;
+          &:hover, 
+          &:focus {
+            border-color: $teal;
           }
 
-          .sc-GhhNo.ejRxVo {
-            span {
-              color: $dark-blue;
-            }
+          &.error {
+            border-color: $error;
           }
         }
 
-        .wpeform-component-tabs {
-          box-shadow: none;
+        textarea {
+          height: auto;
+          min-height: 120px;
         }
 
-        .wpeform-component-grid {
-          padding: 0;
+        input[type="submit"] {
+          font-size: 24px;
+          line-height: 28px;
+          margin-top: 40px;
+          padding: 12px 24px;
         }
 
-        form {
-          margin-left: -13.5px;
-
-          .wpeform-component-dropdown__button {
-            min-height: clamp(44px, toVW(44, 525), 60px);
-            font-size: clamp(18px, toVW(18, 525), 24px);
-            @include font-gontserrat-light;
-          }
-
-          label {
-            color: $gray;
-            letter-spacing: 0.075em;
-          }
-
-          input,
-          textarea {
-            color: $light-blue;
-            min-height: clamp(44px, toVW(44, 525), 60px);
-            font-size: clamp(18px, toVW(18, 525), 24px);
-            @include font-gontserrat-light;
-
-            &::placeholder {
-              color: $gray-green;
-            }
-          }
-
-          .wpeform-component-buttongroup {
-            justify-content: flex-start;
-
-            .wpeform-component-button {
-              height: auto;
-              border: none;
-              padding: 12px 24px;
-              border-radius: 60px;
-
-              .wpeform-component-button__inner {
-                font-size: clamp(22px, toVW(22, 525), 32px);
-                line-height: clam(32px, toVW(32, 525), 42px);
-              }
-            }
-          }
+        .error-message {
+          color: $error;
+          font-size: 14px;
+          margin: 0;
         }
       }
     }

@@ -166,6 +166,11 @@ a.abs-link {
     padding: 10px 24px;
     border-radius: 40px;
     border: 1px solid transparent;
+    background-color: transparent;
+
+    &[type=submit] {
+      border-color: $gray-green;
+    }
 
     @include isTablet {
       padding: 10px 12px;

@@ -1,26 +1,35 @@
-import { useEffect, useState } from 'react';
+import * as React from 'react';
+import { Buffer } from "buffer";
 
-export default function useAPI(api_url, type = "wp") {
-    const [data, setData] = useState({});
+export default function useAPI(api_url, type = "wp", auth = false) {
+  const [data, setData] = React.useState({});
+  const creds = Buffer.from(`${process.env.USERNAME}:${process.env.PASSWORD}`).toString("base64");
 
-    if(!api_url) return;
+  if(!api_url) return;
 
-    useEffect(() => {
-        const location = window.location.origin;
+  React.useEffect(() => {
+    const location = window.location.origin;
+    const headers = {};
 
-        async function loadData() {
-            const res = await fetch(location + '/wp-json/' + type + '/v2/' + api_url);
+    if (auth) {
+      api_url = api_url + '?context=edit';
+      headers["Authorization"] = "Basic " + creds;
+      headers["Content-Type"] = "application/json";
+    }
 
-            if(!res.ok) {
-                return;
-            }
+    async function loadData() {
+      const res = await fetch(location + '/wp-json/' + type + '/v2/' + api_url, { method: 'GET', headers: headers });
 
-            const resData = await res.json();
-            setData(resData);
-        }
+      if(!res.ok) {
+        return;
+      }
 
-        loadData();
-    }, [])
+      const resData = await res.json();
+      setData(resData);
+    }
 
-    return data;
+    loadData();
+  }, [])
+
+  return data;
 }
