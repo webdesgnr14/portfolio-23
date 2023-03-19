@@ -83,13 +83,13 @@ export const Header = () => {
     }
   }, [location.pathname]);
 
-  React.useEffect(() => { 
+  React.useEffect(() => {
     window.addEventListener("scroll", handleScroll);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [])
+  }, []);
 
   const Branding = () => {
     return (
@@ -214,11 +214,7 @@ export const Header = () => {
                       >
                         <NavLink
                           to={link.url}
-                          onClick={() => {
-                            handleMobileMenu();
-                            loadingAnimation();
-                            scrollToTop();
-                          }}
+                          reloadDocument
                         >
                           {link.title}
                         </NavLink>

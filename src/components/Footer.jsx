@@ -8,7 +8,7 @@ import { ReactComponent as Logo } from "../assets/icons/logo.svg";
 import { ReactComponent as GitHub } from "../assets/icons/github.svg";
 import { ReactComponent as Behance } from "../assets/icons/behance.svg";
 import { ReactComponent as LinkedIn } from "../assets/icons/linkedin.svg";
-import { spinAnimation, spinReverseAnimation, scrollToTop } from "../lib/helpers";
+import { spinAnimation, spinReverseAnimation } from "../lib/helpers";
 gsap.registerPlugin(ScrollTrigger);
 
 export function Footer() {
@@ -58,8 +58,8 @@ export function Footer() {
                 spinReverseAnimation(logoRef);
               }
             }}
-            onClick={() => scrollToTop()}
             aria-label="Navigate Home"
+            reloadDocument
           >
             <Logo />
           </HoverElement>
@@ -110,7 +110,7 @@ export function Footer() {
               __html:
                 "Copyright &copy; " +
                 year +
-                " Designed + Developed by Sherise Rogers. All Rights Reserved.",
+                " Designed + Developed by Sherise Rogers. MIT License.",
             }}
           />
         </div>

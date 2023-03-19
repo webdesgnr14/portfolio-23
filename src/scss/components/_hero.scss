@@ -6,6 +6,7 @@
   max-height: calc(100vh - 120px);
 
   @include isMobile {
+    max-height: inherit;
     height: auto;
   }
 
@@ -81,6 +82,11 @@
       gap: 3px;
       height: 100%;
       width: 100%;
+      min-height: 25vh;
+
+      @include isTablet {
+        min-height: 45vw;
+      }
     }
 
     &--slide {

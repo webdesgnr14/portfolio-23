@@ -83,7 +83,7 @@ export const ImageGrid = ({ data }) => {
   };
 
   React.useLayoutEffect(() => {
-    if (imageContainerRefs.current.length === imageCount) {
+    if (imageContainerRefs.current.length === imageCount && window.scrollY === 0) {
       gsap.fromTo(
         imageContainerRefs.current,
         { opacity: 0, y: -40 },

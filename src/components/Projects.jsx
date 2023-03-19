@@ -17,7 +17,7 @@ export function Projects({ data }) {
       const id = location.hash.replace("#", "");
 
       if (id === "projects") {
-        projectSectionRef.current.scrollIntoView({ behavior: "smooth" });
+        projectSectionRef.current.scrollIntoView({ behavior: "smooth", block: 'nearest', inline: 'start' });
       }
     }
   }, [location, projectSectionRef.current]);

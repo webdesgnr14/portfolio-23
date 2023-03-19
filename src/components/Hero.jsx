@@ -37,6 +37,7 @@ export function Hero({ data }) {
                   }
                 }}
                 aria-label="Navigate Home"
+                reloadDocument
               >
                 <Logo />
               </HoverElement>

@@ -169,7 +169,7 @@ export const ContactForm = ({ heading, text }) => {
                 ref={messageRef}
               ></textarea>
               {error?.message && <Error message="Message is required." />}
-              <input type="submit" value="Send Message" className="btn btn--tab" />
+              <input type="submit" value="Send Message" className="btn btn--med" />
             </form>
           </>
         )

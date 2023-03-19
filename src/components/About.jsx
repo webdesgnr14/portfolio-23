@@ -18,7 +18,7 @@ export function About({ data }) {
       const id = location.hash.replace("#", "");
 
       if (id === "about") {
-        containerRef.current.scrollIntoView({ behavior: "smooth" });
+        containerRef.current.scrollIntoView({ behavior: "smooth", block: 'nearest', inline: 'start' });
       }
     }
   }, [location, containerRef.current]);

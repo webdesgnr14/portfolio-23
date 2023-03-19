@@ -112,7 +112,7 @@
         justify-content: center;
         margin: 0 0 0 auto;
         padding: 0;
-        gap: 24px;
+        gap: 48px;
 
         @include isTablet {
           display: none;
@@ -131,15 +131,19 @@
 
         &-item {
           list-style: none;
+          display: inline-block;
+
+          @include isTablet {
+            display: block;
+          }
 
           a {
             color: $light-blue;
             font-size: 18px;
             line-height: 20px;
-            letter-spacing: 0.025em;
-            padding: 8px 12px;
+            letter-spacing: 0.075em;
+            padding: 8px 24px;
             text-decoration: none;
-            transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
             @include font-gontserrat-semibold;
 
             &:hover {
@@ -217,10 +221,7 @@
 
       &-item {
         width: 100%;
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-
+        
         a {
           display: block;
           text-align: center;
