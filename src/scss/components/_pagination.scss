@@ -1,0 +1,100 @@
+.pagination {
+  padding: 0 40px;
+
+  @include isMobile {
+    padding: 0 20px;
+  }
+
+  .container {
+    max-width: $max;
+    margin: 0 auto;
+
+    .project & {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 60px;
+      padding-top: 80px;
+
+      @include isTablet {
+        flex-direction: column;
+        gap: 48px;
+      }
+
+      @include isMobile {
+        gap: 24px;
+        align-items: flex-start;
+      }
+    }
+  }
+
+  &--next {
+    .pagination--content {
+      .label {
+        margin-left: auto;
+
+        @include isTablet {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+
+  &--link {
+    color: $light-blue;
+    display: flex;
+    flex-direction: row;
+    gap: 48px;
+    align-items: center;
+    max-width: 50%;
+    width: max-content;
+    text-decoration: none;
+
+    @include isMobile {
+      max-width: 100%;
+    }
+
+    svg {
+      width: 80px;
+      height: auto;
+
+      @include isTablet {
+        width: 60px;
+      }
+
+      @include isMobile {
+        width: 48px;
+      }
+    }
+
+    &:hover {
+      color: $teal;
+      text-decoration: underline;
+    }
+  }
+
+  &--content {
+    display: flex;
+    flex-direction: column;
+
+    .label, 
+    .title {
+      display: block;
+      letter-spacing: 0.075em;
+    }
+
+    .label {
+      text-transform: uppercase;
+      font-size: 16px;
+      line-height: 20px;
+      @include font-stilu-bold;
+    }
+
+    .title {
+      font-size: clamp(18px, toVW(16, 525), 24px);
+      line-height: clamp(24px, toVW(20, 525), 28px);
+      @include font-stilu;
+    }
+  }
+}

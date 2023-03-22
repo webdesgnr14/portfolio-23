@@ -9,6 +9,7 @@ import { ProjectSection } from "../components/ProjectSection";
 import { ColorList } from "../components/ColorList";
 import { TypeList } from "../components/TypeList";
 import { Slider } from "../components/Slider";
+import { Pagination } from "../components/Pagination";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,8 +17,10 @@ export const Project = () => {
   const [searchParams] = useSearchParams();
   const id = searchParams.get("project_id");
   const data = useAPI("project/" + id);
+  const homepageData = useAPI('pages/2');
   const [loading] = React.useContext(LoadingContext);
   const navigate = useNavigate();
+  const paginationData = homepageData?.acf?.design_projects?.projects;
 
   if (!id) { 
     return navigate("/404");
@@ -175,6 +178,7 @@ export const Project = () => {
             </div>
           </div>
           <Slider design_samples={data.acf.design_samples} />
+          <Pagination data={paginationData} />
         </div>
       )}
     </div>
