@@ -77,6 +77,11 @@
   &--content {
     display: flex;
     flex-direction: column;
+    max-width: 50%;
+
+    @include isMobile {
+      max-width: 100%;
+    }
 
     .label, 
     .title {
