@@ -2,16 +2,13 @@ import * as React from "react";
 import { useLocation } from "react-router-dom";
 import { HoverElement } from "./HoverElement";
 import { CursorContext } from "../context/CursorContextProvider";
-import { LoadingContext } from "../context/LoadingContextProvider";
 import { ReactComponent as PrevIcon } from "../assets/icons/prev.svg";
 import { ReactComponent as NextIcon } from "../assets/icons/next.svg";
-import { scrollToTop } from "../lib/helpers";
 
 export const Pagination = ({ data }) => {
   if (!data) return null;
 
   const [, setCursor] = React.useContext(CursorContext);
-  const [, setLoading] = React.useContext(LoadingContext);
   const location = useLocation();
   const url = window.location.origin + location.pathname + location.search;
 
@@ -22,18 +19,6 @@ export const Pagination = ({ data }) => {
       }
     });
   });
-
-  const loadingAnimation = () => {
-    setLoading(() => { 
-      return { isLoading: true };
-    });
-
-    setTimeout(() => { 
-      setLoading(() => {
-        return { isLoading: false };
-      });
-    }, 2600);
-  }
 
   const paginationData = data.reduce((acc) => {
     const pagination = {};
@@ -62,26 +47,36 @@ export const Pagination = ({ data }) => {
     return (
       <div className="pagination">
         <div className="container">
-          {paginationData?.prev && <HoverElement href={paginationData.prev.button.url} className="pagination--prev pagination--link" onMouseEnter={(isHovering) => toggleCursor(isHovering)} onMouseLeave={(isHovering) => toggleCursor(isHovering)} onClick={() => {
-            loadingAnimation();
-            scrollToTop();
-          }}>
+          {paginationData?.prev && (
+            <HoverElement
+              href={paginationData.prev.button.url}
+              className="pagination--prev pagination--link"
+              onMouseEnter={(isHovering) => toggleCursor(isHovering)}
+              onMouseLeave={(isHovering) => toggleCursor(isHovering)}
+              reloadDocument
+            >
             <PrevIcon />
             <div className="pagination--content">
               <span className="label">{"Previous Project:"}</span>
               <span className="title">{paginationData.prev.title}</span>
             </div>
-          </HoverElement>}
-          {paginationData?.next && <HoverElement href={paginationData.next.button.url} className="pagination--next pagination--link" onMouseEnter={(isHovering) => toggleCursor(isHovering)} onMouseLeave={(isHovering) => toggleCursor(isHovering)} onClick={() => {
-            loadingAnimation();
-            scrollToTop();
-          }}>
+            </HoverElement>)
+          }
+          {paginationData?.next && (
+            <HoverElement
+              href={paginationData.next.button.url}
+              className="pagination--next pagination--link"
+              onMouseEnter={(isHovering) => toggleCursor(isHovering)}
+              onMouseLeave={(isHovering) => toggleCursor(isHovering)}
+              reloadDocument
+            >
             <div className="pagination--content">
               <span className="label">{"Next Project:"}</span>
               <span className="title">{paginationData.next.title}</span>
             </div>
             <NextIcon/>
-          </HoverElement>}
+            </HoverElement>)
+          }
         </div>
       </div>
     );

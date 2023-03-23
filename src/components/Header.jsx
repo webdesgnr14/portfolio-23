@@ -171,7 +171,7 @@ export const Header = () => {
                   let match = location.pathname === link.url && !location.hash;
 
                   if (link.url.includes("#")) {
-                    match = location.pathname + location.hash === link.url;
+                    match = location.pathname + location.hash === link.url || location.pathname.includes("project") && link.url.includes("project");
 
                     return (
                       <li

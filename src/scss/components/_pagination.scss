@@ -29,18 +29,6 @@
     }
   }
 
-  &--next {
-    .pagination--content {
-      .label {
-        margin-left: auto;
-
-        @include isTablet {
-          margin-left: 0;
-        }
-      }
-    }
-  }
-
   &--link {
     color: $light-blue;
     display: flex;
