@@ -1,4 +1,4 @@
-@import '../helpers/mixins';
+@import "../helpers/mixins";
 
 .about {
   @include isTablet {
@@ -39,6 +39,25 @@
 
     @include isTablet {
       width: 100%;
+    }
+  }
+
+  &--body {
+    ul,
+    ol {
+      margin-left: 40px;
+
+      li {
+        line-height: clamp(20px, toVW(20, 525), 22px);
+
+        &:not(:last-child) {
+          margin-bottom: 12px;
+        }
+
+        ::marker {
+          display: block;
+        }
+      }
     }
   }
 
