@@ -14,7 +14,8 @@ html {
     cursor: none;
     background-color: $darkness;
 
-    &.loading, &.mobile-menu-open {
+    &.loading,
+    &.mobile-menu-open {
       overflow: hidden;
     }
 
@@ -51,6 +52,7 @@ html {
   display: flex;
   flex-flow: column nowrap;
   min-height: 100vh;
+  width: 100%;
 }
 
 h1,
@@ -168,7 +170,7 @@ a.abs-link {
     border: 1px solid transparent;
     background-color: transparent;
 
-    &[type=submit] {
+    &[type="submit"] {
       border-color: $gray-green;
     }
 
