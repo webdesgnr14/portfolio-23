@@ -6,19 +6,23 @@ export const LoadingContext = React.createContext();
 
 const LoadingContextProvider = ({ children }) => {
   const location = useLocation();
-  const [loading, setLoading] = React.useState({ isLoading: true });
+  const [loading, setLoading] = React.useState({
+    isLoading: location.pathname === "/" ? false : true,
+  });
 
   React.useEffect(() => {
+    if (location.pathname === "/" || !location.hash) return;
+
     setTimeout(() => {
       setLoading(() => {
-        return { isLoading: false }
+        return { isLoading: false };
       });
 
       if (!location.hash) {
         scrollToTop();
       }
-    }, 2600);
-  }, []);
+    }, 350);
+  }, [location.pathname, location.hash]);
 
   return (
     <LoadingContext.Provider value={[loading, setLoading]}>

@@ -1,17 +1,19 @@
-const webpack = require('webpack');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const glob = require('glob');
-const path = require('path');
-const Dotenv = require('dotenv-webpack');
+import webpack from 'webpack';
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import { glob } from 'glob';
+import path from 'path';
+import Dotenv from 'dotenv-webpack';
 
-module.exports = (env) => {
+export default (env) => {
+  const baseDir = path.resolve(process.cwd());
+  const entryFiles = glob.sync(path.resolve(baseDir, 'src/**/*.{js,jsx}'));
   return {
     entry: {
-      appbundle: glob.sync('./src/**/**.{js,jsx}'),
+      appbundle: entryFiles,
     },
     output: {
-      path: path.join(__dirname, './build/'),
-      filename: "[name].js"
+      path: path.join(baseDir, './build/'),
+      filename: "[name].js",
     },
     module: {
       rules: [
@@ -40,7 +42,7 @@ module.exports = (env) => {
     },
     plugins: [
       new Dotenv({
-        path: path.join(__dirname, `./.env.${env.production ? "production" : "development"}`)
+        path: path.join(baseDir, `./.env.${env.production ? "production" : "development"}`)
       }),
       new webpack.ProvidePlugin({
         $: 'jquery',
@@ -51,6 +53,7 @@ module.exports = (env) => {
     ],
     resolve: {
       extensions: ['.js', '.jsx'],
-    }
+    },
+    mode: env.production ? 'production' : 'development',
   }
 }

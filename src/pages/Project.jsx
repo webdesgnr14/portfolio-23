@@ -17,12 +17,12 @@ export const Project = () => {
   const [searchParams] = useSearchParams();
   const id = searchParams.get("project_id");
   const data = useAPI("project/" + id);
-  const homepageData = useAPI('pages/2');
+  const homepageData = useAPI("pages/2");
   const [loading] = React.useContext(LoadingContext);
   const navigate = useNavigate();
   const paginationData = homepageData?.acf?.design_projects?.projects;
 
-  if (!id) { 
+  if (!id) {
     return navigate("/404");
   }
 

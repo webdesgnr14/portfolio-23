@@ -27,7 +27,7 @@ const ActiveImage = ({
           top: 0,
           left: 0,
           ease: "power1.inOut",
-        }
+        },
       );
     }
   }, []);
@@ -83,7 +83,10 @@ export const ImageGrid = ({ data }) => {
   };
 
   React.useLayoutEffect(() => {
-    if (imageContainerRefs.current.length === imageCount && window.scrollY === 0) {
+    if (
+      imageContainerRefs.current.length === imageCount &&
+      window.scrollY === 0
+    ) {
       gsap.fromTo(
         imageContainerRefs.current,
         { opacity: 0, y: -40 },
@@ -95,7 +98,7 @@ export const ImageGrid = ({ data }) => {
           stagger: 0.5,
           ease: "power1.inOut",
           scrollTrigger: sectionRef.current,
-        }
+        },
       );
     }
   }, []);
