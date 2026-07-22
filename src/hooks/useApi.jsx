@@ -1,35 +1,46 @@
 import * as React from 'react';
-import { Buffer } from "buffer";
 
-export default function useAPI(api_url, type = "wp", auth = false) {
-  const [data, setData] = React.useState({});
-  const creds = Buffer.from(`${process.env.USERNAME}:${process.env.PASSWORD}`).toString("base64");
+export default function useAPI(api_url, type = 'wp', useProxy = false) {
+	const [data, setData] = React.useState();
+	const [apiLoading, setApiLoading] = React.useState(false);
+	const [apiError, setApiError] = React.useState(null);
 
-  if(!api_url) return;
+	React.useEffect(() => {
+		if (!api_url) return;
 
-  React.useEffect(() => {
-    const location = window.location.origin;
-    const headers = {};
+		const origin = window.location.origin;
+		const targetUrl = api_url.startsWith('http')
+			? api_url
+			: origin + '/wp-json/' + type + '/v2/' + api_url;
+		const proxyUrl =
+			origin + '/wp-json/proxy/v1/fetch/?url=' + encodeURIComponent(targetUrl);
 
-    if (auth) {
-      api_url = api_url + '?context=edit';
-      headers["Authorization"] = "Basic " + creds;
-      headers["Content-Type"] = "application/json";
-    }
+		async function loadData() {
+			setApiLoading(true);
+			setApiError(null);
+			try {
+				const url = useProxy ? proxyUrl : targetUrl;
+				const res = await fetch(url, { method: 'GET' });
+				if (!res.ok) {
+					setApiError(new Error('Request failed: ' + res.status));
+					setApiLoading(false);
+					return;
+				}
+				const result = await res.json();
+				// Use result.data if present (proxy), else use result (direct REST)
+				const normalizedData =
+					result && result.data !== undefined ? result.data : result;
+				setData(normalizedData);
+			} catch (err) {
+				setApiError(err);
+			} finally {
+				setApiLoading(false);
+			}
+		}
 
-    async function loadData() {
-      const res = await fetch(location + '/wp-json/' + type + '/v2/' + api_url, { method: 'GET', headers: headers });
+		loadData();
+		// Dependency array includes api_url and type so hook responds to param change
+	}, [api_url, type]);
 
-      if(!res.ok) {
-        return;
-      }
-
-      const resData = await res.json();
-      setData(resData);
-    }
-
-    loadData();
-  }, [])
-
-  return data;
+	return { data, apiLoading, apiError };
 }

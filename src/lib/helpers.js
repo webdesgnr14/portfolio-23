@@ -2,6 +2,8 @@ import gsap from 'gsap';
 import * as React from "react";
 
 export const killAnimations = (el) => {
+  if (!el) return;
+  
   gsap.killTweensOf(el);
 };
 
@@ -16,6 +18,8 @@ export function getImageIDs(data) {
 }
 
 export const spinAnimation = (element) => {
+  if (!element) return;
+  
   let tween = gsap.to(element, {
     rotationY: 360,
     duration: 1.5,
@@ -26,6 +30,8 @@ export const spinAnimation = (element) => {
 };
 
 export const spinReverseAnimation = (element) => {
+  if (!element) return;
+
   let tween = gsap.to(element, {
     rotationY: 0,
     duration: 1.5,

@@ -1,11 +1,13 @@
 # Log files
 *.log
 *.lock
+vendor
 
 # htaccess
 .htaccess
 
 node_modules
+.vscode
 
 # Mac
 .DS_Store

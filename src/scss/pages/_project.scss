@@ -1,449 +1,482 @@
-@import "../helpers/vars";
+@import '../helpers/vars';
 
 .project {
-  position: relative;
-  z-index: 2;
-
-  &--section {
-    padding: 0 60px;
-    min-height: calc(calc(100vh - 120px) - var(--header-height));
-    display: flex;
-
-    @include isMobile {
-      padding: 0 20px;
-      min-height: auto;
-    }
-  }
-
-  .container {
-    padding: 80px 0px;
-    max-width: $max;
-    width: 100%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-flow: row;
-    gap: 48px;
-
-    @include isTablet {
-      flex-wrap: wrap;
-      padding: 60px 0;
-    }
-
-    @include isMobile {
-      padding: 40px 0;
-    }
-  }
-
-  &--content {
-    display: flex;
-    flex-flow: column;
-    gap: 48px;
-
-    .project--intro & {
-      width: calc(50% - 24px);
-
-      @include isTablet {
-        width: 100%;
-      }
-
-      > * {
-        max-width: 800px;
-      }
-
-      p {
-        line-height: clamp(32px, toVW(32, 768), 28px);
-        @include font-gontserrat-light;
-      }
-    }
-  }
-
-  &--logo {
-    width: calc(50% - 24px);
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    gap: 24px;
-
-    @include isTablet {
-      width: 100%;
-    }
-
-    &--img {
-      width: 35%;
-      min-width: 80px;
-      margin: 0 auto;
-      background-color: $white;
-      border-radius: 100%;
-      padding: 35% 0 0;
-      display: flex;
-      overflow: hidden;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-
-      @include isTablet {
-        width: 50%;
-        padding: 0 0 50% 0;
-      }
-
-      img {
-        width: 77%;
-        height: 77%;
-        object-fit: contain;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        mix-blend-mode: multiply;
-      }
-    }
-  }
-
-  &--typo-palette {
-    &.project--section {
-      .container {
-        align-items: initial;
-        gap: 80px;
-
-        @include isTablet {
-          gap: 60px;
-        }
-      }
-
-      .project--content {
-        height: 100%;
-        justify-content: center;
-      }
-    }
-  }
-
-  &--typography {
-    width: 50%;
-
-    @include isTablet {
-      width: 100%;
-    }
-
-    &--list {
-      display: flex;
-      justify-content: left;
-      gap: 16px;
-      flex-flow: column;
-      max-width: 600px;
-      width: 100%;
-
-      .project--typography--item {
-        list-style: none;
-        padding: 0;
-
-        &:not(:last-child) {
-          margin-bottom: 40px;
-        }
-
-        &--label,
-        &--name {
-          display: block;
-        }
-
-        &--label {
-          @include font-gontserrat-semibold;
-        }
-
-        &--name {
-          @include font-gontserrat-light;
-        }
-
-        &[data-font-type="heading"],
-        &[data-font-type="display"] {
-          h3 {
-            font-size: clamp(25px, toVW(25, 525), 45px);
-            line-height: clamp(30px, toVW(30, 525), 50px);
-          }
-        }
-
-        &[data-font-type="paragraph"] {
-          h3 {
-            font-size: 16px;
-            line-height: 32px;
-          }
-        }
-
-        &[data-font-name="Lato"] {
-          h3 {
-            @include font-lato;
-          }
-        }
-
-        &[data-font-name="Bilbo Swash Caps"] {
-          h3 {
-            @include font-bilbo-swash-caps;
-          }
-        }
-
-        &[data-font-name="Bitter"] {
-          h3 {
-            @include font-bitter-bold;
-          }
-        }
-
-        &[data-font-name="Gentium Basic"] {
-          h3 {
-            @include font-gentium-book;
-          }
-        }
-
-        &[data-font-name="Encode Sans"] {
-          h3 {
-            @include font-encode-sans;
-          }
-        }
-
-        &[data-font-name="Raleway"] {
-          h3 {
-            @include font-raleway;
-          }
-        }
-
-        &[data-font-name="Raleway Bold"] {
-          h3 {
-            @include font-raleway-bold;
-          }
-        }
-
-        &[data-font-name="Oswald Bold"] {
-          h3 {
-            @include font-oswald;
-          }
-        }
-
-        &[data-font-name="Oxygen"] {
-          h3 {
-            @include font-oxygen;
-          }
-        }
-
-        &[data-font-name="Gravity Light"] {
-          h3 {
-            @include font-gravity;
-          }
-        }
-
-        &[data-font-name="Roboto"] {
-          h3 {
-            @include font-roboto;
-          }
-        }
-
-        &[data-font-name="Open Sans"] {
-          h3 {
-            @include font-open-sans;
-          }
-        }
-      }
-    }
-  }
-
-  &--color-palette {
-    width: 50%;
-    display: flex;
-    flex-flow: column;
-    gap: 48px;
-
-    @include isTablet {
-      width: 100%;
-    }
-
-    .project--color--list {
-      display: flex;
-      flex-flow: row wrap;
-      align-items: flex-start;
-      gap: 4px;
-
-      .project--color {
-        width: calc(25% - 4px);
-        height: 0;
-        padding: 25% 0 0 0;
-        border-radius: 4px;
-        list-style: none;
-        position: relative;
-        overflow: hidden;
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-
-        &--link {
-          position: absolute;
-          top: 0;
-          left: 0;
-          height: 100%;
-          width: 100%;
-          border-radius: 4px;
-          pointer-events: none;
-          user-select: none;
-          backface-visibility: hidden;
-          transform: translate3d(0, 0, 0);
-        }
-
-        &--wave {
-          position: absolute;
-          top: -2px;
-          left: 0;
-          height: calc(100% + 2px);
-          width: 100%;
-          --webkit-clip-path: path(
-            "M300,300V2.5c0,0-0.6-0.1-1.1-0.1c0,0-25.5-2.3-40.5-2.4c-15,0-40.6,2.4-40.6,2.4c-12.3,1.1-30.3,1.8-31.9,1.9c-2-0.1-19.7-0.8-32-1.9c0,0-25.8-2.3-40.8-2.4c-15,0-40.8,2.4-40.8,2.4c-12.3,1.1-30.4,1.8-32,1.9c-2-0.1-20-0.8-32.2-1.9c0,0-3.1-0.3-8.1-0.7V300H300z"
-          );
-          clip-path: path(
-            "M300,300V2.5c0,0-0.6-0.1-1.1-0.1c0,0-25.5-2.3-40.5-2.4c-15,0-40.6,2.4-40.6,2.4c-12.3,1.1-30.3,1.8-31.9,1.9c-2-0.1-19.7-0.8-32-1.9c0,0-25.8-2.3-40.8-2.4c-15,0-40.8,2.4-40.8,2.4c-12.3,1.1-30.4,1.8-32,1.9c-2-0.1-20-0.8-32.2-1.9c0,0-3.1-0.3-8.1-0.7V300H300z"
-          );
-        }
-
-        &:nth-child(odd) {
-          margin-top: 24px;
-        }
-
-        &::after {
-          content: "";
-          width: calc(100% - 2px);
-          height: calc(100% - 2px);
-          position: absolute;
-          top: 0;
-          left: 0;
-          bottom: 0;
-          right: 0;
-          border: 1px solid $white;
-          opacity: 0.3;
-          border-radius: 4px;
-        }
-      }
-    }
-  }
-
-  &--samples {
-    &.project--section {
-      padding: 0;
-      flex-flow: column;
-
-      .container {
-        padding-bottom: 40px;
-      }
-
-      .project--section--inner {
-        padding: 0 60px;
-
-        @include isMobile {
-          padding: 0 20px;
-        }
-      }
-    }
-
-    .container {
-      flex-flow: column;
-      align-items: flex-start;
-    }
-
-    &--nav {
-      display: flex;
-      gap: 8px;
-
-      button {
-        width: 16px;
-        height: 16px;
-        border-radius: 100%;
-        background-color: transparent;
-        border: 1px solid $white;
-
-        &.active,
-        &:hover,
-        &:focus {
-          background-color: $white;
-        }
-      }
-    }
-
-    &--slider {
-      padding: 0 0 0 60px;
-      width: 100%;
-      margin: 0 auto;
-      justify-content: flex-start;
-      max-width: 2440px;
-
-      @include isMobile {
-        padding: 0 0 0 20px;
-      }
-
-      .project--samples--img {
-        width: 80vw;
-
-        @include isTablet {
-          width: 75vw;
-        }
-
-        img {
-          width: 100%;
-          height: auto;
-        }
-      }
-    }
-  }
-
-  &--slider {
-    padding-bottom: 80px;
-
-    @include isMobile {
-      padding-bottom: 0;
-    }
-
-    .back-to-controls {
-      opacity: 0;
-      position: sticky;
-      left: 80px;
-      top: 50%;
-      width: 80px;
-      height: 0px;
-      border-radius: 100%;
-      background-color: $black;
-      color: $white;
-      display: block;
-      mix-blend-mode: difference;
-      z-index: 4;
-      text-decoration: none;
-
-      @include isTablet {
-        width: 60px;
-        left: 70px;
-      }
-
-      @include isMobile {
-        display: none;
-      }
-
-      &--text {
-        width: 80px;
-        height: 80px;
-        color: $black;
-        border-radius: 100%;
-        text-transform: uppercase;
-        display: inline-flex;
-        text-align: center;
-        justify-content: center;
-        align-items: center;
-        padding: 8px;
-        font-size: 12px;
-        background-color: $white;
-        position: relative;
-        top: -100%;
-        @include font-stilu-bold;
-
-        @include isTablet {
-          width: 60px;
-          height: 60px;
-          font-size: 10px;
-        }
-      }
-    }
-  }
+	position: relative;
+	z-index: 2;
+
+	&--section {
+		padding: 0 60px;
+		min-height: calc(calc(100vh - 120px) - var(--header-height));
+		display: flex;
+
+		@include isMobile {
+			padding: 0 20px;
+			min-height: auto;
+		}
+	}
+
+	.container {
+		padding: 80px 0px;
+		max-width: $max;
+		width: 100%;
+		margin: 0 auto;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-flow: row;
+		gap: 48px;
+
+		@include isTablet {
+			flex-wrap: wrap;
+			padding: 60px 0;
+		}
+
+		@include isMobile {
+			padding: 40px 0;
+		}
+	}
+
+	&--content {
+		display: flex;
+		flex-flow: column;
+		gap: 48px;
+
+		.project--intro & {
+			width: calc(50% - 24px);
+
+			@include isTablet {
+				width: 100%;
+			}
+
+			> * {
+				max-width: 800px;
+			}
+
+			p {
+				line-height: clamp(32px, toVW(32, 768), 28px);
+				@include font-gontserrat-light;
+			}
+		}
+	}
+
+	&--logo {
+		width: calc(50% - 24px);
+		display: flex;
+		flex-flow: column;
+		justify-content: center;
+		align-items: center;
+		position: relative;
+		gap: 24px;
+
+		@include isTablet {
+			width: 100%;
+		}
+
+		&--img {
+			width: 35%;
+			min-width: 80px;
+			margin: 0 auto;
+			background-color: $white;
+			border-radius: 100%;
+			padding: 35% 0 0;
+			display: flex;
+			overflow: hidden;
+			align-items: center;
+			justify-content: center;
+			position: relative;
+
+			@include isTablet {
+				width: 50%;
+				padding: 0 0 50% 0;
+			}
+
+			img {
+				width: 77%;
+				height: 77%;
+				object-fit: contain;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				mix-blend-mode: multiply;
+			}
+		}
+	}
+
+	&--typo-palette {
+		&.project--section {
+			.container {
+				align-items: initial;
+				gap: 80px;
+
+				@include isTablet {
+					gap: 60px;
+				}
+			}
+
+			.project--content {
+				height: 100%;
+				justify-content: center;
+			}
+		}
+	}
+
+	&--typography {
+		width: 50%;
+
+		@include isTablet {
+			width: 100%;
+		}
+
+		&--list {
+			display: flex;
+			justify-content: left;
+			gap: 16px;
+			flex-flow: column;
+			max-width: 600px;
+			width: 100%;
+
+			.project--typography--item {
+				list-style: none;
+				padding: 0;
+
+				&:not(:last-child) {
+					margin-bottom: 40px;
+				}
+
+				&--label,
+				&--name {
+					display: block;
+				}
+
+				&--label {
+					@include font-gontserrat-semibold;
+				}
+
+				&--name {
+					@include font-gontserrat-light;
+				}
+
+				&[data-font-type='heading'],
+				&[data-font-type='display'] {
+					h3 {
+						font-size: clamp(25px, toVW(25, 525), 45px);
+						line-height: clamp(30px, toVW(30, 525), 50px);
+					}
+				}
+
+				&[data-font-type='paragraph'] {
+					h3 {
+						font-size: 16px;
+						line-height: 32px;
+					}
+				}
+
+				&[data-font-name='Lato'] {
+					h3 {
+						@include font-lato;
+					}
+				}
+
+				&[data-font-name='Bilbo Swash Caps'] {
+					h3 {
+						@include font-bilbo-swash-caps;
+					}
+				}
+
+				&[data-font-name='Bitter'] {
+					h3 {
+						@include font-bitter-bold;
+					}
+				}
+
+				&[data-font-name='Gentium Basic'] {
+					h3 {
+						@include font-gentium-book;
+					}
+				}
+
+				&[data-font-name='Encode Sans'] {
+					h3 {
+						@include font-encode-sans;
+					}
+				}
+
+				&[data-font-name='Raleway'] {
+					h3 {
+						@include font-raleway;
+					}
+				}
+
+				&[data-font-name='Raleway Bold'] {
+					h3 {
+						@include font-raleway-bold;
+					}
+				}
+
+				&[data-font-name='Oswald Bold'] {
+					h3 {
+						@include font-oswald;
+					}
+				}
+
+				&[data-font-name='Oxygen'] {
+					h3 {
+						@include font-oxygen;
+					}
+				}
+
+				&[data-font-name='Gravity Light'] {
+					h3 {
+						@include font-gravity;
+					}
+				}
+
+				&[data-font-name='Roboto'] {
+					h3 {
+						@include font-roboto;
+					}
+				}
+
+				&[data-font-name='Open Sans'] {
+					h3 {
+						@include font-open-sans;
+					}
+				}
+			}
+		}
+	}
+
+	&--color-palette {
+		width: 50%;
+		display: flex;
+		flex-flow: column;
+		gap: 48px;
+
+		@include isTablet {
+			width: 100%;
+		}
+
+		.project--color--list {
+			display: flex;
+			flex-flow: row wrap;
+			align-items: flex-start;
+			gap: 4px;
+
+			.project--color {
+				width: calc(25% - 4px);
+				height: 0;
+				padding: 25% 0 0 0;
+				border-radius: 4px;
+				list-style: none;
+				position: relative;
+				overflow: hidden;
+				-webkit-transform: translateZ(0);
+				transform: translateZ(0);
+
+				&--link {
+					position: absolute;
+					top: 0;
+					left: 0;
+					height: 100%;
+					width: 100%;
+					border-radius: 4px;
+					pointer-events: none;
+					user-select: none;
+					backface-visibility: hidden;
+					transform: translate3d(0, 0, 0);
+				}
+
+				&--wave {
+					position: absolute;
+					top: -2px;
+					left: 0;
+					height: calc(100% + 2px);
+					width: 100%;
+					--webkit-clip-path: path(
+						'M300,300V2.5c0,0-0.6-0.1-1.1-0.1c0,0-25.5-2.3-40.5-2.4c-15,0-40.6,2.4-40.6,2.4c-12.3,1.1-30.3,1.8-31.9,1.9c-2-0.1-19.7-0.8-32-1.9c0,0-25.8-2.3-40.8-2.4c-15,0-40.8,2.4-40.8,2.4c-12.3,1.1-30.4,1.8-32,1.9c-2-0.1-20-0.8-32.2-1.9c0,0-3.1-0.3-8.1-0.7V300H300z'
+					);
+					clip-path: path(
+						'M300,300V2.5c0,0-0.6-0.1-1.1-0.1c0,0-25.5-2.3-40.5-2.4c-15,0-40.6,2.4-40.6,2.4c-12.3,1.1-30.3,1.8-31.9,1.9c-2-0.1-19.7-0.8-32-1.9c0,0-25.8-2.3-40.8-2.4c-15,0-40.8,2.4-40.8,2.4c-12.3,1.1-30.4,1.8-32,1.9c-2-0.1-20-0.8-32.2-1.9c0,0-3.1-0.3-8.1-0.7V300H300z'
+					);
+				}
+
+				&:nth-child(odd) {
+					margin-top: 24px;
+				}
+
+				&::after {
+					content: '';
+					width: calc(100% - 2px);
+					height: calc(100% - 2px);
+					position: absolute;
+					top: 0;
+					left: 0;
+					bottom: 0;
+					right: 0;
+					border: 1px solid $white;
+					opacity: 0.3;
+					border-radius: 4px;
+				}
+			}
+		}
+	}
+
+	&--samples {
+		&.project--section {
+			padding: 0;
+			flex-flow: column;
+
+			.container {
+				padding-bottom: 40px;
+			}
+
+			.project--section--inner {
+				padding: 0 60px;
+
+				@include isMobile {
+					padding: 0 20px;
+				}
+			}
+		}
+
+		.container {
+			flex-flow: column;
+			align-items: flex-start;
+		}
+
+		&--nav {
+			display: flex;
+			gap: 8px;
+			max-width: 90rem;
+			margin: 0 auto;
+			padding-bottom: 40px;
+
+			button {
+				width: 16px;
+				height: 16px;
+				border-radius: 100%;
+				background-color: transparent;
+				border: 1px solid $white;
+
+				&.active,
+				&:hover,
+				&:focus {
+					background-color: $white;
+				}
+			}
+		}
+
+		&--slider {
+			padding: 0 0 0 60px;
+			width: 100%;
+			margin: 0 auto;
+			justify-content: flex-start;
+			max-width: 2440px;
+
+			@include isMobile {
+				padding: 0 0 0 20px;
+			}
+
+			.project--samples--img {
+				width: 80vw;
+
+				@include isTablet {
+					width: 75vw;
+				}
+
+				img {
+					width: 100%;
+					height: auto;
+				}
+			}
+		}
+	}
+
+	&--slider {
+		padding-bottom: 80px;
+
+		@include isMobile {
+			padding-bottom: 0;
+		}
+
+		.back-to-controls {
+			opacity: 0;
+			position: sticky;
+			left: 80px;
+			top: 50%;
+			width: 80px;
+			height: 0px;
+			border-radius: 100%;
+			background-color: $black;
+			color: $white;
+			display: block;
+			mix-blend-mode: difference;
+			z-index: 4;
+			text-decoration: none;
+
+			@include isTablet {
+				width: 60px;
+				left: 70px;
+			}
+
+			@include isMobile {
+				display: none;
+			}
+
+			&--text {
+				width: 80px;
+				height: 80px;
+				color: $black;
+				border-radius: 100%;
+				text-transform: uppercase;
+				display: inline-flex;
+				text-align: center;
+				justify-content: center;
+				align-items: center;
+				padding: 8px;
+				font-size: 12px;
+				background-color: $white;
+				position: relative;
+				top: -100%;
+				@include font-stilu-bold;
+
+				@include isTablet {
+					width: 60px;
+					height: 60px;
+					font-size: 10px;
+				}
+			}
+		}
+	}
+
+	// Embla Styles
+	.embla__viewport {
+		overflow: hidden;
+	}
+
+	.embla__container {
+		display: flex;
+		align-items: flex-start;
+		touch-action: pan-y pinch-zoom;
+		margin-left: calc(60px * -1);
+		transition: height 0.2s;
+	}
+
+	.embla__slide {
+		flex: 0 0 calc(100% - 60px);
+		min-width: 0;
+		padding: 0 0 0 60px;
+	}
+
+	.embla__dot {
+		opacity: 0.5;
+		color: transparent;
+		overflow: hidden;
+		text-indent: 9999px;
+	}
+
+	.embla__dot--selected {
+		opacity: 1;
+	}
 }

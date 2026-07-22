@@ -1,17 +1,21 @@
-const webpack = require('webpack');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const glob = require('glob');
-const path = require('path');
-const Dotenv = require('dotenv-webpack');
+import webpack from 'webpack';
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import path from 'path';
+import Dotenv from 'dotenv-webpack';
 
-module.exports = (env) => {
+export default (env) => {
+  const baseDir = path.resolve(process.cwd());
+  const isProduction = Boolean(env.production);
+
   return {
     entry: {
-      appbundle: glob.sync('./src/**/**.{js,jsx}'),
+      appbundle: path.resolve(baseDir, 'src/index.js'),
     },
     output: {
-      path: path.join(__dirname, './build/'),
-      filename: "[name].js"
+      path: path.join(baseDir, './build/'),
+      filename: "[name].js",
+      chunkFilename: "[name].chunk.js",
+      publicPath: "auto",
     },
     module: {
       rules: [
@@ -40,7 +44,7 @@ module.exports = (env) => {
     },
     plugins: [
       new Dotenv({
-        path: path.join(__dirname, `./.env.${env.production ? "production" : "development"}`)
+        path: path.join(baseDir, `./.env.${isProduction ? "production" : "development"}`)
       }),
       new webpack.ProvidePlugin({
         $: 'jquery',
@@ -51,6 +55,11 @@ module.exports = (env) => {
     ],
     resolve: {
       extensions: ['.js', '.jsx'],
-    }
+    },
+    devtool: isProduction ? false : 'source-map',
+    mode: isProduction ? 'production' : 'development',
+    externals: {
+      jquery: "jQuery",
+    },
   }
 }
