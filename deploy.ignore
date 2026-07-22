@@ -1,0 +1,26 @@
+# Exclude patterns for rsync deploy
+node_modules/
+vendor/
+.git/
+.vscode/
+
+*.log
+*.map
+.env*
+.gitignore
+
+package.json
+yarn.lock
+composer.lock
+
+# Exclude settings files
+.nvmrc
+.prettierrc
+.babelrc
+.phpcs.xml.dist
+postcss.config.js
+webpack.config.js
+.phpcs.xml.dist
+
+# Exclude docs
+docs/

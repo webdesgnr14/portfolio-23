@@ -1,146 +1,146 @@
-@import "../helpers/mixins";
+@import '../helpers/mixins';
 
 .hero {
-  display: flex;
-  height: 100vh;
-  max-height: calc(100vh - 120px);
+	display: flex;
+	height: 100vh;
+	max-height: calc(100vh - 120px);
 
-  @include isMobile {
-    max-height: inherit;
-    height: auto;
-  }
+	@include isMobile {
+		max-height: inherit;
+		height: auto;
+	}
 
-  &--container {
-    display: flex;
-    max-width: $max;
-    margin: 0 auto;
-    gap: 40px 80px;
-    flex-flow: row wrap;
-    align-self: center;
-    min-height: 80vh;
-    width: 100%;
+	&--container {
+		display: flex;
+		max-width: $max;
+		margin: 0 auto;
+		gap: 40px 80px;
+		flex-flow: row wrap;
+		align-self: center;
+		min-height: 80vh;
+		width: 100%;
 
-    @include isTablet {
-      flex-wrap: wrap;
-      min-height: 0;
-      align-self: flex-start;
-    }
+		@include isTablet {
+			flex-wrap: wrap;
+			min-height: 0;
+			align-self: flex-start;
+		}
 
-    @include isMobile {
-      height: auto;
-    }
-  }
+		@include isMobile {
+			height: auto;
+		}
+	}
 
-  &--content {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    width: calc(50% - 40px);
-    gap: 80px;
+	&--content {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		width: calc(50% - 40px);
+		gap: 80px;
 
-    @include isTablet {
-      width: 100%;
-      gap: 60px;
-    }
+		@include isTablet {
+			width: 100%;
+			gap: 60px;
+		}
 
-    @include isMobile {
-      gap: 40px;
-    }
+		@include isMobile {
+			gap: 40px;
+		}
 
-    h1 {
-      //opacity: 0;
-      font-size: clamp(40px, toVW(40, 768), 52px);
+		h1 {
+			//opacity: 0;
+			font-size: clamp(40px, toVW(40, 768), 52px);
 
-      @include isTablet {
-        font-size: clamp(30px, toVW(40, 525), 40px);
-      }
-    }
+			@include isTablet {
+				font-size: clamp(30px, toVW(40, 525), 40px);
+			}
+		}
 
-    .hero--logo {
-      display: inline-block;
-      width: max-content;
-      height: max-content;
+		.hero--logo {
+			display: inline-block;
+			width: max-content;
+			height: max-content;
 
-      svg {
-        pointer-events: none;
-      }
+			svg {
+				pointer-events: none;
+			}
 
-      @include logo-svg;
-    }
-  }
+			@include logo-svg;
+		}
+	}
 
-  &--images {
-    width: calc(50% - 40px);
-    display: flex;
-    position: relative;
+	&--images {
+		width: calc(50% - 40px);
+		display: flex;
+		position: relative;
 
-    @include isTablet {
-      width: 100%;
-    }
+		@include isTablet {
+			width: 100%;
+		}
 
-    &--slider {
-      display: flex;
-      justify-content: center;
-      gap: 3px;
-      height: 100%;
-      width: 100%;
-      min-height: 25vh;
+		&--slider {
+			display: flex;
+			justify-content: center;
+			gap: 3px;
+			height: 100%;
+			width: 100%;
+			min-height: 25vh;
 
-      @include isTablet {
-        min-height: 45vw;
-      }
-    }
+			@include isTablet {
+				min-height: 45vw;
+			}
+		}
 
-    &--slide {
-      list-style: none;
-      width: 25%;
-      flex-shrink: 1;
-      min-height: 25vh;
+		&--slide {
+			list-style: none;
+			width: 25%;
+			flex-shrink: 1;
+			min-height: 25vh;
 
-      @include isTablet {
-        min-height: 45vw;
-      }
+			@include isTablet {
+				min-height: 45vw;
+			}
 
-      &:not(.active) {
-        transition: width 0.2s cubic-bezier(0.47, 0, 0.745, 0.715);
-        &:hover {
-          width: 40%;
-        }
-        img {
-          transition: all 0.2s cubic-bezier(0.47, 0, 0.745, 0.715);
-        }
-      }
+			&:not(.active) {
+				transition: width 0.2s cubic-bezier(0.47, 0, 0.745, 0.715);
+				&:hover {
+					width: 40%;
+				}
+				img {
+					transition: all 0.2s cubic-bezier(0.47, 0, 0.745, 0.715);
+				}
+			}
 
-      a {
-        display: block;
-        height: 100%;
-      }
+			a {
+				display: block;
+				height: 100%;
+			}
 
-      img {
-        pointer-events: none;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-      }
+			img {
+				pointer-events: none;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				object-position: center;
+			}
 
-      &.active {
-        width: 100%;
-      }
-    }
-  }
+			&.active {
+				width: 100%;
+			}
+		}
+	}
 
-  .arrow-svg {
-    width: 100%;
+	.arrow-svg {
+		width: 100%;
 
-    @include isTablet {
-      display: none;
-    }
+		@include isTablet {
+			display: none;
+		}
 
-    svg {
-      margin: 0 auto;
-      display: block;
-      mix-blend-mode: difference;
-    }
-  }
+		svg {
+			margin: 0 auto;
+			display: block;
+			mix-blend-mode: difference;
+		}
+	}
 }

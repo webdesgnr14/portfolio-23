@@ -1,31 +1,35 @@
 .magic-word {
-  text-decoration: none;
-  color: $teal;
+	text-decoration: none;
+	color: $teal;
 
-  span {
-    pointer-events: none;
-    user-select: none;
-  }
-  
-  * {
-    color: inherit;
-    text-decoration: none;
-  }
+	&.cool-off {
+		pointer-events: none;
+	}
 
-  .word,
-  .emoji {
-    border-bottom: 8px dotted $teal;
-    padding-bottom: 2px;
-    pointer-events: none;
-    user-select: none;
-    display: inline-block;
+	span {
+		pointer-events: none;
+		user-select: none;
+	}
 
-    @include isTablet {
-      margin-bottom: 10px;
-    }
+	* {
+		color: inherit;
+		text-decoration: none;
+	}
 
-    @include isMobile {
-      margin-bottom: 8px;
-    }
-  }
+	.word,
+	.emoji {
+		border-bottom: 8px dotted $teal;
+		padding-bottom: 2px;
+		pointer-events: none;
+		user-select: none;
+		display: inline-block;
+
+		@include isTablet {
+			margin-bottom: 10px;
+		}
+
+		@include isMobile {
+			margin-bottom: 8px;
+		}
+	}
 }

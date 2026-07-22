@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<ruleset name="Portfolio23 Theme">
+
+    <description>PHPCS ruleset for the Portfolio23 WordPress theme.</description>
+
+    <!-- Use the WordPress core coding standards -->
+    <rule ref="WordPress-Core" />
+    <rule ref="WordPress-Docs" />
+    <rule ref="WordPress-Extra" />
+
+    <!-- Exclude files/folders that shouldn't be checked -->
+    <exclude-pattern>node_modules/*</exclude-pattern>
+    <exclude-pattern>vendor/*</exclude-pattern>
+    <exclude-pattern>assets/*</exclude-pattern>
+    <exclude-pattern>build/*</exclude-pattern>
+    <exclude-pattern>dist/*</exclude-pattern>
+    <exclude-pattern>*.min.js</exclude-pattern>
+    <exclude-pattern>*.min.css</exclude-pattern>
+    <exclude-pattern>*.pot</exclude-pattern>
+    <exclude-pattern>languages/*</exclude-pattern>
+    <exclude-pattern>*.zip</exclude-pattern>
+    <exclude-pattern>*.log</exclude-pattern>
+    <exclude-pattern>*.json</exclude-pattern>
+    <exclude-pattern>*.lock</exclude-pattern>
+    <exclude-pattern>*.txt</exclude-pattern>
+    <exclude-pattern>*.md</exclude-pattern>
+    <exclude-pattern>.git/*</exclude-pattern>
+    <exclude-pattern>.github/*</exclude-pattern>
+    <exclude-pattern>readme.txt</exclude-pattern>
+    <exclude-pattern>README.md</exclude-pattern>
+    <exclude-pattern>composer.*</exclude-pattern>
+    <exclude-pattern>package*.json</exclude-pattern>
+    <exclude-pattern>gulpfile.js</exclude-pattern>
+    <exclude-pattern>webpack.config.js</exclude-pattern>
+
+    <!-- Scan only .php files by default -->
+    <file>./</file>
+
+    <arg value="sp"/>
+    <arg name="colors"/>
+    <arg name="basepath" value="."/>
+    <arg name="parallel" value="8"/>
+    <arg name="extensions" value="php"/>
+    <arg value="--warning-severity=5"/>
+
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+
+    <rule ref="PHPCompatibilityWP"/>
+
+    <rule
+    ref="WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase"/>
+    <config name="minimum_supported_wp_version" value="6.8"/>
+
+    <rule ref="Squiz.PHP.CommentedOutCode">
+      <properties>
+        <property name="maxPercentage" value="75"/>
+      </properties>
+    </rule>
+
+</ruleset>
