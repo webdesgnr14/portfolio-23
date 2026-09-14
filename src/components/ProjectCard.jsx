@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { CursorContext } from '../context/CursorContextProvider';
 import { Image } from '../components/Image';
 import { HoverElement } from '../components/HoverElement';
+import { RichText } from '../components/RichText';
 
 export const ProjectCard = ({ project, i }) => {
 	const imageRef = React.useRef();
@@ -90,9 +91,9 @@ export const ProjectCard = ({ project, i }) => {
 			)}
 			{project?.details && (
 				<div className="featured--project--details" ref={detailsRef}>
-					<div
+					<RichText
 						className="featured--project--details--content"
-						dangerouslySetInnerHTML={{ __html: project.details }}
+						html={project.details}
 					/>
 					{project?.button?.url && (
 						<HoverElement

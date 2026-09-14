@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { ScrollingText } from './ScrollingText';
 import { FeaturedProject } from './FeaturedProject';
 import { ProjectCard } from './ProjectCard';
+import { RichText } from './RichText';
 import { useLocation } from 'react-router-dom';
 gsap.registerPlugin(ScrollTrigger);
 
@@ -32,22 +33,21 @@ export function Projects({ data }) {
 	return (
 		<div id="projects" className="projects section" ref={projectSectionRef}>
 			<ScrollingText text="Projects" />
-			<FeaturedProject data={featured_projects} />
-			<div className="projects--container">
-				{projects?.body && (
-					<p
-						className="projects--content"
-						dangerouslySetInnerHTML={{ __html: projects.body }}
-					/>
-				)}
-				{projects?.featured_projects.length > 0 && (
-					<ul className="projects--list">
-						{projects.featured_projects.map((project, i) => {
-							return <ProjectCard project={project} i={i} key={i} />;
-						})}
-					</ul>
-				)}
-			</div>
+			{featured_projects && <FeaturedProject data={featured_projects} />}
+			{projects && (
+				<div className="projects--container">
+					{projects?.body && (
+						<RichText className="projects--content" html={projects.body} />
+					)}
+					{projects?.featured_projects?.length > 0 && (
+						<ul className="projects--list">
+							{projects.featured_projects.map((project, i) => {
+								return <ProjectCard project={project} i={i} key={i} />;
+							})}
+						</ul>
+					)}
+				</div>
+			)}
 		</div>
 	);
 }

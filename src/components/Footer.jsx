@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { CursorContext } from '../context/CursorContextProvider';
 import { HoverElement } from './HoverElement';
+import { RichText } from './RichText';
 import { useLocation } from 'react-router-dom';
 import Logo from '../assets/icons/logo.svg?react';
 import GitHub from '../assets/icons/github.svg?react';
@@ -107,13 +108,13 @@ export function Footer() {
 					</ul>
 				</div>
 				<div className="copyright">
-					<p
-						dangerouslySetInnerHTML={{
-							__html:
-								'Copyright &copy; ' +
-								year +
-								' Designed + Developed by Sherise Rogers. MIT License.',
-						}}
+					<RichText
+						as="p"
+						html={
+							'Copyright &copy; ' +
+							year +
+							' Designed + Developed by Sherise Rogers. MIT License.'
+						}
 					/>
 				</div>
 			</div>

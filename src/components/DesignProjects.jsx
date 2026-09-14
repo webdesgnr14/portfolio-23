@@ -2,6 +2,7 @@ import * as React from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { ProjectList } from './DesignProjectList';
+import { RichText } from './RichText';
 gsap.registerPlugin(ScrollTrigger);
 
 export function DesignProjects({ data }) {
@@ -53,10 +54,10 @@ export function DesignProjects({ data }) {
 					<div className="design-projects--content">
 						{data?.heading && <h2 ref={headingRef}>{data?.heading}</h2>}
 						{data?.body && (
-							<div
+							<RichText
 								ref={contentRef}
 								className="design-projects--body"
-								dangerouslySetInnerHTML={{ __html: data?.body }}
+								html={data?.body}
 							/>
 						)}
 					</div>

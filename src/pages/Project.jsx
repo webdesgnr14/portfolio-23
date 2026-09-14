@@ -9,6 +9,7 @@ import { ProjectSection } from '../components/ProjectSection';
 import { ColorList } from '../components/ColorList';
 import { TypeList } from '../components/TypeList';
 import { Pagination } from '../components/Pagination';
+import { RichText } from '../components/RichText';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -121,9 +122,9 @@ export const Project = () => {
 									<h1 ref={headingRef}>{projectData.acf.heading}</h1>
 								)}
 								{projectData?.acf?.body && (
-									<div
+									<RichText
 										className="project--body"
-										dangerouslySetInnerHTML={{ __html: projectData.acf.body }}
+										html={projectData.acf.body}
 									/>
 								)}
 							</div>

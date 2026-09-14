@@ -1,5 +1,6 @@
 import * as React from 'react';
 import useAPI from '../hooks/useApi';
+import { RichText } from './RichText';
 import { send } from 'emailjs-com';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -219,10 +220,10 @@ export const ContactForm = ({ heading, text }) => {
 							<div className="contact--content">
 								{heading && <h1 ref={headingRef}>{heading}</h1>}
 								{text && (
-									<div
+									<RichText
 										ref={bodyRef}
 										className="contact--body"
-										dangerouslySetInnerHTML={{ __html: text }}
+										html={text}
 									/>
 								)}
 							</div>

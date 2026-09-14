@@ -1,4 +1,5 @@
 import { HoverElement } from './HoverElement';
+import { RichText } from './RichText';
 import { getImageIDs } from '../lib/helpers';
 import useAPI from '../hooks/useApi';
 
@@ -37,9 +38,9 @@ export const FeaturedProject = ({ data }) => {
 					</div>
 				)}
 				{data?.details && (
-					<div
+					<RichText
 						className="featured-project__details"
-						dangerouslySetInnerHTML={{ __html: data.details }}
+						html={data.details}
 					/>
 				)}
 				{data?.button && (
