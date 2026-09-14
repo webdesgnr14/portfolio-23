@@ -1,9 +1,41 @@
 import * as React from 'react';
 import useAPI from '../hooks/useApi';
 import { send } from 'emailjs-com';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
+
+const Select = React.forwardRef(
+	({ name, label, options, selectedValue, onChange }, ref) => {
+		return (
+			<select
+				id={name}
+				name={name}
+				onChange={onChange}
+				aria-label={label}
+				ref={ref}
+			>
+				{options.map((option, i) => (
+					<option
+						key={i}
+						value={option.value}
+						selected={option.value === selectedValue}
+					>
+						{option.name}
+					</option>
+				))}
+			</select>
+		);
+	}
+);
+Select.displayName = 'Select';
+
+const FormError = ({ message }) => {
+	return <p className="error-message">{message}</p>;
+};
 
 export const ContactForm = ({ heading, text }) => {
-	const { data: options, apiLoading, apiError } = useAPI('options', 'wp', true);
+	const { data: options, apiLoading, apiError } = useAPI('contact-settings');
 	const [data, setData] = React.useState({
 		first_name: '',
 		last_name: '',
@@ -22,14 +54,20 @@ export const ContactForm = ({ heading, text }) => {
 	const emailRef = React.useRef();
 	const subjectRef = React.useRef();
 	const messageRef = React.useRef();
+	const headingRef = React.useRef();
+	const bodyRef = React.useRef();
+	const formRef = React.useRef();
 
 	const handleChange = (e) => {
 		const key = e.target.getAttribute('name');
 
 		if (e.target.classList.contains('error')) {
 			e.target.classList.remove('error');
-			delete formError[key];
-			setFormError({ ...formError });
+			setFormError((prev) => {
+				const next = { ...prev };
+				delete next[key];
+				return next;
+			});
 		}
 
 		setData({ ...data, [e.target.name]: e.target.value });
@@ -52,12 +90,13 @@ export const ContactForm = ({ heading, text }) => {
 				options.emailjs.service_id,
 				options.emailjs.template_id,
 				data,
-				options.emailjs.private_key
+				options.emailjs.user_id
 			)
-				.then((response) => {
+				.then(() => {
 					setState({ ...state, sending: false, sent: true });
 				})
 				.catch((err) => {
+					console.error('Error sending message:', err);
 					setState({ ...state, sending: false, failed: true });
 				});
 		} else {
@@ -88,31 +127,54 @@ export const ContactForm = ({ heading, text }) => {
 		}
 	};
 
-	const Select = React.forwardRef(({ name, label, options }, ref) => {
-		return (
-			<select
-				id={name}
-				name={name}
-				onChange={(e) => handleChange(e)}
-				aria-label={label}
-				ref={ref}
-			>
-				{options.map((option, i) => (
-					<option
-						key={i}
-						value={option.value}
-						selected={option.value === data.subject}
-					>
-						{option.name}
-					</option>
-				))}
-			</select>
-		);
-	});
+	React.useLayoutEffect(() => {
+		if (
+			!fnRef.current &&
+			!lnRef.current &&
+			!emailRef.current &&
+			!messageRef.current &&
+			!headingRef.current &&
+			!bodyRef.current &&
+			!formRef.current
+		)
+			return;
 
-	const Error = ({ message }) => {
-		return <p className="error-message">{message}</p>;
-	};
+		if (headingRef.current) {
+			gsap.fromTo(
+				headingRef.current,
+				{ opacity: 0, y: -20 },
+				{ opacity: 1, y: 0, duration: 0.5, scrollTrigger: headingRef.current }
+			);
+		}
+
+		if (bodyRef.current) {
+			gsap.fromTo(
+				bodyRef.current,
+				{ opacity: 0, y: -20 },
+				{
+					opacity: 1,
+					y: 0,
+					duration: 0.5,
+					delay: 0.2,
+					scrollTrigger: bodyRef.current,
+				}
+			);
+		}
+
+		if (formRef.current) {
+			gsap.fromTo(
+				formRef.current,
+				{ opacity: 0, y: -20 },
+				{
+					opacity: 1,
+					y: 0,
+					duration: 0.5,
+					delay: 0.4,
+					scrollTrigger: formRef.current,
+				}
+			);
+		}
+	}, [options]);
 
 	if (apiError) console.log('Error loading options:', apiError);
 	if (!options || !options.emailjs || apiLoading) {
@@ -155,17 +217,22 @@ export const ContactForm = ({ heading, text }) => {
 					<>
 						{(heading || text) && (
 							<div className="contact--content">
-								{heading && <h1>{heading}</h1>}
+								{heading && <h1 ref={headingRef}>{heading}</h1>}
 								{text && (
 									<div
+										ref={bodyRef}
 										className="contact--body"
 										dangerouslySetInnerHTML={{ __html: text }}
 									/>
 								)}
 							</div>
 						)}
-						<form className="contact--form--form" onSubmit={(e) => onSubmit(e)}>
-							<label for="subject">
+						<form
+							ref={formRef}
+							className="contact--form--form"
+							onSubmit={(e) => onSubmit(e)}
+						>
+							<label htmlFor="subject">
 								Subject: <span className="asterisk required">*</span>
 							</label>
 							<Select
@@ -175,9 +242,11 @@ export const ContactForm = ({ heading, text }) => {
 									{ name: 'General Inquiry', value: 'general_inquiry' },
 									{ name: 'Consultation', value: 'consultation' },
 								]}
+								selectedValue={data.subject}
+								onChange={handleChange}
 								ref={subjectRef}
 							/>
-							<label for="first_name">
+							<label htmlFor="first_name">
 								First Name: <span className="asterisk required">*</span>
 							</label>
 							<input
@@ -191,9 +260,9 @@ export const ContactForm = ({ heading, text }) => {
 								ref={fnRef}
 							></input>
 							{formError?.first_name && (
-								<Error message="First name is required." />
+								<FormError message="First name is required." />
 							)}
-							<label for="last_name">
+							<label htmlFor="last_name">
 								Last Name: <span className="asterisk required">*</span>
 							</label>
 							<input
@@ -207,9 +276,9 @@ export const ContactForm = ({ heading, text }) => {
 								ref={lnRef}
 							></input>
 							{formError?.last_name && (
-								<Error message="Last name is required." />
+								<FormError message="Last name is required." />
 							)}
-							<label for="email_address">
+							<label htmlFor="email_address">
 								Email Address: <span className="asterisk required">*</span>
 							</label>
 							<input
@@ -223,9 +292,9 @@ export const ContactForm = ({ heading, text }) => {
 								ref={emailRef}
 							></input>
 							{formError?.email_address && (
-								<Error message="Email address is required." />
+								<FormError message="Email address is required." />
 							)}
-							<label for="message">
+							<label htmlFor="message">
 								Message: <span className="asterisk required">*</span>
 							</label>
 							<textarea
@@ -237,7 +306,9 @@ export const ContactForm = ({ heading, text }) => {
 								aria-label="Message"
 								ref={messageRef}
 							></textarea>
-							{formError?.message && <Error message="Message is required." />}
+							{formError?.message && (
+								<FormError message="Message is required." />
+							)}
 							<input
 								type="submit"
 								value="Send Message"

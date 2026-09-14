@@ -8,54 +8,63 @@ export const HoverElement = ({
 	as = 'a',
 	href = null,
 	target = null,
+	rel = null,
 	onMouseEnter,
 	onMouseLeave,
 	onClick = null,
 	passedRef = null,
+	reloadDocument = false,
 	...rest
 }) => {
 	const [isHovering, intentRef, setIsHovering] = useHoverIntent();
 	const Element = as;
 	const hoverRef = passedRef || intentRef;
+	// Prevent reverse tabnabbing on target="_blank" links.
+	const resolvedRel = target === '_blank' ? rel || 'noopener noreferrer' : rel;
+	// React Router's Link is for internal routes. href values often come
+	// from editor-controlled CMS fields that may point off-site, so force
+	// a real navigation for anything that looks external rather than
+	// relying on every caller to remember target="_blank"/reloadDocument.
+	const isExternal = typeof href === 'string' && /^([a-z]+:)?\/\//i.test(href);
 
 	React.useEffect(() => {
-		if (hoverRef) {
-			console.log('hoverRef: ', hoverRef);
-		}
+		const node = hoverRef.current;
+		if (node && onMouseEnter && onMouseLeave) {
+			const handleEnter = () => setIsHovering(true);
+			const handleLeave = () => setIsHovering(false);
 
-		if (hoverRef.current && onMouseEnter && onMouseLeave) {
-			hoverRef.current.addEventListener('mouseenter', (e) => {
-				console.log('mouseenter event', e);
-				setIsHovering(true);
-			});
-			hoverRef.current.addEventListener('mouseleave', (e) => {
-				console.log('mouseleave event', e);
-				setIsHovering(false);
-			});
+			node.addEventListener('mouseenter', handleEnter);
+			node.addEventListener('mouseleave', handleLeave);
 
 			return () => {
-				hoverRef.current?.removeEventListener('mouseenter', setIsHovering);
-				hoverRef.current?.removeEventListener('mouseleave', setIsHovering);
+				node.removeEventListener('mouseenter', handleEnter);
+				node.removeEventListener('mouseleave', handleLeave);
 			};
 		}
-	}, [hoverRef]);
+		// onMouseEnter/onMouseLeave are intentionally excluded: most callers
+		// pass unmemoized inline callbacks, so including them would re-attach
+		// these listeners on every unrelated parent render.
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [hoverRef, setIsHovering]);
 
 	React.useEffect(() => {
-		if (hoverRef.current && onMouseEnter && onMouseLeave) {
+		const node = hoverRef.current;
+		if (node && onMouseEnter && onMouseLeave) {
 			if (isHovering) {
-				onMouseEnter(isHovering, hoverRef.current);
+				onMouseEnter(isHovering, node);
 			} else {
-				onMouseLeave(isHovering, hoverRef.current);
+				onMouseLeave(isHovering, node);
 			}
 
 			return () => {
 				if (isHovering) {
-					onMouseEnter(false, hoverRef.current);
+					onMouseEnter(false, node);
 				} else {
-					onMouseLeave(false, hoverRef.current);
+					onMouseLeave(false, node);
 				}
 			};
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [hoverRef, isHovering]);
 
 	if (Element === 'a') {
@@ -65,6 +74,8 @@ export const HoverElement = ({
 				className={cx('hover-element', rest.className ? rest.className : '')}
 				to={href}
 				target={target}
+				rel={resolvedRel}
+				reloadDocument={isExternal || reloadDocument}
 				onClick={(e) => {
 					if (onClick) {
 						onClick(e);
@@ -83,6 +94,7 @@ export const HoverElement = ({
 			className={cx('hover-element', rest.className ? rest.className : '')}
 			href={href}
 			target={target}
+			rel={resolvedRel}
 			onClick={(e) => {
 				if (onClick) {
 					onClick(e);
