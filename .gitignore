@@ -1,6 +1,5 @@
 # Log files
 *.log
-*.lock
 vendor
 
 # htaccess
@@ -11,6 +10,9 @@ node_modules
 
 # Mac
 .DS_Store
+
+# Build output (rebuilt fresh by CI on every deploy)
+build
 
 # Other
 .env*

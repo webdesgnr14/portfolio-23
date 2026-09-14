@@ -16,11 +16,9 @@ composer.lock
 # Exclude settings files
 .nvmrc
 .prettierrc
-.babelrc
 .phpcs.xml.dist
 postcss.config.js
-webpack.config.js
-.phpcs.xml.dist
+vite.config.js
 
 # Exclude docs
 docs/
