@@ -1,24 +1,27 @@
+@use '../helpers/mixins' as m;
+@use '../helpers/vars' as v;
+
 .call-to-action {
-  @include isMobile {
-    min-height: 150vw;
-  }
+	@include m.isMobile() {
+		min-height: 150vw;
+	}
 
-  &--container {
-    display: flex;
-    flex-flow: column;
-    gap: clamp(40px, toVW(40, 525), 60px);
-    padding: 0 clamp(0, toVW(0, 768), 40px);
-    width: 100%;
-    max-width: $max;
-    margin: 0 auto;
+	&--container {
+		display: flex;
+		flex-flow: column;
+		gap: clamp(40px, m.toVW(40, 525), 60px);
+		padding: 0 clamp(0px, m.toVW(0, 768), 40px);
+		width: 100%;
+		max-width: v.$max;
+		margin: 0 auto;
 
-    .btn {
-      margin-left: auto;
-    }
-  }
+		.btn {
+			margin-left: auto;
+		}
+	}
 
-  &--heading {
-    font-size: clamp(52px, toVW(52, 525), 100px);
-    line-height: clamp(62px, toVW(62, 525), 120px);
-  }
+	&--heading {
+		font-size: clamp(52px, m.toVW(52, 525), 100px);
+		line-height: clamp(62px, m.toVW(62, 525), 120px);
+	}
 }

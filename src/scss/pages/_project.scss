@@ -1,4 +1,7 @@
-@import '../helpers/vars';
+@use '../base/fonts' as f;
+@use '../base/colors' as c;
+@use '../helpers/mixins' as m;
+@use '../helpers/vars' as v;
 
 .project {
 	position: relative;
@@ -9,7 +12,7 @@
 		min-height: calc(calc(100vh - 120px) - var(--header-height));
 		display: flex;
 
-		@include isMobile {
+		@include m.isMobile {
 			padding: 0 20px;
 			min-height: auto;
 		}
@@ -17,7 +20,7 @@
 
 	.container {
 		padding: 80px 0px;
-		max-width: $max;
+		max-width: v.$max;
 		width: 100%;
 		margin: 0 auto;
 		display: flex;
@@ -26,12 +29,12 @@
 		flex-flow: row;
 		gap: 48px;
 
-		@include isTablet {
+		@include m.isTablet {
 			flex-wrap: wrap;
 			padding: 60px 0;
 		}
 
-		@include isMobile {
+		@include m.isMobile {
 			padding: 40px 0;
 		}
 	}
@@ -44,7 +47,7 @@
 		.project--intro & {
 			width: calc(50% - 24px);
 
-			@include isTablet {
+			@include m.isTablet {
 				width: 100%;
 			}
 
@@ -53,8 +56,8 @@
 			}
 
 			p {
-				line-height: clamp(32px, toVW(32, 768), 28px);
-				@include font-gontserrat-light;
+				line-height: clamp(32px, m.toVW(32, 768), 28px);
+				@include f.font-gontserrat-light;
 			}
 		}
 	}
@@ -68,7 +71,7 @@
 		position: relative;
 		gap: 24px;
 
-		@include isTablet {
+		@include m.isTablet {
 			width: 100%;
 		}
 
@@ -76,7 +79,7 @@
 			width: 35%;
 			min-width: 80px;
 			margin: 0 auto;
-			background-color: $white;
+			background-color: c.$white;
 			border-radius: 100%;
 			padding: 35% 0 0;
 			display: flex;
@@ -85,7 +88,7 @@
 			justify-content: center;
 			position: relative;
 
-			@include isTablet {
+			@include m.isTablet {
 				width: 50%;
 				padding: 0 0 50% 0;
 			}
@@ -109,7 +112,7 @@
 				align-items: initial;
 				gap: 80px;
 
-				@include isTablet {
+				@include m.isTablet {
 					gap: 60px;
 				}
 			}
@@ -124,7 +127,7 @@
 	&--typography {
 		width: 50%;
 
-		@include isTablet {
+		@include m.isTablet {
 			width: 100%;
 		}
 
@@ -150,18 +153,18 @@
 				}
 
 				&--label {
-					@include font-gontserrat-semibold;
+					@include f.font-gontserrat-semibold;
 				}
 
 				&--name {
-					@include font-gontserrat-light;
+					@include f.font-gontserrat-light;
 				}
 
 				&[data-font-type='heading'],
 				&[data-font-type='display'] {
 					h3 {
-						font-size: clamp(25px, toVW(25, 525), 45px);
-						line-height: clamp(30px, toVW(30, 525), 50px);
+						font-size: clamp(25px, m.toVW(25, 525), 45px);
+						line-height: clamp(30px, m.toVW(30, 525), 50px);
 					}
 				}
 
@@ -174,73 +177,73 @@
 
 				&[data-font-name='Lato'] {
 					h3 {
-						@include font-lato;
+						@include f.font-lato;
 					}
 				}
 
 				&[data-font-name='Bilbo Swash Caps'] {
 					h3 {
-						@include font-bilbo-swash-caps;
+						@include f.font-bilbo-swash-caps;
 					}
 				}
 
 				&[data-font-name='Bitter'] {
 					h3 {
-						@include font-bitter-bold;
+						@include f.font-bitter-bold;
 					}
 				}
 
 				&[data-font-name='Gentium Basic'] {
 					h3 {
-						@include font-gentium-book;
+						@include f.font-gentium-book;
 					}
 				}
 
 				&[data-font-name='Encode Sans'] {
 					h3 {
-						@include font-encode-sans;
+						@include f.font-encode-sans;
 					}
 				}
 
 				&[data-font-name='Raleway'] {
 					h3 {
-						@include font-raleway;
+						@include f.font-raleway;
 					}
 				}
 
 				&[data-font-name='Raleway Bold'] {
 					h3 {
-						@include font-raleway-bold;
+						@include f.font-raleway-bold;
 					}
 				}
 
 				&[data-font-name='Oswald Bold'] {
 					h3 {
-						@include font-oswald;
+						@include f.font-oswald;
 					}
 				}
 
 				&[data-font-name='Oxygen'] {
 					h3 {
-						@include font-oxygen;
+						@include f.font-oxygen;
 					}
 				}
 
 				&[data-font-name='Gravity Light'] {
 					h3 {
-						@include font-gravity;
+						@include f.font-gravity;
 					}
 				}
 
 				&[data-font-name='Roboto'] {
 					h3 {
-						@include font-roboto;
+						@include f.font-roboto;
 					}
 				}
 
 				&[data-font-name='Open Sans'] {
 					h3 {
-						@include font-open-sans;
+						@include f.font-open-sans;
 					}
 				}
 			}
@@ -253,7 +256,7 @@
 		flex-flow: column;
 		gap: 48px;
 
-		@include isTablet {
+		@include m.isTablet {
 			width: 100%;
 		}
 
@@ -314,7 +317,7 @@
 					left: 0;
 					bottom: 0;
 					right: 0;
-					border: 1px solid $white;
+					border: 1px solid c.$white;
 					opacity: 0.3;
 					border-radius: 4px;
 				}
@@ -334,7 +337,7 @@
 			.project--section--inner {
 				padding: 0 60px;
 
-				@include isMobile {
+				@include m.isMobile {
 					padding: 0 20px;
 				}
 			}
@@ -357,12 +360,12 @@
 				height: 16px;
 				border-radius: 100%;
 				background-color: transparent;
-				border: 1px solid $white;
+				border: 1px solid c.$white;
 
 				&.active,
 				&:hover,
 				&:focus {
-					background-color: $white;
+					background-color: c.$white;
 				}
 			}
 		}
@@ -374,14 +377,14 @@
 			justify-content: flex-start;
 			max-width: 2440px;
 
-			@include isMobile {
+			@include m.isMobile {
 				padding: 0 0 0 20px;
 			}
 
 			.project--samples--img {
 				width: 80vw;
 
-				@include isTablet {
+				@include m.isTablet {
 					width: 75vw;
 				}
 
@@ -396,7 +399,7 @@
 	&--slider {
 		padding-bottom: 80px;
 
-		@include isMobile {
+		@include m.isMobile {
 			padding-bottom: 0;
 		}
 
@@ -408,26 +411,26 @@
 			width: 80px;
 			height: 0px;
 			border-radius: 100%;
-			background-color: $black;
-			color: $white;
+			background-color: c.$black;
+			color: c.$white;
 			display: block;
 			mix-blend-mode: difference;
 			z-index: 4;
 			text-decoration: none;
 
-			@include isTablet {
+			@include m.isTablet {
 				width: 60px;
 				left: 70px;
 			}
 
-			@include isMobile {
+			@include m.isMobile {
 				display: none;
 			}
 
 			&--text {
 				width: 80px;
 				height: 80px;
-				color: $black;
+				color: c.$black;
 				border-radius: 100%;
 				text-transform: uppercase;
 				display: inline-flex;
@@ -436,12 +439,12 @@
 				align-items: center;
 				padding: 8px;
 				font-size: 12px;
-				background-color: $white;
+				background-color: c.$white;
 				position: relative;
 				top: -100%;
-				@include font-stilu-bold;
+				@include f.font-stilu-bold;
 
-				@include isTablet {
+				@include m.isTablet {
 					width: 60px;
 					height: 60px;
 					font-size: 10px;

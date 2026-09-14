@@ -1,47 +1,48 @@
-@import "./vars";
+@use '../base/colors' as c;
+@use '../helpers/vars' as v;
 
 @mixin logo-svg {
-  svg {
-    width: 77px;
-    height: 65px;
-    color: $light-blue;
-    pointer-events: none;
+	svg {
+		width: 77px;
+		height: 65px;
+		color: c.$light-blue;
+		pointer-events: none;
 
-    * {
-      color: inherit;
-    }
-  }
+		* {
+			color: inherit;
+		}
+	}
 
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
+	-webkit-transform: translateZ(0);
+	transform: translateZ(0);
 }
 
 /* Media Queries */
 @mixin isLarge() {
-  @media screen and (min-width: 769px) and (max-width: #{$desktop}) {
-    @content;
-  }
+	@media screen and (min-width: 769px) and (max-width: #{v.$desktop}) {
+		@content;
+	}
 }
 
 @mixin isTablet($direction: max) {
-  @media screen and (#{$direction}-width: #{$tablet}) {
-    @content;
-  }
+	@media screen and (#{$direction}-width: #{v.$tablet}) {
+		@content;
+	}
 }
 
 @mixin isMobile() {
-  @media screen and (max-width: #{$mobile}) {
-    @content;
-  }
+	@media screen and (max-width: #{v.$mobile}) {
+		@content;
+	}
 }
 
 @mixin isCustom($width) {
-  @media screen and (max-width: #{$width}) {
-    @content;
-  }
+	@media screen and (max-width: #{$width}) {
+		@content;
+	}
 }
 
 //Functions
 @function toVW($value, $breakpoint) {
-  @return calc(#{$value} / #{$breakpoint} * 100) + vw;
+	@return calc(#{$value} / #{$breakpoint} * 100) + vw;
 }

@@ -1,93 +1,98 @@
+@use '../base/fonts' as f;
+@use '../base/colors' as c;
+@use '../helpers/vars' as v;
+@use '../helpers/mixins' as m;
+
 .pagination {
-  padding: 0 40px;
+	padding: 0 40px;
 
-  @include isMobile {
-    padding: 0 20px;
-  }
+	@include m.isMobile {
+		padding: 0 20px;
+	}
 
-  .container {
-    max-width: $max;
-    margin: 0 auto;
+	.container {
+		max-width: v.$max;
+		margin: 0 auto;
 
-    .project & {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      gap: 60px;
-      padding-top: 80px;
+		.project & {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			gap: 60px;
+			padding-top: 80px;
 
-      @include isTablet {
-        flex-direction: column;
-        gap: 48px;
-      }
+			@include m.isTablet {
+				flex-direction: column;
+				gap: 48px;
+			}
 
-      @include isMobile {
-        gap: 24px;
-        align-items: flex-start;
-      }
-    }
-  }
+			@include m.isMobile {
+				gap: 24px;
+				align-items: flex-start;
+			}
+		}
+	}
 
-  &--link {
-    color: $light-blue;
-    display: flex;
-    flex-direction: row;
-    gap: 48px;
-    align-items: center;
-    max-width: 50%;
-    width: max-content;
-    text-decoration: none;
+	&--link {
+		color: c.$light-blue;
+		display: flex;
+		flex-direction: row;
+		gap: 48px;
+		align-items: center;
+		max-width: 50%;
+		width: max-content;
+		text-decoration: none;
 
-    @include isMobile {
-      max-width: 100%;
-    }
+		@include m.isMobile {
+			max-width: 100%;
+		}
 
-    svg {
-      width: 80px;
-      height: auto;
+		svg {
+			width: 80px;
+			height: auto;
 
-      @include isTablet {
-        width: 60px;
-      }
+			@include m.isTablet {
+				width: 60px;
+			}
 
-      @include isMobile {
-        width: 48px;
-      }
-    }
+			@include m.isMobile {
+				width: 48px;
+			}
+		}
 
-    &:hover {
-      color: $teal;
-      text-decoration: underline;
-    }
-  }
+		&:hover {
+			color: c.$teal;
+			text-decoration: underline;
+		}
+	}
 
-  &--content {
-    display: flex;
-    flex-direction: column;
-    max-width: 50%;
+	&--content {
+		display: flex;
+		flex-direction: column;
+		max-width: 50%;
 
-    @include isMobile {
-      max-width: 100%;
-    }
+		@include m.isMobile {
+			max-width: 100%;
+		}
 
-    .label, 
-    .title {
-      display: block;
-      letter-spacing: 0.075em;
-    }
+		.label,
+		.title {
+			display: block;
+			letter-spacing: 0.075em;
+		}
 
-    .label {
-      text-transform: uppercase;
-      font-size: 16px;
-      line-height: 20px;
-      @include font-stilu-bold;
-    }
+		.label {
+			text-transform: uppercase;
+			font-size: 16px;
+			line-height: 20px;
+			@include f.font-stilu-bold;
+		}
 
-    .title {
-      font-size: clamp(18px, toVW(16, 525), 24px);
-      line-height: clamp(24px, toVW(20, 525), 28px);
-      @include font-stilu;
-    }
-  }
+		.title {
+			font-size: clamp(18px, m.toVW(16, 525), 24px);
+			line-height: clamp(24px, m.toVW(20, 525), 28px);
+			@include f.font-stilu;
+		}
+	}
 }

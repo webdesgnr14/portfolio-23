@@ -1,6 +1,9 @@
+@use '../base/colors' as c;
+@use '../helpers/mixins' as m;
+
 .magic-word {
 	text-decoration: none;
-	color: $teal;
+	color: c.$teal;
 
 	&.cool-off {
 		pointer-events: none;
@@ -18,17 +21,17 @@
 
 	.word,
 	.emoji {
-		border-bottom: 8px dotted $teal;
+		border-bottom: 8px dotted c.$teal;
 		padding-bottom: 2px;
 		pointer-events: none;
 		user-select: none;
 		display: inline-block;
 
-		@include isTablet {
+		@include m.isTablet {
 			margin-bottom: 10px;
 		}
 
-		@include isMobile {
+		@include m.isMobile {
 			margin-bottom: 8px;
 		}
 	}

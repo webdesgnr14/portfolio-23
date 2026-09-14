@@ -1,18 +1,19 @@
-@import '../helpers/mixins';
+@use '../helpers/mixins' as m;
+@use '../helpers/vars' as v;
 
 .hero {
 	display: flex;
 	height: 100vh;
 	max-height: calc(100vh - 120px);
 
-	@include isMobile {
+	@include m.isMobile {
 		max-height: inherit;
 		height: auto;
 	}
 
 	&--container {
 		display: flex;
-		max-width: $max;
+		max-width: v.$max;
 		margin: 0 auto;
 		gap: 40px 80px;
 		flex-flow: row wrap;
@@ -20,13 +21,13 @@
 		min-height: 80vh;
 		width: 100%;
 
-		@include isTablet {
+		@include m.isTablet {
 			flex-wrap: wrap;
 			min-height: 0;
 			align-self: flex-start;
 		}
 
-		@include isMobile {
+		@include m.isMobile {
 			height: auto;
 		}
 	}
@@ -38,21 +39,21 @@
 		width: calc(50% - 40px);
 		gap: 80px;
 
-		@include isTablet {
+		@include m.isTablet {
 			width: 100%;
 			gap: 60px;
 		}
 
-		@include isMobile {
+		@include m.isMobile {
 			gap: 40px;
 		}
 
 		h1 {
 			//opacity: 0;
-			font-size: clamp(40px, toVW(40, 768), 52px);
+			font-size: clamp(40px, m.toVW(40, 768), 52px);
 
-			@include isTablet {
-				font-size: clamp(30px, toVW(40, 525), 40px);
+			@include m.isTablet {
+				font-size: clamp(30px, m.toVW(40, 525), 40px);
 			}
 		}
 
@@ -65,7 +66,7 @@
 				pointer-events: none;
 			}
 
-			@include logo-svg;
+			@include m.logo-svg;
 		}
 	}
 
@@ -74,7 +75,7 @@
 		display: flex;
 		position: relative;
 
-		@include isTablet {
+		@include m.isTablet {
 			width: 100%;
 		}
 
@@ -86,7 +87,7 @@
 			width: 100%;
 			min-height: 25vh;
 
-			@include isTablet {
+			@include m.isTablet {
 				min-height: 45vw;
 			}
 		}
@@ -97,7 +98,7 @@
 			flex-shrink: 1;
 			min-height: 25vh;
 
-			@include isTablet {
+			@include m.isTablet {
 				min-height: 45vw;
 			}
 
@@ -133,7 +134,7 @@
 	.arrow-svg {
 		width: 100%;
 
-		@include isTablet {
+		@include m.isTablet {
 			display: none;
 		}
 

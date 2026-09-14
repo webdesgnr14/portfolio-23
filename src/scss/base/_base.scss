@@ -1,6 +1,6 @@
-@import './colors';
-@import './fonts';
-@import '../helpers/mixins';
+@use './fonts' as f;
+@use './colors' as c;
+@use '../helpers/mixins' as m;
 
 html,
 body,
@@ -10,15 +10,15 @@ body,
 }
 
 html {
-	background-color: $darkness;
+	background-color: c.$darkness;
 
 	body {
-		@include font-gontserrat;
+		@include f.font-gontserrat;
 		font-size: 16px;
-		color: $light-blue;
+		color: c.$light-blue;
 		padding: 0;
 		cursor: none;
-		background-color: $darkness;
+		background-color: c.$darkness;
 
 		&.loading,
 		&.mobile-menu-open {
@@ -45,13 +45,13 @@ html {
 }
 
 ::-moz-selection {
-	color: $light-blue;
-	background: $gray-green;
+	color: c.$light-blue;
+	background: c.$gray-green;
 }
 
 ::selection {
-	color: $light-blue;
-	background: $gray-green;
+	color: c.$light-blue;
+	background: c.$gray-green;
 }
 
 .app-container {
@@ -62,31 +62,31 @@ html {
 }
 
 main {
-	flex: 1 0 auto;
+	min-height: calc(100dvh - var(--header-height));
 }
 
 h1,
 h2,
 h3,
 h4 {
-	@include font-stilu-bold;
+	@include f.font-stilu-bold;
 
 	margin: 0;
 }
 
 h2 {
-	font-size: clamp(24px, toVW(24, 525), 48px);
-	line-height: clamp(30px, toVW(30, 525), 60px);
+	font-size: clamp(24px, m.toVW(24, 525), 48px);
+	line-height: clamp(30px, m.toVW(30, 525), 60px);
 }
 
 h3 {
-	font-size: clamp(18px, toVW(18, 525), 24px);
-	line-height: clamp(24px, toVW(24, 525), 48px);
+	font-size: clamp(18px, m.toVW(18, 525), 24px);
+	line-height: clamp(24px, m.toVW(24, 525), 48px);
 }
 
 h4 {
 	font-size: 14px;
-	line-height: clamp(15px, toVW(15, 525), 30px);
+	line-height: clamp(15px, m.toVW(15, 525), 30px);
 	text-transform: uppercase;
 }
 
@@ -97,14 +97,14 @@ ol {
 }
 
 li {
-	font-size: clamp(14px, toVW(14, 525), 16px);
-	line-height: clamp(24px, toVW(24, 525), 36px);
+	font-size: clamp(14px, m.toVW(14, 525), 16px);
+	line-height: clamp(24px, m.toVW(24, 525), 36px);
 	letter-spacing: 0.025em;
 }
 
 p {
-	font-size: clamp(14px, toVW(14, 525), 16px);
-	line-height: clamp(24px, toVW(24, 525), 36px);
+	font-size: clamp(14px, m.toVW(14, 525), 16px);
+	line-height: clamp(24px, m.toVW(24, 525), 36px);
 	margin: 0 0 32px;
 	letter-spacing: 0.025em;
 
@@ -114,7 +114,7 @@ p {
 	}
 
 	a {
-		color: $teal;
+		color: c.$teal;
 	}
 }
 
@@ -146,7 +146,7 @@ img {
 	text-align: center;
 	padding: 8px 24px;
 	display: inline-block;
-	@include font-stilu-bold;
+	@include f.font-stilu-bold;
 	transition: all 0.4s ease-in-out;
 	letter-spacing: 0.025em;
 	max-width: max-content;
@@ -154,14 +154,14 @@ img {
 	&--underline {
 		font-size: 16px;
 		padding: 0 0 8px;
-		color: $gray;
+		color: c.$gray;
 		position: relative;
 
 		&::after {
 			content: '';
 			width: 100%;
 			height: 3px;
-			background-color: $teal;
+			background-color: c.$teal;
 			position: absolute;
 			bottom: 0;
 			left: 0;
@@ -171,81 +171,81 @@ img {
 	&--pill {
 		background-color: transparent;
 		border-radius: 40px;
-		color: $gray;
+		color: c.$gray;
 		font-size: 14px;
 		line-height: 24px;
-		border: 1px solid $gray;
+		border: 1px solid c.$gray;
 
 		&:hover {
-			background-color: $teal;
-			border-color: $light-blue;
-			color: $light-blue;
+			background-color: c.$teal;
+			border-color: c.$light-blue;
+			color: c.$light-blue;
 		}
 	}
 
 	&--tab {
-		color: $gray-green;
-		font-size: clamp(14px, toVW(14, 768), 18px);
-		line-height: clamp(18px, toVW(18, 768), 32px);
+		color: c.$gray-green;
+		font-size: clamp(14px, m.toVW(14, 768), 18px);
+		line-height: clamp(18px, m.toVW(18, 768), 32px);
 		padding: 10px 24px;
 		border-radius: 40px;
 		border: 1px solid transparent;
 		background-color: transparent;
 
 		&[type='submit'] {
-			border-color: $gray-green;
+			border-color: c.$gray-green;
 		}
 
-		@include isTablet {
+		@include m.isTablet {
 			padding: 10px 12px;
 		}
 
 		&:hover {
-			border-color: $gray-green;
+			border-color: c.$gray-green;
 		}
 
 		&.active {
-			color: $light-blue;
-			background-color: $teal;
-			border-color: $teal;
+			color: c.$light-blue;
+			background-color: c.$teal;
+			border-color: c.$teal;
 
 			&:hover {
-				color: $light-blue;
-				background-color: $teal;
-				border-color: $light-blue;
+				color: c.$light-blue;
+				background-color: c.$teal;
+				border-color: c.$light-blue;
 			}
 		}
 	}
 
 	&--med {
-		background-color: $teal;
-		color: $light-blue;
-		border: 1px solid $teal;
-		font-size: clamp(18px, toVW(22, 525), 24px);
-		line-height: clamp(28px, toVW(33, 525), 34px);
-		padding: 12px clamp(16px, toVW(16, 525), 32px);
+		background-color: c.$teal;
+		color: c.$light-blue;
+		border: 1px solid c.$teal;
+		font-size: clamp(18px, m.toVW(22, 525), 24px);
+		line-height: clamp(28px, m.toVW(33, 525), 34px);
+		padding: 12px clamp(16px, m.toVW(16, 525), 32px);
 		border-radius: 40px;
 
 		&:hover {
 			background-color: transparent;
-			border-color: $gray;
-			color: $gray;
+			border-color: c.$gray;
+			color: c.$gray;
 		}
 	}
 
 	&--large {
-		background-color: $teal;
-		color: $light-blue;
-		border: 1px solid $teal;
-		font-size: clamp(22px, toVW(22, 525), 44px);
-		line-height: clamp(33px, toVW(33, 525), 54px);
-		padding: 12px clamp(16px, toVW(16, 525), 32px);
+		background-color: c.$teal;
+		color: c.$light-blue;
+		border: 1px solid c.$teal;
+		font-size: clamp(22px, m.toVW(22, 525), 44px);
+		line-height: clamp(33px, m.toVW(33, 525), 54px);
+		padding: 12px clamp(16px, m.toVW(16, 525), 32px);
 		border-radius: 60px;
 
 		&:hover {
 			background-color: transparent;
-			border-color: $gray;
-			color: $gray;
+			border-color: c.$gray;
+			color: c.$gray;
 		}
 	}
 }
@@ -258,11 +258,11 @@ img {
 	align-items: center;
 	padding: 80px 60px;
 
-	@include isTablet {
+	@include m.isTablet {
 		padding: 60px;
 	}
 
-	@include isMobile {
+	@include m.isMobile {
 		padding: 60px 20px;
 	}
 }

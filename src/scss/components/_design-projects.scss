@@ -1,144 +1,148 @@
+@use '../helpers/mixins' as m;
+@use '../base/colors' as c;
+@use '../helpers/vars' as v;
+
 .design-projects {
-  padding-top: 160px;
+	padding-top: 160px;
 
-  @include isTablet {
-    padding-top: 100px;
-  }
+	@include m.isTablet {
+		padding-top: 100px;
+	}
 
-  @include isMobile {
-    padding-top: 80px;
-  }
+	@include m.isMobile {
+		padding-top: 80px;
+	}
 
-  &--container {
-    width: 100%;
-    max-width: $max;
-    margin: 0 auto;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    gap: clamp(60px, toVW(60, 768), 80px);
-    position: relative;
+	&--container {
+		width: 100%;
+		max-width: v.$max;
+		margin: 0 auto;
+		display: flex;
+		justify-content: flex-start;
+		align-items: flex-start;
+		gap: clamp(60px, m.toVW(60, 768), 80px);
+		position: relative;
 
-    @include isTablet {
-      flex-wrap: wrap;
-    }
-  }
+		@include m.isTablet {
+			flex-wrap: wrap;
+		}
+	}
 
-  &--content,
-  &--projects {
-    display: flex;
-    flex-flow: column;
-    flex-basis: calc(50% - 40px);
+	&--content,
+	&--projects {
+		display: flex;
+		flex-flow: column;
+		flex-basis: calc(50% - 40px);
 
-    @include isTablet {
-      flex-basis: 100%;
-    }
-  }
+		@include m.isTablet {
+			flex-basis: 100%;
+		}
+	}
 
-  &--content {
-    gap: 48px;
-    justify-content: flex-start;
-    max-width: 400px;
-    position: sticky;
-    top: 80px;
+	&--content {
+		gap: 48px;
+		justify-content: flex-start;
+		max-width: 400px;
+		position: sticky;
+		top: 80px;
 
-    @include isTablet {
-      position: static;
-      top: inherit;
-    }
-  }
+		@include m.isTablet {
+			position: static;
+			top: inherit;
+		}
+	}
 
-  &--projects {
-    gap: 80px;
-    margin-left: auto;
-  }
+	&--projects {
+		gap: 80px;
+		margin-left: auto;
+	}
 
-  &--list {
-    display: flex;
-    flex-flow: column;
-    gap: 80px;
-  }
+	&--list {
+		display: flex;
+		flex-flow: column;
+		gap: 80px;
+	}
 
-  &--item {
-    display: flex;
-    flex-flow: column;
-    gap: 24px;
-    position: relative;
+	&--item {
+		display: flex;
+		flex-flow: column;
+		gap: 24px;
+		position: relative;
 
-    @include isTablet {
-      width: 75%;
+		@include m.isTablet {
+			width: 75%;
 
-      &:nth-child(odd) {
-        margin-left: auto;
-      }
-    }
+			&:nth-child(odd) {
+				margin-left: auto;
+			}
+		}
 
-    @include isMobile {
-      width: 100%;
+		@include m.isMobile {
+			width: 100%;
 
-      &:nth-child(odd) {
-        margin-left: 0;
-      }
-    }
+			&:nth-child(odd) {
+				margin-left: 0;
+			}
+		}
 
-    .btn {
-      margin-left: auto;
-    }
+		.btn {
+			margin-left: auto;
+		}
 
-    &--image {
-      position: relative;
-      z-index: 2;
-      padding: 10px;
-      background-color: $white;
-      border-radius: 4px;
-      line-height: 0;
-      height: 420px;
-      width: calc(100% - 20px);
+		&--image {
+			position: relative;
+			z-index: 2;
+			padding: 10px;
+			background-color: c.$white;
+			border-radius: 4px;
+			line-height: 0;
+			height: 420px;
+			width: calc(100% - 20px);
 
-      @include isTablet {
-        height: 300px;
-      }
+			@include m.isTablet {
+				height: 300px;
+			}
 
-      a {
-        z-index: 3;
-      }
+			a {
+				z-index: 3;
+			}
 
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center center;
-        border-radius: 2px;
-      }
+			img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				object-position: center center;
+				border-radius: 2px;
+			}
 
-      h3 {
-        position: absolute;
-        top: 40px;
-        left: 10px;
-        max-width: calc(100% - 40px);
-        background-color: $teal;
-        color: $light-blue;
-        padding: 10px 24px;
-        width: max-content;
-        border-top-right-radius: 40px;
-        border-bottom-right-radius: 40px;
-        z-index: 3;
-        font-size: clamp(16px, toVW(16, 525), 18px);
-        line-height: clamp(20px, toVW(20, 525), 24px);
-      }
+			h3 {
+				position: absolute;
+				top: 40px;
+				left: 10px;
+				max-width: calc(100% - 40px);
+				background-color: c.$teal;
+				color: c.$light-blue;
+				padding: 10px 24px;
+				width: max-content;
+				border-top-right-radius: 40px;
+				border-bottom-right-radius: 40px;
+				z-index: 3;
+				font-size: clamp(16px, m.toVW(16, 525), 18px);
+				line-height: clamp(20px, m.toVW(20, 525), 24px);
+			}
 
-      &::after {
-        content: "";
-        z-index: 1;
-        width: 100%;
-        height: 100%;
-        background-color: transparent;
-        border: 1px solid $white;
-        border-radius: 4px;
-        position: absolute;
-        right: -10px;
-        top: -10px;
-      }
-    }
-  }
+			&::after {
+				content: '';
+				z-index: 1;
+				width: 100%;
+				height: 100%;
+				background-color: transparent;
+				border: 1px solid c.$white;
+				border-radius: 4px;
+				position: absolute;
+				right: -10px;
+				top: -10px;
+			}
+		}
+	}
 }
