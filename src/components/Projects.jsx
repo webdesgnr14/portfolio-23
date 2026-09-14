@@ -8,13 +8,12 @@ import { useLocation } from 'react-router-dom';
 gsap.registerPlugin(ScrollTrigger);
 
 export function Projects({ data }) {
-	const { projects, featured_project } = data || {};
+	const { projects, featured_projects } = data || {};
 	const location = useLocation();
 	const projectSectionRef = React.useRef();
 
-	if (!data) return null;
-
 	React.useLayoutEffect(() => {
+		if (!data) return;
 		if (location.hash && projectSectionRef.current) {
 			const id = location.hash.replace('#', '');
 
@@ -26,12 +25,14 @@ export function Projects({ data }) {
 				});
 			}
 		}
-	}, [location, projectSectionRef.current]);
+	}, [location, data]);
+
+	if (!data) return null;
 
 	return (
 		<div id="projects" className="projects section" ref={projectSectionRef}>
 			<ScrollingText text="Projects" />
-			<FeaturedProject data={featured_project} />
+			<FeaturedProject data={featured_projects} />
 			<div className="projects--container">
 				{projects?.body && (
 					<p

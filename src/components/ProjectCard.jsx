@@ -10,22 +10,28 @@ export const ProjectCard = ({ project, i }) => {
 	const cardRef = React.useRef();
 	const [, setCursor] = React.useContext(CursorContext);
 
-	const toggleCursor = React.useCallback((isHovering) => {
-		setCursor(() => {
-			return {
-				active: isHovering,
-				text: isHovering ? 'View Project' : '',
-			};
-		});
-	});
+	const toggleCursor = React.useCallback(
+		(isHovering) => {
+			setCursor(() => {
+				return {
+					active: isHovering,
+					text: isHovering ? 'View Project' : '',
+				};
+			});
+		},
+		[setCursor]
+	);
 
-	const toggleCursorDefault = React.useCallback((isHovering) => {
-		setCursor(() => {
-			return {
-				active: isHovering,
-			};
-		});
-	});
+	const toggleCursorDefault = React.useCallback(
+		(isHovering) => {
+			setCursor(() => {
+				return {
+					active: isHovering,
+				};
+			});
+		},
+		[setCursor]
+	);
 
 	React.useLayoutEffect(() => {
 		gsap.fromTo(
@@ -59,7 +65,7 @@ export const ProjectCard = ({ project, i }) => {
 				ease: 'power1.inOut',
 			}
 		);
-	}, [imageRef.current, detailsRef.current, cardRef.current]);
+	}, []);
 
 	return (
 		<li

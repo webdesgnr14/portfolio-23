@@ -39,8 +39,7 @@ export default function useAPI(api_url, type = 'wp', useProxy = false) {
 		}
 
 		loadData();
-		// Dependency array includes api_url and type so hook responds to param change
-	}, [api_url, type]);
+	}, [api_url, type, useProxy]);
 
 	return { data, apiLoading, apiError };
 }

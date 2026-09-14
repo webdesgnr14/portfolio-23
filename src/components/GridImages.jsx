@@ -62,7 +62,15 @@ export const ImageGrid = ({ data }) => {
 	const imageRefs = React.useRef([]);
 	const [activeSlide, setActiveSlide] = React.useState(null);
 	const sectionRef = React.useRef();
-	const imageContainerRefs = React.useRef(new Map());
+	// One stable ref object per image id, built once per `data` change so
+	// HoverElement's passedRef (which needs a ref object, not a callback)
+	// has something consistent to attach to across renders.
+	const imageContainerRefs = React.useMemo(() => {
+		const map = new Map();
+		// eslint-disable-next-line react-hooks/refs -- creating ref objects up front here, not reading .current
+		data.forEach((image) => map.set(image?.id, React.createRef()));
+		return map;
+	}, [data]);
 	const [, setCursor] = React.useContext(CursorContext);
 
 	const toggleCursor = (isHovering) => {
@@ -80,12 +88,16 @@ export const ImageGrid = ({ data }) => {
 	};
 
 	React.useLayoutEffect(() => {
+		const nodes = Array.from(imageContainerRefs.values()).map(
+			(ref) => ref.current
+		);
 		if (
-			imageContainerRefs.current.size === imageCount &&
+			nodes.length === imageCount &&
+			nodes.every(Boolean) &&
 			window.scrollY === 0
 		) {
 			gsap.fromTo(
-				Array.from(imageContainerRefs.current.values()),
+				nodes,
 				{ opacity: 0, y: -40 },
 				{
 					opacity: 1,
@@ -98,9 +110,7 @@ export const ImageGrid = ({ data }) => {
 				}
 			);
 		}
-	}, []);
-
-	console.log('imageContainerRefs: ', imageContainerRefs.current);
+	}, [imageContainerRefs, imageCount]);
 
 	return (
 		<div className="hero--images">
@@ -112,7 +122,7 @@ export const ImageGrid = ({ data }) => {
 									as="li"
 									key={image?.id}
 									className="hero--images--slide"
-									passedRef={imageContainerRefs.current.get(image?.id)}
+									passedRef={imageContainerRefs.get(image?.id)}
 									id={'hero-slide-' + i}
 									onClick={(e) => {
 										handleImageSlides(e, i);
@@ -140,6 +150,7 @@ export const ImageGrid = ({ data }) => {
 							.map((image) => {
 								return (
 									<ActiveImage
+										key={image?.id}
 										image={image}
 										activeSlide={activeSlide}
 										handleImageSlides={handleImageSlides}

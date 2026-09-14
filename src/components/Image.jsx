@@ -1,8 +1,8 @@
-import wp_api from '../hooks/useApi';
+import useAPI from '../hooks/useApi';
 import * as React from 'react';
 
 export const Image = ({ id, size = null, classes = [], onLoad }) => {
-	const { data: imageData, apiLoading, apiError } = wp_api('media/' + id);
+	const { data: imageData } = useAPI('media/' + id);
 	const [isLoaded, setIsLoaded] = React.useState(false);
 
 	classes = classes.length > 0 ? classes.join(' ') : '';

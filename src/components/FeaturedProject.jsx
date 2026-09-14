@@ -1,17 +1,12 @@
-import * as React from 'react';
 import { HoverElement } from './HoverElement';
 import { getImageIDs } from '../lib/helpers';
-import wp_api from '../hooks/useApi';
+import useAPI from '../hooks/useApi';
 
 export const FeaturedProject = ({ data }) => {
-	if (!data.title || !data.images || !data.button) return null;
-
 	const imageIDs = getImageIDs(data?.images);
-	const {
-		data: imagesData,
-		apiLoading,
-		apiError,
-	} = wp_api('media?include=' + imageIDs);
+	const { data: imagesData } = useAPI('media?include=' + imageIDs);
+
+	if (!data?.title || !data?.images || !data?.button) return null;
 
 	let imageData;
 

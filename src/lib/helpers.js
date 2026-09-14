@@ -8,6 +8,7 @@ export const killAnimations = (el) => {
 };
 
 export function getImageIDs(data) {
+  if (!data || !Array.isArray(data)) return;
   const ids = [];
 
   for (let i = 0; i < data.length; i++) {
@@ -61,25 +62,27 @@ const checkSize = (size, func) => {
   }, 300);
 };
 
-export const isTablet = () => {
+export const useIsTablet = () => {
   const [tablet, setTablet] = React.useState(window.matchMedia("(max-width: 768px)").matches);
 
   React.useEffect(() => {
-    window.addEventListener("resize", () => checkSize(768, setTablet));
+    const onResize = () => checkSize(768, setTablet);
+    window.addEventListener("resize", onResize);
 
-    return () => window.removeEventListener("resize", () => checkSize);
+    return () => window.removeEventListener("resize", onResize);
   }, []);
 
   return tablet;
 }
 
-export const isMobile = () => {
+export const useIsMobile = () => {
   const [mobile, setMobile] = React.useState(window.matchMedia("(max-width: 525px)").matches);
 
   React.useEffect(() => {
-    window.addEventListener("resize", () => checkSize(525, setMobile));
+    const onResize = () => checkSize(525, setMobile);
+    window.addEventListener("resize", onResize);
 
-    return () => window.removeEventListener("resize", () => checkSize);
+    return () => window.removeEventListener("resize", onResize);
   }, []);
 
   return mobile;

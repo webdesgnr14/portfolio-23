@@ -88,6 +88,25 @@ export const Tabs = ({ data }) => {
   const [currTab, setCurrTab] = React.useState(0);
   const [, setCursor] = React.useContext(CursorContext);
 
+  const toggleCursorDefault = React.useCallback(
+    (isHovering) => {
+      setCursor(() => ({
+        active: isHovering,
+      }));
+    },
+    [setCursor]
+  );
+
+  const toggleCursorText = React.useCallback(
+    (isHovering) => {
+      setCursor(() => ({
+        active: isHovering,
+        text: isHovering ? "Scroll >" : "",
+      }));
+    },
+    [setCursor]
+  );
+
   if (!data) return null;
 
   function handleTabs(e, index) {
@@ -95,19 +114,6 @@ export const Tabs = ({ data }) => {
 
     setCurrTab(index);
   }
-
-  const toggleCursorDefault = React.useCallback((isHovering) => {
-    setCursor(() => ({
-      active: isHovering,
-    }));
-  });
-
-  const toggleCursorText = React.useCallback((isHovering) => {
-    setCursor(() => ({
-      active: isHovering,
-      text: isHovering ? "Scroll >" : "",
-    }));
-  });
 
   return (
     <div className="about--right">

@@ -24,7 +24,7 @@ export const Home = () => {
 					<Projects
 						data={{
 							projects: homeData.acf.projects,
-							featured_project: homeData.acf.featured_project,
+							featured_projects: homeData.acf.featured_projects,
 						}}
 					/>
 				)}

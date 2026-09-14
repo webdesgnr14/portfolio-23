@@ -48,6 +48,10 @@ export const useIntersectionObserver = (targets, callback, options = {}) => {
 			mutationObserver.disconnect();
 			observer.disconnect();
 		};
+		// options is deliberately destructured into primitive fields above,
+		// not listed as a whole, so callers can pass a fresh object literal
+		// each render without re-creating these observers every time.
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [targets, options.root, options.rootMargin, options.threshold]);
 
 	return isIntersecting;

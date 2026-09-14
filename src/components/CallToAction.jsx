@@ -14,21 +14,24 @@ const Confetti = React.lazy(() =>
 );
 
 export function CallToAction({ data }) {
-	if (!data) return null;
 	const sectionRef = React.useRef();
 	const containerRef = React.useRef();
 	const [, setCursor] = React.useContext(CursorContext);
 	const [cycleComplete] = React.useContext(MagicWordContext);
 
-	const toggleCursor = React.useCallback((isHovering) => {
-		setCursor(() => {
-			return {
-				active: isHovering,
-			};
-		});
-	});
+	const toggleCursor = React.useCallback(
+		(isHovering) => {
+			setCursor(() => {
+				return {
+					active: isHovering,
+				};
+			});
+		},
+		[setCursor]
+	);
 
 	React.useLayoutEffect(() => {
+		if (!data || !containerRef.current) return;
 		const tl = gsap.timeline({
 			ease: 'power1.inOut',
 			scrollTrigger: {
@@ -43,7 +46,9 @@ export function CallToAction({ data }) {
 			{ opacity: 0, y: 200 },
 			{ opacity: 1, y: 0 }
 		);
-	}, [sectionRef.current, containerRef.current]);
+	}, [data]);
+
+	if (!data) return null;
 
 	return (
 		<div id="contact" className="call-to-action section" ref={sectionRef}>

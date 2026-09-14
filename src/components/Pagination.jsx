@@ -1,86 +1,90 @@
-import * as React from "react";
-import { useLocation } from "react-router-dom";
-import { HoverElement } from "./HoverElement";
-import { CursorContext } from "../context/CursorContextProvider";
-import { ReactComponent as PrevIcon } from "../assets/icons/prev.svg";
-import { ReactComponent as NextIcon } from "../assets/icons/next.svg";
+import * as React from 'react';
+import { useLocation } from 'react-router-dom';
+import { HoverElement } from './HoverElement';
+import { CursorContext } from '../context/CursorContextProvider';
+import PrevIcon from '../assets/icons/prev.svg?react';
+import NextIcon from '../assets/icons/next.svg?react';
 
 export const Pagination = ({ data }) => {
-  if (!data) return null;
+	const [, setCursor] = React.useContext(CursorContext);
+	const location = useLocation();
 
-  const [, setCursor] = React.useContext(CursorContext);
-  const location = useLocation();
-  const url = window.location.origin + location.pathname + location.search;
+	const toggleCursor = React.useCallback(
+		(isHovering) => {
+			setCursor(() => {
+				return {
+					active: isHovering,
+				};
+			});
+		},
+		[setCursor]
+	);
 
-  const toggleCursor = React.useCallback((isHovering) => {
-    setCursor(() => {
-      return {
-        active: isHovering,
-      }
-    });
-  });
+	if (!data) return null;
 
-  const paginationData = data.reduce((acc) => {
-    const pagination = {};
+	const url = window.location.origin + location.pathname + location.search;
 
-    if (!acc) { 
-      acc = data;
-    }
+	const paginationData = data.reduce((acc) => {
+		const pagination = {};
 
-    for (let i = 0; i < acc.length; i++) {
-      const isCurrentPage = acc[i].button.url === url;
+		if (!acc) {
+			acc = data;
+		}
 
-      if (isCurrentPage) {
-        const nextPageIndex = i + 1;
-        const prevPageIndex = i - 1;
+		for (let i = 0; i < acc.length; i++) {
+			const isCurrentPage = acc[i].button.url === url;
 
-        pagination["current"] = acc[i];
-        pagination["prev"] = acc[prevPageIndex];
-        pagination["next"] = acc[nextPageIndex];
+			if (isCurrentPage) {
+				const nextPageIndex = i + 1;
+				const prevPageIndex = i - 1;
 
-        return pagination;
-      }
-    }
-  }, data);
+				pagination['current'] = acc[i];
+				pagination['prev'] = acc[prevPageIndex];
+				pagination['next'] = acc[nextPageIndex];
 
-  if (paginationData?.next || paginationData?.prev) {
-    return (
-      <div className="pagination">
-        <div className="container">
-          {paginationData?.prev && (
-            <HoverElement
-              href={paginationData.prev.button.url}
-              className="pagination--prev pagination--link"
-              onMouseEnter={(isHovering) => toggleCursor(isHovering)}
-              onMouseLeave={(isHovering) => toggleCursor(isHovering)}
-              reloadDocument
-            >
-            <PrevIcon />
-            <div className="pagination--content">
-              <span className="label">{"Previous Project:"}</span>
-              <span className="title">{paginationData.prev.title}</span>
-            </div>
-            </HoverElement>)
-          }
-          {paginationData?.next && (
-            <HoverElement
-              href={paginationData.next.button.url}
-              className="pagination--next pagination--link"
-              onMouseEnter={(isHovering) => toggleCursor(isHovering)}
-              onMouseLeave={(isHovering) => toggleCursor(isHovering)}
-              reloadDocument
-            >
-            <div className="pagination--content">
-              <span className="label">{"Next Project:"}</span>
-              <span className="title">{paginationData.next.title}</span>
-            </div>
-            <NextIcon/>
-            </HoverElement>)
-          }
-        </div>
-      </div>
-    );
-  }
+				return pagination;
+			}
+		}
+	}, data);
 
-  return null;
-}
+	if (paginationData?.next || paginationData?.prev) {
+		return (
+			<div className="pagination">
+				<div className="container">
+					{paginationData?.prev && (
+						<HoverElement
+							href={paginationData.prev.button.url}
+							className="pagination--prev pagination--link"
+							onMouseEnter={(isHovering) => toggleCursor(isHovering)}
+							onMouseLeave={(isHovering) => toggleCursor(isHovering)}
+							reloadDocument
+						>
+							<PrevIcon />
+							<div className="pagination--content">
+								<span className="label">{'Previous Project:'}</span>
+								<span className="title">{paginationData.prev.title}</span>
+							</div>
+						</HoverElement>
+					)}
+					{paginationData?.next && (
+						<HoverElement
+							href={paginationData.next.button.url}
+							className="pagination--next pagination--link"
+							onMouseEnter={(isHovering) => toggleCursor(isHovering)}
+							onMouseLeave={(isHovering) => toggleCursor(isHovering)}
+							reloadDocument
+						>
+							<div className="pagination--content">
+								<span className="label">{'Next Project:'}</span>
+								<span className="title">{paginationData.next.title}</span>
+							</div>
+							<NextIcon />
+						</HoverElement>
+					)}
+				</div>
+			</div>
+		);
+	}
+
+	return null;
+};

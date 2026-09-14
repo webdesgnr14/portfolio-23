@@ -1,5 +1,4 @@
 import * as React from 'react';
-import ReactCanvasConfetti from 'react-canvas-confetti';
 import confetti from 'canvas-confetti';
 
 export function Confetti({ action = false, height }) {
@@ -22,8 +21,8 @@ export function Confetti({ action = false, height }) {
 	// Fire the confetti with custom options
 	const fire = React.useCallback(() => {
 		if (refAnimationInstance.current) {
-			var duration = 3 * 1000;
-			var end = Date.now() + duration;
+			const duration = 3 * 1000;
+			const end = Date.now() + duration;
 
 			(function frame() {
 				// launch a few confetti from the left edge
@@ -69,7 +68,7 @@ export function Confetti({ action = false, height }) {
 		if (action) {
 			fire();
 		}
-	}, [action]);
+	}, [action, fire]);
 
-	return <ReactCanvasConfetti onInit={getInstance} style={canvasStyles} />;
+	return <canvas ref={getInstance} style={canvasStyles} />;
 }

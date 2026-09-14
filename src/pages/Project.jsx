@@ -114,7 +114,6 @@ export const Project = () => {
 						name="intro"
 						ref={sectionRef}
 						func={animateIntro}
-						funcReqs={[sectionRef.current, contentRef.current, logoRef.current]}
 					>
 						{(projectData?.acf?.heading || projectData?.acf?.body) && (
 							<div className="project--content" ref={contentRef}>
@@ -148,13 +147,6 @@ export const Project = () => {
 					<ProjectSection
 						name="typo-palette"
 						func={animateTypeSection}
-						funcReqs={[
-							typeHeadingRef.current,
-							typeSectionRef.current,
-							typeListRef.current,
-							paletteHeadingRef.current,
-							paletteListRef.current,
-						]}
 						ref={typeSectionRef}
 					>
 						{projectData?.acf?.typography?.length > 0 && (

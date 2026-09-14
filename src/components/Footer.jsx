@@ -4,10 +4,10 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { CursorContext } from '../context/CursorContextProvider';
 import { HoverElement } from './HoverElement';
 import { useLocation } from 'react-router-dom';
-import { ReactComponent as Logo } from '../assets/icons/logo.svg';
-import { ReactComponent as GitHub } from '../assets/icons/github.svg';
-import { ReactComponent as Behance } from '../assets/icons/behance.svg';
-import { ReactComponent as LinkedIn } from '../assets/icons/linkedin.svg';
+import Logo from '../assets/icons/logo.svg?react';
+import GitHub from '../assets/icons/github.svg?react';
+import Behance from '../assets/icons/behance.svg?react';
+import LinkedIn from '../assets/icons/linkedin.svg?react';
 import { spinAnimation, spinReverseAnimation } from '../lib/helpers';
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,8 +17,6 @@ export function Footer() {
 	const logoRef = React.useRef();
 	const year = new Date().getFullYear();
 	const [, setCursor] = React.useContext(CursorContext);
-
-	if (location.pathname === '/404') return null;
 
 	const toggleCursor = (isHovering) => {
 		setCursor(() => {
@@ -38,7 +36,9 @@ export function Footer() {
 				ease: 'power1.inOut',
 			});
 		}
-	}, [footerRef.current]);
+	}, []);
+
+	if (location.pathname === '/404') return null;
 
 	return (
 		<footer id="footer" className="footer" ref={footerRef}>

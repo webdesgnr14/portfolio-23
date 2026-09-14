@@ -5,8 +5,6 @@ import { HoverElement } from './HoverElement';
 import { CursorContext } from '../context/CursorContextProvider';
 
 export const ProjectList = ({ projects }) => {
-	if (projects.length === 0) return null;
-
 	const cardRef = React.useRef([]);
 	const projectCount = projects.length;
 	const [, setCursor] = React.useContext(CursorContext);
@@ -34,36 +32,38 @@ export const ProjectList = ({ projects }) => {
 		[setCursor]
 	);
 
+	React.useLayoutEffect(() => {
+		if (projectCount === cardRef.current.length) {
+			const ctx = gsap.context(() => {
+				gsap.utils.toArray(cardRef.current).forEach(function (e) {
+					gsap.fromTo(
+						e,
+						{ opacity: 0, y: -40 },
+						{
+							opacity: 1,
+							y: 0,
+							scrollTrigger: {
+								trigger: e,
+								start: 'top bottom',
+								end: 'bottom bottom',
+								scrub: 0.5,
+							},
+							ease: 'power1.inOut',
+						}
+					);
+				});
+			}, cardRef.current);
+
+			return () => ctx.revert();
+		}
+	}, [projectCount]);
+
+	if (projects.length === 0) return null;
+
 	return (
 		<div className="design-projects--projects">
 			<ul className="design-projects--list">
 				{projects.map((project, i) => {
-					React.useLayoutEffect(() => {
-						if (projectCount === cardRef.current.length) {
-							const ctx = gsap.context(() => {
-								gsap.utils.toArray(cardRef.current).forEach(function (e) {
-									gsap.fromTo(
-										e,
-										{ opacity: 0, y: -40 },
-										{
-											opacity: 1,
-											y: 0,
-											scrollTrigger: {
-												trigger: e,
-												start: 'top bottom',
-												end: 'bottom bottom',
-												scrub: 0.5,
-											},
-											ease: 'power1.inOut',
-										}
-									);
-								});
-							}, cardRef.current);
-
-							return () => ctx.revert();
-						}
-					}, []);
-
 					return (
 						<li
 							className="design-projects--item"

@@ -5,12 +5,12 @@ import { ProjectList } from './DesignProjectList';
 gsap.registerPlugin(ScrollTrigger);
 
 export function DesignProjects({ data }) {
-	if (!data) return null;
 	const containerRef = React.useRef();
 	const headingRef = React.useRef();
 	const contentRef = React.useRef();
 
 	React.useLayoutEffect(() => {
+		if (!data || !headingRef.current || !contentRef.current) return;
 		gsap.fromTo(
 			headingRef.current,
 			{ opacity: 0, y: 40 },
@@ -42,7 +42,9 @@ export function DesignProjects({ data }) {
 				ease: 'power1.inOut',
 			}
 		);
-	}, [containerRef.current, headingRef.current, contentRef.current]);
+	}, [data]);
+
+	if (!data) return null;
 
 	return (
 		<div className="design-projects section" ref={containerRef}>

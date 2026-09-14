@@ -5,33 +5,31 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 gsap.registerPlugin(TextPlugin);
 
+const QUOTES = [
+	'To infinity... and beyond!',
+	"You're killin' me, Smalls.",
+	"You had me at 'hello.'",
+	"Whatchu' talkin' bout Willis?",
+	'Just keep swimming.',
+	'Fairy tales can come true. You gotta make them happen, it all depends on you.',
+	"Roads? Where we're going we don't need roads.",
+	"There's no crying in baseball!",
+	'Carpe diem. Seize the day, boys. Make your lives extraordinary.',
+	'May the Force be with you.',
+	'Hey, Auntie 🙃.',
+	"There is no secret ingredient. It's just you.",
+	'This is... SPARTA! *KICK*',
+];
+
+const getRandIndex = () => {
+	return Math.floor(Math.random() * QUOTES.length);
+};
+
 export const TypeList = React.forwardRef(({ fonts }, ref) => {
 	const length = fonts.length;
 	const typeCursorRefs = React.useRef([]);
 	const typewriterRefs = React.useRef([]);
 	const typeRefs = React.useRef([]);
-
-	const quotes = [
-		'To infinity... and beyond!',
-		"You're killin' me, Smalls.",
-		"You had me at 'hello.'",
-		"Whatchu' talkin' bout Willis?",
-		'Just keep swimming.',
-		'Fairy tales can come true. You gotta make them happen, it all depends on you.',
-		"Roads? Where we're going we don't need roads.",
-		"There's no crying in baseball!",
-		'Carpe diem. Seize the day, boys. Make your lives extraordinary.',
-		'May the Force be with you.',
-		'Hey, Auntie 🙃.',
-		"There is no secret ingredient. It's just you.",
-		'This is... SPARTA! *KICK*',
-	];
-
-	const quotesLength = quotes.length;
-
-	const getRandIndex = () => {
-		return Math.floor(Math.random() * (quotesLength - 0) + 0);
-	};
 
 	React.useLayoutEffect(() => {
 		if (
@@ -83,7 +81,7 @@ export const TypeList = React.forwardRef(({ fonts }, ref) => {
 							stagger: 3.6,
 							text: {
 								value:
-									quotes[randIndex] ||
+									QUOTES[randIndex] ||
 									'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 							},
 							duration: 3,
@@ -95,7 +93,7 @@ export const TypeList = React.forwardRef(({ fonts }, ref) => {
 
 			return () => ctx.revert();
 		}
-	}, [ref, typeRefs.current, typewriterRefs.current, typeCursorRefs.current]);
+	}, [ref, length]);
 
 	return (
 		<ul className="project--typography--list" ref={ref}>
@@ -132,3 +130,4 @@ export const TypeList = React.forwardRef(({ fonts }, ref) => {
 		</ul>
 	);
 });
+TypeList.displayName = 'TypeList';

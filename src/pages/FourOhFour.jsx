@@ -21,7 +21,7 @@ export function FourOhFour() {
       <div className="four-oh-four--container">
         <div className="four-oh-four--content">
           <h1>Oh No!</h1>
-          <p>There's no magic in NOT finding what you're looking for, it seems the page you're trying to find no longer exists.</p>
+          <p>There&apos;s no magic in NOT finding what you&apos;re looking for, it seems the page you&apos;re trying to find no longer exists.</p>
           <HoverElement
             className="btn btn--large"
             href="/"

@@ -28,7 +28,7 @@ const Word = React.forwardRef(({ i, word, coolDown }, ref) => {
 		} else {
 			ref.current.classList.remove('cool-off');
 		}
-	}, [ref.current, coolDown]);
+	}, [coolDown, ref]);
 
 	if (i !== 0) {
 		return (
@@ -46,15 +46,14 @@ const Word = React.forwardRef(({ i, word, coolDown }, ref) => {
 		</span>
 	);
 });
+Word.displayName = 'Word';
 
 export const MagicWord = ({ phrase, placement, emojis }) => {
-	if (!phrase || !placement || emojis.length === 0) return;
 	const [, setCursor] = React.useContext(CursorContext);
 	const [, setCycleComplete] = React.useContext(MagicWordContext);
 	const [showEmoji, setShowEmoji] = React.useState(false);
 	const [coolDown, setCoolDown] = React.useState(false);
 	const [emojiIndex, setEmojiIndex] = React.useState(null);
-	const words = phrase.split(' ');
 	const wordRef = React.useRef(null);
 
 	const toggleConfetti = React.useCallback(
@@ -109,7 +108,11 @@ export const MagicWord = ({ phrase, placement, emojis }) => {
 			setCoolDown(false);
 			toggleConfetti(false);
 		}, 5000);
-	}, [setCursor]);
+	}, [setCursor, toggleConfetti]);
+
+	if (!phrase || !placement || emojis.length === 0) return;
+
+	const words = phrase.split(' ');
 
 	if (words.length > 0) {
 		return words.map((word, i) => {

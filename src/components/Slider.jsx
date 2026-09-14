@@ -8,8 +8,21 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { CursorContext } from '../context/CursorContextProvider';
 import { Image } from '../components/Image';
 import { HoverElement } from './HoverElement';
-import { isMobile } from '../lib/helpers';
 gsap.registerPlugin(ScrollTrigger);
+
+const BREAKPOINT = 768;
+const PLUGIN_OPTIONS = {
+	active: true,
+	breakpoint: BREAKPOINT,
+};
+const OPTIONS = {
+	containScroll: false,
+	align: 'start',
+	skipSnaps: false,
+	loop: false,
+	slidesToScroll: 1,
+};
+const PLUGINS = [AutoHeight(PLUGIN_OPTIONS), Fade(PLUGIN_OPTIONS)];
 
 export const Slider = ({ design_samples }) => {
 	const [isLoaded, setIsLoaded] = React.useState(false);
@@ -17,27 +30,19 @@ export const Slider = ({ design_samples }) => {
 	const btnRef = React.useRef();
 	const containerRef = React.useRef();
 
-	const breakpoint = 768;
-	const pluginOptions = {
-		active: true,
-		breakpoint: breakpoint,
-	};
-	const options = {
-		containScroll: false,
-		align: 'start',
-		skipSnaps: false,
-		loop: false,
-		slidesToScroll: 1,
-	};
-	const plugins = [AutoHeight(pluginOptions), Fade(pluginOptions)];
-
-	const [emblaRef, emblaApi] = useEmblaCarousel(options, plugins);
+	const [emblaRef, emblaApi] = useEmblaCarousel(OPTIONS, PLUGINS);
 	const [scrollSnaps, setScrollSnaps] = React.useState([]);
 	const [selectedSnap, setSelectedSnap] = React.useState(0);
 	const scrollTo = (index) => emblaApi?.scrollTo(index);
 	const snaps = emblaApi?.scrollSnapList();
-	const setupSnaps = () => setScrollSnaps(snaps);
-	const setActiveSnap = () => setSelectedSnap(emblaApi?.selectedScrollSnap());
+	const setupSnaps = React.useCallback(
+		() => setScrollSnaps(snaps),
+		[snaps]
+	);
+	const setActiveSnap = React.useCallback(
+		() => setSelectedSnap(emblaApi?.selectedScrollSnap()),
+		[emblaApi]
+	);
 
 	const handleScroll = (e, id) => {
 		e.preventDefault();
@@ -59,12 +64,15 @@ export const Slider = ({ design_samples }) => {
 	// Function to re-initialize Embla when the slide changes
 	const reInitHeight = React.useCallback(() => {
 		if (emblaApi) {
-			emblaApi.reInit(options, plugins);
+			emblaApi.reInit(OPTIONS, PLUGINS);
 		}
 	}, [emblaApi]);
 
 	React.useEffect(() => {
 		if (isLoaded && emblaApi) {
+			// scrollSnaps/selectedSnap only exist once the Embla instance is
+			// ready, so they can't be computed during render.
+			// eslint-disable-next-line react-hooks/set-state-in-effect
 			setupSnaps();
 			setActiveSnap();
 			reInitHeight();
@@ -79,7 +87,7 @@ export const Slider = ({ design_samples }) => {
 				emblaApi.off('select', reInitHeight);
 			};
 		}
-	}, [emblaApi, isLoaded, reInitHeight]);
+	}, [emblaApi, isLoaded, reInitHeight, setupSnaps, setActiveSnap]);
 
 	React.useLayoutEffect(() => {
 		gsap.to(btnRef.current, {
