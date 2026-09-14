@@ -2,6 +2,7 @@ import * as React from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { Tabs } from './Tabs';
+import { RichText } from './RichText';
 import { useLocation } from 'react-router-dom';
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,9 +12,8 @@ export function About({ data }) {
 	const contentRef = React.useRef();
 	const location = useLocation();
 
-	if (!data) return null;
-
 	React.useLayoutEffect(() => {
+		if (!data) return;
 		if (location.hash && containerRef.current) {
 			const id = location.hash.replace('#', '');
 
@@ -25,9 +25,10 @@ export function About({ data }) {
 				});
 			}
 		}
-	}, [location, containerRef.current]);
+	}, [location, data]);
 
 	React.useLayoutEffect(() => {
+		if (!data || !headingRef.current || !contentRef.current) return;
 		gsap.fromTo(
 			headingRef.current,
 			{ opacity: 0, y: -40 },
@@ -59,7 +60,9 @@ export function About({ data }) {
 				ease: 'power1.inOut',
 			}
 		);
-	}, [containerRef.current, headingRef.current, contentRef.current]);
+	}, [data]);
+
+	if (!data) return null;
 
 	return (
 		<div id="about-me" className="about section" ref={containerRef}>
@@ -73,11 +76,11 @@ export function About({ data }) {
 								</h2>
 							)}
 							{data?.body && (
-								<div
+								<RichText
 									className="about--body"
 									ref={contentRef}
-									dangerouslySetInnerHTML={{ __html: data.body }}
-								></div>
+									html={data.body}
+								/>
 							)}
 						</div>
 					)}
