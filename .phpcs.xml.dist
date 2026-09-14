@@ -41,11 +41,20 @@
     <arg name="basepath" value="."/>
     <arg name="parallel" value="8"/>
     <arg name="extensions" value="php"/>
-    <arg value="--warning-severity=5"/>
-
-    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+    <arg name="warning-severity" value="5"/>
 
     <rule ref="PHPCompatibilityWP"/>
+    <!-- Matches docs/setup.md's documented minimum PHP version. Without
+         this, PHPCompatibilityWP crashes on PHP 8.1+ trying to trim() an
+         unset testVersion config value. -->
+    <config name="testVersion" value="7.4-"/>
+
+    <!-- functions.php's file doc comment is immediately followed by a
+         require_once, which this sniff always misattributes as "missing"
+         regardless of the comment's content - see FileCommentSniff::process(). -->
+    <rule ref="Squiz.Commenting.FileComment.Missing">
+        <exclude-pattern>functions.php</exclude-pattern>
+    </rule>
 
     <rule
     ref="WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase"/>
