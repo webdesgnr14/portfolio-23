@@ -1,31 +1,29 @@
 import * as React from 'react';
 import gsap from 'gsap';
-import wp_api from '../hooks/useApi';
+import useAPI from '../hooks/useApi';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { CursorContext } from '../context/CursorContextProvider';
+import { HeroContext } from '../context/HeroContextProvider';
 import {
 	spinAnimation,
 	spinReverseAnimation,
 	getImageIDs,
 } from '../lib/helpers';
-import { ReactComponent as Logo } from '../assets/icons/logo.svg';
-import { ReactComponent as Arrow } from '../assets/icons/arrow.svg';
+import Logo from '../assets/icons/logo.svg?react';
+import Arrow from '../assets/icons/arrow.svg?react';
 import { ImageGrid } from './GridImages';
 import { HoverElement } from './HoverElement';
 gsap.registerPlugin(ScrollTrigger);
 
 export function Hero({ data }) {
 	const imageIDs = getImageIDs(data?.images);
-	const {
-		data: imagesData,
-		apiLoading,
-		apiError,
-	} = wp_api('media?include=' + imageIDs);
+	const { data: imagesData } = useAPI('media?include=' + imageIDs);
 	const heroRef = React.useRef();
 	const headingRef = React.useRef();
 	const fadeInLogoRef = React.useRef();
 	const arrowRef = React.useRef();
 	const [, setCursor] = React.useContext(CursorContext);
+	const [, setHeroLoaded] = React.useContext(HeroContext);
 
 	const toggleCursor = (isHovering) => {
 		setCursor(() => {
@@ -34,6 +32,12 @@ export function Hero({ data }) {
 			};
 		});
 	};
+
+	const toggleHeroLoaded = React.useCallback(() => {
+		setHeroLoaded(() => {
+			return { isLoaded: true };
+		});
+	}, [setHeroLoaded]);
 
 	React.useLayoutEffect(() => {
 		if (fadeInLogoRef.current && heroRef.current) {
@@ -66,7 +70,7 @@ export function Hero({ data }) {
 				{
 					opacity: 1,
 					transform: 'translateY(0)',
-					delay: 0.2,
+					delay: 0.4,
 					duration: 0.5,
 					scrollTrigger: {
 						trigger: heroRef.current,
@@ -86,7 +90,7 @@ export function Hero({ data }) {
 				},
 				{
 					opacity: 1,
-					delay: 0.6,
+					delay: 1,
 					duration: 0.5,
 					scrollTrigger: {
 						trigger: heroRef.current,
@@ -96,6 +100,12 @@ export function Hero({ data }) {
 			);
 		}
 	}, []);
+
+	React.useEffect(() => {
+		if (heroRef.current) {
+			toggleHeroLoaded();
+		}
+	}, [toggleHeroLoaded]);
 
 	if (Object.keys(data).length > 0) {
 		return (

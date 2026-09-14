@@ -10,6 +10,7 @@ import LoadingContextProvider from '../context/LoadingContextProvider';
 import CursorContextProvider from '../context/CursorContextProvider';
 import MagicWordContextProvider from '../context/MagicWordContextProvider';
 import MenuClickContextProvider from '../context/NavigationContextProvider';
+import HeroContextProvider from '../context/HeroContextProvider';
 
 const StaticBg = React.lazy(() =>
 	import('../components/StaticBg').then((module) => ({
@@ -49,21 +50,23 @@ export const App = () => {
 				<CursorContextProvider>
 					<MenuClickContextProvider>
 						<MagicWordContextProvider>
-							<AppTransition />
-							{!isHome && <Header />}
-							<main className="main">
-								<React.Suspense fallback={null}>
-									<Routes location={location}>
-										<Route path="/" element={<Home />} />
-										<Route path="/contact/" element={<Contact />} />
-										<Route path="/project/:slug/" element={<Project />} />
-										<Route path="*" element={<FourOhFour />} />
-									</Routes>
-								</React.Suspense>
-							</main>
-							{isHome && <Header />}
-							<Footer />
-							<Cursor />
+							<HeroContextProvider>
+								<AppTransition />
+								{!isHome && <Header />}
+								<main className="main">
+									<React.Suspense fallback={null}>
+										<Routes location={location}>
+											<Route path="/" element={<Home />} />
+											<Route path="/contact/" element={<Contact />} />
+											<Route path="/project/:slug/" element={<Project />} />
+											<Route path="*" element={<FourOhFour />} />
+										</Routes>
+									</React.Suspense>
+								</main>
+								{isHome && <Header />}
+								<Footer />
+								<Cursor />
+							</HeroContextProvider>
 						</MagicWordContextProvider>
 					</MenuClickContextProvider>
 				</CursorContextProvider>
