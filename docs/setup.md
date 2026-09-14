@@ -14,8 +14,8 @@
 <!-- END doctoc -->
 
 ## Requirements
-- Node.js: >=20.17.0 <21
-- NPM: >=11 <12
+- Node.js: >=24.0.0 (see `.nvmrc`)
+- Yarn: 1.x (the project's `packageManager` field pins the exact version; run `corepack enable` to get it automatically)
 - PHP: >=7.4 (8.x recommended for WP)
 - MySQL
 
@@ -24,6 +24,7 @@
 2. Install dependencies
    ```sh
    yarn install
+   composer install
    ```
 3. Build or run in dev mode
    ```sh
@@ -31,6 +32,12 @@
    ```
 4. Set up your WordPress backend (locally or through your host)
 5. Visit http://localhost:xxxx
+
+## Linting
+- `yarn lint` / `yarn lint:fix` - ESLint (React, Hooks, and accessibility rules), config in `eslint.config.js`
+- `yarn lint:php` / `yarn lint:php:fix` - PHPCS against WordPress Coding Standards, config in `.phpcs.xml.dist` (requires `composer install`)
+- `yarn fix` runs both auto-fixers, then re-reports what's left
+- Both run in CI on every push/PR and must pass
 
 ## Automatic Documentation Table of Contents
 - All markdown docs in `/docs` use an auto-generated TOC (Table of Contents).
