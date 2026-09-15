@@ -23,7 +23,8 @@
 		"lint:php:fix": "vendor/bin/phpcbf",
 		"fix": "yarn lint:fix; yarn lint:php:fix; yarn lint:php",
 		"doctoc": "doctoc docs/",
-		"sync": "browser-sync start -p 'localhost' --files './build/*.js' './build/*.css' '**/*.php'"
+		"sync": "browser-sync start -p 'localhost' --files './build/*.js' './build/*.css' '**/*.php'",
+		"prepare": "git config core.hooksPath .githooks"
 	},
 	"dependencies": {
 		"baseline-browser-mapping": "^2.10.12",

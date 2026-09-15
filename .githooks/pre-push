@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+
+if [ -s "$HOME/.nvm/nvm.sh" ]; then
+  . "$HOME/.nvm/nvm.sh"
+  nvm use >/dev/null
+fi
+
+yarn lint
+lint_status=$?
+
+yarn lint:php
+phpcs_status=$?
+
+if [ "$lint_status" -ne 0 ] || [ "$phpcs_status" -ne 0 ]; then
+  echo ""
+  echo "Push blocked: fix the lint/phpcs issues above (or run 'yarn fix')."
+  exit 1
+fi
