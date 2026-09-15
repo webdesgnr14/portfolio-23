@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+
+if [ -s "$HOME/.nvm/nvm.sh" ]; then
+  . "$HOME/.nvm/nvm.sh"
+  nvm use >/dev/null
+fi
+
+status=0
+
+staged_js=$(git diff --cached --name-only --diff-filter=ACM -- '*.js' '*.jsx')
+if [ -n "$staged_js" ]; then
+  printf '%s\n' "$staged_js" | xargs npx eslint || status=1
+fi
+
+staged_php=$(git diff --cached --name-only --diff-filter=ACM -- '*.php')
+if [ -n "$staged_php" ]; then
+  printf '%s\n' "$staged_php" | xargs vendor/bin/phpcs || status=1
+fi
+
+if [ "$status" -ne 0 ]; then
+  echo ""
+  echo "Commit blocked: fix the lint/phpcs issues above (or run 'yarn fix')."
+  exit 1
+fi
