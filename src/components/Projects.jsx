@@ -33,7 +33,7 @@ export function Projects({ data }) {
 	return (
 		<div id="projects" className="projects section" ref={projectSectionRef}>
 			<ScrollingText text="Projects" />
-			{featured_projects && <FeaturedProject data={featured_projects} />}
+			<FeaturedProject data={featured_projects} />
 			{projects && (
 				<div className="projects--container">
 					{projects?.body && (
