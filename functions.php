@@ -11,9 +11,6 @@
 
 require_once get_template_directory() . '/inc/security.php';
 
-// Register proxy REST endpoint securely.
-require_once get_template_directory() . '/inc/class-proxy-rest-endpoint.php';
-
 // Add Theme Supports.
 add_theme_support( 'post-thumbnails' );
 add_theme_support(
@@ -164,14 +161,7 @@ function portfolio_twenty_three_primary_menu_api() {
 }
 
 /**
- * Register the ACF options API route.
- *
- * This returns the full options page, so it stays gated to logged-in
- * requests. Do not route this through the proxy endpoint to "share" it
- * with anonymous visitors - that defeats the permission check entirely
- * (see inc/class-proxy-rest-endpoint.php). Anything that anonymous
- * visitors legitimately need should be exposed via its own narrow,
- * intentionally-public route instead, like contact-settings below.
+ * Returns the full ACF options page. Gated to logged-in requests.
  */
 function portfolio_twenty_three_options_api() {
 	$options = get_fields( 'options', 'options' );

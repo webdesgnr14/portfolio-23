@@ -21,7 +21,7 @@ Brief description of the tech stack and major project goals.
 ```
 /src                 # React components, logic, and SCSS
 /build               # Production-ready build output (gitignored, rebuilt fresh by CI on every deploy)
-/inc                 # PHP snippets like security headers and the credentialed proxy endpoint
+/inc                 # PHP snippets like security headers
 functions.php        # WP theme functions
 vite.config.js       # Vite bundler config
 package.json         # Node dependencies, scripts, engines
@@ -39,7 +39,6 @@ package.json         # Node dependencies, scripts, engines
 - Environment variables loaded via GitHub Actions secrets for deploy; `.env.development`/`.env.production` are used for local Vite/PHP config only and are gitignored.
 - Build/Deploy handled by CI, not local/manual scripts. `build/` is never committed - CI runs `yarn build` fresh on every push before deploying.
 - CSP and security headers in `inc/security.php`. The CSP allows `localhost:*` and the local dev domain for script/font/connect sources so the Vite dev server keeps working regardless of which port it starts on.
-- `inc/class-proxy-rest-endpoint.php` proxies WP REST requests with server-held application-password credentials attached. It is restricted to admins (`current_user_can('manage_options')`) and to same-site `/wp-json/` paths - it must never be made publicly reachable, since that would let any caller read anything the proxy's credentials can read regardless of the target endpoint's own permission check.
 
 ## Architectural Decisions
 - Why React for the theme?
