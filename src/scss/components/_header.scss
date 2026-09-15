@@ -1,232 +1,235 @@
-@import "../helpers/vars";
-@import "../helpers/mixins";
+@use 'sass:color';
+@use '../base/fonts' as f;
+@use '../base/colors' as c;
+@use '../helpers/mixins' as m;
+@use '../helpers/vars' as v;
 
 @mixin active-link {
-  background-color: $teal;
-  border-radius: 40px;
+	background-color: c.$teal;
+	border-radius: 40px;
 }
 
 .header {
-  position: sticky;
-  width: 100%;
-  top: 0;
-  z-index: 10;
-  transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
-  opacity: 0;
-  padding: 0 60px;
+	position: sticky;
+	width: 100%;
+	top: 0;
+	z-index: 10;
+	transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+	opacity: 0;
+	padding: 0 60px;
 
-  @include isMobile {
-    padding: 0 20px;
-  }
+	@include m.isMobile {
+		padding: 0 20px;
+	}
 
-  &.sticky {
-    background-color: transparentize($darkness, 0.3);
-    background-blend-mode: multiply;
+	&.sticky {
+		background-color: color.adjust(c.$darkness, $alpha: -0.3);
+		background-blend-mode: multiply;
 
-    .header--container {
-      padding: 10px 0;
-    }
+		.header--container {
+			padding: 10px 0;
+		}
 
-    .header--branding {
-      width: 60px;
-      height: 60px;
+		.header--branding {
+			width: 60px;
+			height: 60px;
 
-      svg {
-        width: 50px;
-        height: auto;
-      }
-    }
-  }
+			svg {
+				width: 50px;
+				height: auto;
+			}
+		}
+	}
 
-  .logged-in & {
-    top: var(--wp-admin--admin-bar--height);
-  }
+	.logged-in & {
+		top: var(--wp-admin--admin-bar--height);
+	}
 
-  &:hover {
-    background-color: transparentize($darkness, 0.1);
-    background-blend-mode: multiply;
+	&:hover {
+		background-color: color.adjust(c.$darkness, $alpha: -0.1);
+		background-blend-mode: multiply;
 
-    .header--branding {
-      border-radius: 100%;
-      background-color: $light-blue;
+		.header--branding {
+			border-radius: 100%;
+			background-color: c.$light-blue;
 
-      svg {
-        path {
-          fill: $darkness;
-        }
+			svg {
+				path {
+					fill: c.$darkness;
+				}
 
-        width: 50px;
-        height: auto;
-      }
-    }
-  }
+				width: 50px;
+				height: auto;
+			}
+		}
+	}
 
-  &--container {
-    display: flex;
-    flex-flow: row;
-    gap: 40px;
-    max-width: $max;
-    width: 100%;
-    margin: 0 auto;
-    padding: 24px 0;
-    transition: padding 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
-  }
+	&--container {
+		display: flex;
+		flex-flow: row;
+		gap: 40px;
+		max-width: v.$max;
+		width: 100%;
+		margin: 0 auto;
+		padding: 24px 0;
+		transition: padding 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+	}
 
-  &--branding {
-    width: max-content;
-    flex-shrink: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 77px;
-    height: 77px;
-    transition: all 0.2s ease;
-    transition-delay: 0.5s;
+	&--branding {
+		width: max-content;
+		flex-shrink: 1;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 77px;
+		height: 77px;
+		transition: all 0.2s ease;
+		transition-delay: 0.5s;
 
-    a {
-      display: block;
-    }
+		a {
+			display: block;
+		}
 
-    @include logo-svg;
+		@include m.logo-svg;
 
-    svg {
-      transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
-      transition-delay: 0.5s;
-    }
+		svg {
+			transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+			transition-delay: 0.5s;
+		}
 
-    @include isTablet {
-      display: none;
-    }
-  }
+		@include m.isTablet {
+			display: none;
+		}
+	}
 
-  &--navigation {
-    flex: 1;
-    align-self: center;
+	&--navigation {
+		flex: 1;
+		align-self: center;
 
-    .navigation {
-      display: flex;
+		.navigation {
+			display: flex;
 
-      &--menu {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 0 0 auto;
-        padding: 0;
-        gap: 48px;
+			&--menu {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				margin: 0 0 0 auto;
+				padding: 0;
+				gap: 48px;
 
-        @include isTablet {
-          display: none;
-          margin: 0;
-        }
+				@include m.isTablet {
+					display: none;
+					margin: 0;
+				}
 
-        &--toggle {
-          display: none;
+				&--toggle {
+					display: none;
 
-          @include isTablet {
-            display: flex;
-            width: 100%;
-            align-items: center;
-          }
-        }
+					@include m.isTablet {
+						display: flex;
+						width: 100%;
+						align-items: center;
+					}
+				}
 
-        &-item {
-          list-style: none;
-          display: inline-block;
+				&-item {
+					list-style: none;
+					display: inline-block;
 
-          @include isTablet {
-            display: block;
-          }
+					@include m.isTablet {
+						display: block;
+					}
 
-          a {
-            color: $light-blue;
-            font-size: 18px;
-            line-height: 20px;
-            letter-spacing: 0.075em;
-            padding: 8px 24px;
-            text-decoration: none;
-            @include font-gontserrat-semibold;
+					a {
+						color: c.$light-blue;
+						font-size: 18px;
+						line-height: 20px;
+						letter-spacing: 0.075em;
+						padding: 8px 24px;
+						text-decoration: none;
+						@include f.font-gontserrat-semibold;
 
-            &:hover {
-              @include active-link;
-            }
-          }
+						&:hover {
+							@include active-link;
+						}
+					}
 
-          &.active {
-            a {
-              @include active-link;
-            }
-          }
-        }
-      }
-    }
-  }
+					&.active {
+						a {
+							@include active-link;
+						}
+					}
+				}
+			}
+		}
+	}
 
-  .app-container--home & {
-    bottom: 0;
+	.app-container--home & {
+		bottom: 0;
 
-    &.sticky {
-      .header--container {
-        padding: 24px 0;
-      }
-    }
+		&.sticky {
+			.header--container {
+				padding: 24px 0;
+			}
+		}
 
-    .header--navigation {
-      width: 100%;
+		.header--navigation {
+			width: 100%;
 
-      .navigation {
-        justify-content: center;
+			.navigation {
+				justify-content: center;
 
-        .navigation--menu {
-          margin-left: 0;
-          width: 100%;
-        }
-      }
-    }
-  }
+				.navigation--menu {
+					margin-left: 0;
+					width: 100%;
+				}
+			}
+		}
+	}
 
-  .mobile-menu-open & {
-    height: 100vh;
-    background-color: $black;
-    display: flex;
-    overflow-y: scroll;
+	.mobile-menu-open & {
+		height: 100vh;
+		background-color: c.$black;
+		display: flex;
+		overflow-y: scroll;
 
-    &--container {
-      padding: 60px 0;
+		&--container {
+			padding: 60px 0;
 
-      @include isMobile {
-        padding: 40px 0;
-      }
-    }
+			@include m.isMobile {
+				padding: 40px 0;
+			}
+		}
 
-    &--navigation {
-      align-self: stretch;
+		&--navigation {
+			align-self: stretch;
 
-      .navigation {
-        justify-content: flex-start;
-        flex-direction: column;
-        min-height: 100%;
-      }
-    }
+			.navigation {
+				justify-content: flex-start;
+				flex-direction: column;
+				min-height: 100%;
+			}
+		}
 
-    .navigation--menu {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: flex-start;
-      flex: 1;
-      padding: 60px 0;
+		.navigation--menu {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: flex-start;
+			flex: 1;
+			padding: 60px 0;
 
-      @include isMobile {
-        padding: 40px 0;
-      }
+			@include m.isMobile {
+				padding: 40px 0;
+			}
 
-      &-item {
-        width: 100%;
-        
-        a {
-          display: block;
-          text-align: center;
-        }
-      }
-    }
-  }
+			&-item {
+				width: 100%;
+
+				a {
+					display: block;
+					text-align: center;
+				}
+			}
+		}
+	}
 }

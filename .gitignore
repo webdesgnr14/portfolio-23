@@ -1,14 +1,18 @@
 # Log files
 *.log
-*.lock
+vendor
 
 # htaccess
 .htaccess
 
 node_modules
+.vscode
 
 # Mac
 .DS_Store
+
+# Build output (rebuilt fresh by CI on every deploy)
+build
 
 # Other
 .env*

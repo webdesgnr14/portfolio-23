@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 $darkness: #2e303a;
 $gray-green: #708080;
 $light-blue: #e4f1fe;
@@ -6,4 +8,4 @@ $dark-blue: #363946;
 $white: #fbfbfb;
 $gray: #e6e8e6;
 $error: #f22613;
-$black: darken($darkness, 0.4);
+$black: color.adjust($darkness, $lightness: -0.4 * 1%);

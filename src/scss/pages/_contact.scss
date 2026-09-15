@@ -1,136 +1,138 @@
-@import "../helpers/vars";
-@import "../base/colors";
+@use '../base/fonts' as f;
+@use '../base/colors' as c;
+@use '../helpers/mixins' as m;
+@use '../helpers/vars' as v;
 
 .contact {
-  padding: 80px 60px;
-  position: relative;
-  z-index: 2;
+	padding: 80px 60px;
+	position: relative;
+	z-index: 2;
 
-  @include isMobile {
-    padding: 60px;
-  }
+	@include m.isMobile() {
+		padding: 60px;
+	}
 
-  @include isMobile {
-    padding: 40px 20px;
-  }
+	@include m.isMobile() {
+		padding: 40px 20px;
+	}
 
-  &--content {
-    display: flex;
-    flex-flow: column;
-    gap: 48px;
-    max-width: 75%;
-    width: 100%;
+	&--content {
+		display: flex;
+		flex-flow: column;
+		gap: 48px;
+		max-width: 75%;
+		width: 100%;
 
-    @include isMobile {
-      max-width: 100%;
-    }
+		@include m.isMobile {
+			max-width: 100%;
+		}
 
-    h1 {
-      font-size: clamp(52px, toVW(55, 525), 75px);
-      line-height: clamp(62px, toVW(60, 525), 80px);
-    }
+		h1 {
+			font-size: clamp(52px, m.toVW(55, 525), 75px);
+			line-height: clamp(62px, m.toVW(60, 525), 80px);
+		}
 
-    margin-bottom: 40px;
-  }
+		margin-bottom: 40px;
+	}
 
-  &--body {
-    max-width: 460px;
-    width: 100%;
-  }
+	&--body {
+		max-width: 460px;
+		width: 100%;
+	}
 
-  &--container {
-    max-width: $max;
-    margin: 0 auto;
-    display: flex;
-    flex-flow: column;
-    justify-content: flex-start;
-    gap: 48px;
+	&--container {
+		max-width: v.$max;
+		margin: 0 auto;
+		display: flex;
+		flex-flow: column;
+		justify-content: flex-start;
+		gap: 48px;
 
-    .contact--form {
-      &--messages {
-        .message {
-          display: flex;
-          flex-flow: column;
-          gap: 48px;
+		.contact--form {
+			&--messages {
+				.message {
+					display: flex;
+					flex-flow: column;
+					gap: 48px;
 
-          h1 {
-            font-size: clamp(52px, toVW(55, 525), 75px);
-            line-height: clamp(62px, toVW(60, 525), 80px);
-          }
+					h1 {
+						font-size: clamp(52px, m.toVW(55, 525), 75px);
+						line-height: clamp(62px, m.toVW(60, 525), 80px);
+					}
 
-          p {
-            max-width: 460px;
-            width: 100%;
-            margin: 0;
-          }
-        }
-      }
+					p {
+						max-width: 460px;
+						width: 100%;
+						margin: 0;
+					}
+				}
+			}
 
-      form {
-        margin: 0;
-        max-width: 60%;
-        display: flex;
-        flex-flow: column;
-        gap: 16px;
+			form {
+				margin: 0;
+				max-width: 60%;
+				display: flex;
+				flex-flow: column;
+				gap: 16px;
 
-        @include isTablet {
-          max-width: 100%;
-        }
+				@include m.isTablet {
+					max-width: 100%;
+				}
 
-        .required {
-          color: $error;
-        }
+				.required {
+					color: c.$error;
+				}
 
-        label {
-          color: $gray;
-          letter-spacing: 0.025em;
-          font-size: 14px;
-          @include font-gontserrat-semibold;
-        }
+				label {
+					color: c.$gray;
+					letter-spacing: 0.025em;
+					font-size: 14px;
+					@include f.font-gontserrat-semibold;
+				}
 
-        input[type="text"],
-        input[type="email"],
-        textarea,
-        select {
-          color: $light-blue;
-          min-height: clamp(44px, toVW(44, 525), 60px);
-          font-size: clamp(18px, toVW(18, 525), 24px);
-          width: 100%;
-          border: 1px solid $gray-green;
-          border-radius: 4px;
-          background-color: transparent;
-          padding: 4px 8px;
-          @include font-gontserrat-light;
+				input[type='text'],
+				input[type='email'],
+				textarea,
+				select {
+					color: c.$light-blue;
+					min-height: clamp(44px, m.toVW(44, 525), 60px);
+					font-size: clamp(18px, m.toVW(18, 525), 24px);
+					width: 100%;
+					border: 1px solid c.$gray-green;
+					border-radius: 4px;
+					background-color: transparent;
+					padding: 4px 8px;
+					@include f.font-gontserrat-light;
 
-          &::placeholder {
-            color: $gray-green;
-          }
+					&::placeholder {
+						color: c.$gray-green;
+					}
 
-          &:hover, 
-          &:focus {
-            border-color: $teal;
-          }
+					&:hover,
+					&:focus {
+						border-color: c.$teal;
+					}
 
-          &.error {
-            border-color: $error;
-          }
-        }
+					&.error {
+						border-color: c.$error;
+					}
+				}
 
-        textarea {
-          height: auto;
-          min-height: 120px;
-        }
+				textarea {
+					height: auto;
+					min-height: 120px;
+				}
 
-        input[type="submit"] {
-          margin-top: 40px;
-        }
+				input[type='submit'] {
+					margin-top: 40px;
+				}
 
-        .error-message {
-          color: $error;
-          font-size: 14px;
-          margin: 0;
-        }
-      }
-    }
-  }
+				.error-message {
+					color: c.$error;
+					font-size: 14px;
+					margin: 0;
+				}
+			}
+		}
+	}
 }

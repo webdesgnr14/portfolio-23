@@ -1,6 +1,10 @@
-module.exports = {
+export default {
   plugins: {
-    'postcss-px-to-relative-unit': { targetUnit: "rem", htmlFontSize: 16 },
+    'postcss-pxtorem': {
+      rootValue: 16,
+      propList: ['*'],
+      minPixelValue: 2
+    },
     autoprefixer: {},
     cssnano: {},
   }

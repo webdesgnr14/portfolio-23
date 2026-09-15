@@ -3,17 +3,24 @@ import useAPI from '../hooks/useApi';
 import { LoadingContext } from '../context/LoadingContextProvider';
 import { ContactForm } from '../components/ContactForm';
 
-export const Contact = () => { 
-  const data = useAPI('pages/9');
-  const [loading] = React.useContext(LoadingContext);
+export const Contact = () => {
+	const { data: contactData, apiLoading, apiError } = useAPI('pages/9');
+	const [loading] = React.useContext(LoadingContext);
 
-  if (!data.acf || loading.isLoading) return null;
+	if (apiError) console.log('Error fetching contact page data:', apiError);
 
-  return (
-    <div id='contact' className='contact'>
-      <div className='contact--container'>
-        <ContactForm text={data.acf?.body} heading={data.acf?.heading} />
-      </div>
-    </div>
-  );
-}
+	if (apiLoading || loading.isLoading || !contactData?.acf) {
+		return null;
+	} else {
+		return (
+			<div id="contact" className="contact">
+				<div className="contact--container">
+					<ContactForm
+						text={contactData.acf?.body}
+						heading={contactData.acf?.heading}
+					/>
+				</div>
+			</div>
+		);
+	}
+};

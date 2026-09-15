@@ -1,3 +1,7 @@
+@use '../base/fonts' as f;
+@use '../base/colors' as c;
+@use '../helpers/mixins' as m;
+
 .scrolling-text {
 	&--container {
 		max-width: 100vw;
@@ -19,14 +23,14 @@
 	}
 
 	&--fragment {
-		font-size: clamp(75px, toVW(75, 525), 150px);
-		line-height: clamp(75px, toVW(75, 525), 150px);
+		font-size: clamp(75px, m.toVW(75, 525), 150px);
+		line-height: clamp(75px, m.toVW(75, 525), 150px);
 		letter-spacing: 0.025em;
-		color: $gray-green;
+		color: c.$gray-green;
 		-webkit-text-stroke-width: 1px;
-		-webkit-text-stroke-color: $gray-green;
+		-webkit-text-stroke-color: c.$gray-green;
 		text-transform: uppercase;
-		@include font-stilu-bold;
+		@include f.font-stilu-bold;
 
 		&:nth-child(odd) {
 			color: transparent;

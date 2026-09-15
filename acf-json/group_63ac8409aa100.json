@@ -39,7 +39,8 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": "",
+    "description": "Adds fields for the hero component.",
     "show_in_rest": 0,
-    "modified": 1672250613
+    "display_title": "",
+    "modified": 1784685854
 }

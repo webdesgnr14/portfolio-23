@@ -13,14 +13,14 @@ export const ColorList = React.forwardRef(({ colors }, ref) => {
     setIndex(i);
   };
 
-  const removeActiveClass = () => {
-    if (linkRef.current[index]?.classList?.contains("active")) {
-      linkRef.current[index].classList.remove("active");
-    }
-  };
-
   React.useLayoutEffect(() => {
     if (animate && index) {
+      const removeActiveClass = () => {
+        if (linkRef.current[index]?.classList?.contains("active")) {
+          linkRef.current[index].classList.remove("active");
+        }
+      };
+
       linkRef.current[index].classList.add("active");
 
       gsap.fromTo(
@@ -46,7 +46,7 @@ export const ColorList = React.forwardRef(({ colors }, ref) => {
         }
       );
     }
-  }, [linkRef.current, animate, index]);
+  }, [animate, index]);
 
   return (
     <ul className="project--color--list" ref={ref}>
@@ -60,7 +60,7 @@ export const ColorList = React.forwardRef(({ colors }, ref) => {
             onMouseLeave={(isHovering) => toggleFill(isHovering, index)}
             key={i}
           >
-            <a
+            <div
               className="project--color--link"
               ref={(el) => (linkRef.current[index] = el)}
               style={{ backgroundColor: color.color }}
@@ -70,10 +70,11 @@ export const ColorList = React.forwardRef(({ colors }, ref) => {
                 className="project--color--wave"
                 ref={(el) => (waveRef.current[index] = el)}
               />
-            </a>
+            </div>
           </HoverElement>
         );
       })}
     </ul>
   );
 });
+ColorList.displayName = "ColorList";

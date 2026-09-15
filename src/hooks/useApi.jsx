@@ -1,35 +1,39 @@
 import * as React from 'react';
-import { Buffer } from "buffer";
 
-export default function useAPI(api_url, type = "wp", auth = false) {
-  const [data, setData] = React.useState({});
-  const creds = Buffer.from(`${process.env.USERNAME}:${process.env.PASSWORD}`).toString("base64");
+export default function useAPI(api_url, type = 'wp') {
+	const [data, setData] = React.useState();
+	const [apiLoading, setApiLoading] = React.useState(false);
+	const [apiError, setApiError] = React.useState(null);
 
-  if(!api_url) return;
+	React.useEffect(() => {
+		if (!api_url) return;
 
-  React.useEffect(() => {
-    const location = window.location.origin;
-    const headers = {};
+		const origin = window.location.origin;
+		const targetUrl = api_url.startsWith('http')
+			? api_url
+			: origin + '/wp-json/' + type + '/v2/' + api_url;
 
-    if (auth) {
-      api_url = api_url + '?context=edit';
-      headers["Authorization"] = "Basic " + creds;
-      headers["Content-Type"] = "application/json";
-    }
+		async function loadData() {
+			setApiLoading(true);
+			setApiError(null);
+			try {
+				const res = await fetch(targetUrl, { method: 'GET' });
+				if (!res.ok) {
+					setApiError(new Error('Request failed: ' + res.status));
+					setApiLoading(false);
+					return;
+				}
+				const result = await res.json();
+				setData(result);
+			} catch (err) {
+				setApiError(err);
+			} finally {
+				setApiLoading(false);
+			}
+		}
 
-    async function loadData() {
-      const res = await fetch(location + '/wp-json/' + type + '/v2/' + api_url, { method: 'GET', headers: headers });
+		loadData();
+	}, [api_url, type]);
 
-      if(!res.ok) {
-        return;
-      }
-
-      const resData = await res.json();
-      setData(resData);
-    }
-
-    loadData();
-  }, [])
-
-  return data;
+	return { data, apiLoading, apiError };
 }
