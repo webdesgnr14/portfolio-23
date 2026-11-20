@@ -27,6 +27,7 @@ function portfolio23_security_headers() {
 			'blob:',
 			'*.wp.com',
 			'localhost:*',
+			'*.googletagmanager.com',
 		),
 		'style-src'   => array(
 			"'self'",
@@ -56,6 +57,9 @@ function portfolio23_security_headers() {
 			'cdn.jsdelivr.net',
 			'*.gravatar.com',
 			'ws://localhost:*',
+			'*.google-analytics.com',
+			'*.analytics.google.com',
+			'*.googletagmanager.com',
 		),
 	);
 
